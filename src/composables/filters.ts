@@ -16,6 +16,7 @@ export function setupFilters(filters: IFilters) {
     if (!Object.prototype.hasOwnProperty.call(filter, 'modelValue')) {
       filter['modelValue'] = ''
     }
+    filter['onUpdate:modelValue'] = (value: any) => filter['modelValue'] = value
   });
 
   getForeignKeys(filters)

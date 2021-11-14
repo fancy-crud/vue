@@ -3,14 +3,7 @@
     v-for="(filter, filterKey) in filters" :key="filterKey"
     class="row mb-3"
   >
-    <q-select
-      v-model="filter.value"
-      v-bind="filter"
-      :options="filter.items"
-      :option-label="filter.itemLabel"
-      :option-value="filter.itemValue"
-      outlined
-    />
+    <q-select v-bind="filter" :class="`filter-${filterKey}`" outlined />
   </section>
 </template>
 
@@ -44,7 +37,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-
-</style>
