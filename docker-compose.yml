@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  frontend:
+    build: .
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - '.:/usr/share/frontend'
+      - '/usr/share/frontend/node_modules'
+    ports:
+      - "9191:9191"
+    tty: true

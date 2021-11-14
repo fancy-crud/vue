@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  backend:
+    build: .
+    volumes:
+      - .:/usr/share/backend
+    ports:
+      - "9000:9000"
+    tty: true
