@@ -1,6 +1,5 @@
 <template>
   <div class="row fancy-form">
-
     <div class="col-12">
       <slot name="form-header" v-bind="{ title }">
         <div class="row">
@@ -15,22 +14,30 @@
     </div>
 
     <div class="col-12 q-my-md">
-      <section class="row">
+      <q-form @submit="onSubmit" class="row">
         <template v-for="(field, fieldKey) in availableFields" :key="fieldKey">
-          <slot v-bind="{field, fieldKey}" :name="`before-${fieldKey}`"></slot>
+          <slot v-bind="{ field, fieldKey }" :name="`before-${fieldKey}`"></slot>
 
           <section class="col-12 q-mb-md">
             <q-select
               v-if="field.inputType === 'select'"
               v-bind="fieldAttrs(field)"
-              :ref="el => { if (el) field.ref = el }"
+              :ref="
+                (el) => {
+                  if (el) field.ref = el;
+                }
+              "
             />
 
             <q-input
               v-else-if="field.inputType === 'textarea'"
               v-model="field.value"
               v-bind="fieldAttrs(field)"
-              :ref="el => { if (el) field.ref = el }"
+              :ref="
+                (el) => {
+                  if (el) field.ref = el;
+                }
+              "
               type="textarea"
             />
 
@@ -70,8 +77,10 @@
                 <template v-slot:prepend>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy
-                    :ref="el => { if (el) menus[fieldKey] = el }"
-                    transition-show="scale" transition-hide="scale" >
+                      :ref="setMenu(fieldKey)"
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
                       <q-date v-model="field.modelValue" v-bind="field" />
                     </q-popup-proxy>
                   </q-icon>
@@ -81,20 +90,33 @@
               <q-input
                 v-else
                 v-bind="fieldAttrs(field)"
-                :ref="el => { if (el) field.ref = el }"
+                :ref="
+                  (el) => {
+                    if (el) field.ref = el;
+                  }
+                "
                 readonly
               />
             </template>
 
-            <template v-else-if="field.inputType === 'file' || field.inputType === 'image'">
+            <template
+              v-else-if="field.inputType === 'file' || field.inputType === 'image'"
+            >
               <div class="row items-center">
                 <div class="col-11 pr-2">
                   <q-file
                     v-bind="fieldAttrs(field)"
-                    :ref="el => { if (el) field.ref = el }"
+                    :ref="
+                      (el) => {
+                        if (el) field.ref = el;
+                      }
+                    "
                   >
                     <template v-slot:prepend>
-                      <q-icon v-if="field.inputType === 'f ile'" name="insert_drive_file" />
+                      <q-icon
+                        v-if="field.inputType === 'file'"
+                        name="insert_drive_file"
+                      />
                       <q-icon v-else name="image" />
                     </template>
                   </q-file>
@@ -105,7 +127,7 @@
                     v-if="field.inputType === 'image'"
                     @mouseenter="menuToggle(menus, fieldKey, true)"
                     @mouseleave="menuToggle(menus, fieldKey, false)"
-                    :color="record[fieldKey] ? 'primary': 'grey'"
+                    :color="record[fieldKey] ? 'primary' : 'grey'"
                     type="a"
                     :href="record[fieldKey]"
                     target="_blank"
@@ -113,9 +135,15 @@
                     flat
                     round
                   >
-                    <q-menu :ref="el => { if (el) menus[fieldKey] = el }">
+                    <q-menu
+                      :ref="
+                        (el) => {
+                          if (el) menus[fieldKey] = el;
+                        }
+                      "
+                    >
                       <q-card>
-                        <img :src="record[fieldKey]">
+                        <img :src="record[fieldKey]" />
                       </q-card>
                     </q-menu>
                   </q-btn>
@@ -125,7 +153,7 @@
                     type="a"
                     :href="record[fieldKey]"
                     target="_blank"
-                    :color="record[fieldKey] ? 'primary': 'grey'"
+                    :color="record[fieldKey] ? 'primary' : 'grey'"
                     icon="insert_drive_file"
                     round
                     flat
@@ -138,27 +166,39 @@
               <q-card-section class="py-1">
                 <q-checkbox
                   v-bind="fieldAttrs(field)"
-                  :ref="el => { if (el) field.ref = el }"
+                  :ref="
+                    (el) => {
+                      if (el) field.ref = el;
+                    }
+                  "
                 />
               </q-card-section>
             </q-card>
-            
+
             <q-card v-else-if="field.inputType === 'radio'" flat bordered>
               <q-card-section class="py-1">
                 <q-option-group
                   v-bind="fieldAttrs(field)"
-                  :ref="el => { if (el) field.ref = el }"
+                  :ref="
+                    (el) => {
+                      if (el) field.ref = el;
+                    }
+                  "
                   type="radio"
                 />
               </q-card-section>
             </q-card>
-            
+
             <q-input
               v-else-if="field.inputType === 'password'"
               v-bind="fieldAttrs(field)"
-              :ref="el => { if (el) field.ref = el }"
+              :ref="
+                (el) => {
+                  if (el) field.ref = el;
+                }
+              "
               :type="field.showPassword ? 'text' : 'password'"
-              >
+            >
               <template v-slot:append>
                 <q-icon
                   :name="field.showPassword ? 'visibility' : 'visibility_off'"
@@ -171,86 +211,98 @@
             <q-input
               v-else
               v-bind="fieldAttrs(field)"
-              :ref="el => { if (el) field.ref = el }"
+              :ref="
+                (el) => {
+                  if (el) field.ref = el;
+                }
+              "
             />
           </section>
 
-          <slot v-bind="{field, fieldKey}" :name="`after-${fieldKey}`"></slot>
+          <slot v-bind="{ field, fieldKey }" :name="`after-${fieldKey}`"></slot>
         </template>
-      </section>
-    </div>
 
-    <div class="col-12">
-      <slot name="form-footer" v-bind="{ buttons: form.buttons, on: { triggerCreate, triggerUpdate } }">
-        <div class="row">
-          <div class="col-12">
-            <q-separator v-if="!form.buttons.hidden" class="q-mb-md" />
-          </div>
-          
-          <section v-if="!form.buttons.hidden" class=".col-12 q-gutter-md" :class="form.buttons.class">
-            <q-btn
-              v-if="!form.buttons.main.hidden"
-              v-bind="form.buttons.main"
-              @click="isCreateForm ? triggerCreate() : triggerUpdate()"
-              :label="mainButtonLabel"
-              :disable="!form.isValid"
-            />
-            <q-btn
-              v-if="!form.buttons.aux.hidden"
-              v-bind="form.buttons.aux"
-            />
-          </section>
+        <div class="col-12">
+          <slot
+            name="form-footer"
+            v-bind="{ buttons: form.buttons, on: { triggerCreate, triggerUpdate } }"
+          >
+            <div class="row">
+              <div class="col-12">
+                <q-separator v-if="!form.buttons.hidden" class="q-mb-md" />
+              </div>
+
+              <section
+                v-if="!form.buttons.hidden"
+                class=".col-12 q-gutter-md"
+                :class="form.buttons.class"
+              >
+                <q-btn
+                  v-if="!form.buttons.main.hidden"
+                  v-bind="form.buttons.main"
+                  type="submit"
+                  :label="mainButtonLabel"
+                  :disable="!form.isValid || form.buttons.main.loading"
+                />
+                <q-btn
+                  v-if="!form.buttons.aux.hidden"
+                  v-bind="form.buttons.aux"
+                  :disable="form.buttons.main.loading"
+                />
+              </section>
+            </div>
+          </slot>
         </div>
-      </slot>
+      </q-form>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType, computed } from 'vue'
-import { IFormTitles, IFormButtons } from '@/interfaces/Form'
+import { defineComponent, reactive, PropType, computed } from "vue";
+import { IFormTitles, IFormButtons } from "@/interfaces/Form";
 
-import { useForm, CREATE_MODE, UPDATE_MODE } from '@/composables/form'
-import { useHTTP, buildURL } from '@/composables/http'
+import { useForm, CREATE_MODE, UPDATE_MODE } from "@/composables/form";
+import { useHTTP, buildURL } from "@/composables/http";
 
-import { useMenuToggle } from '@/composables/utils'
+import { useMenuToggle } from "@/composables/utils";
 
 export default defineComponent({
-  name: 'FancyForm',
+  name: "FancyForm",
 
   props: {
     modelValue: {
       required: true,
-      type: Object
+      type: Object,
     },
     url: {
       type: String,
-      default: () => ''
+      default: () => "",
     },
     lookupField: {
       type: String,
-      default: () => 'id'
+      default: () => "id",
     },
     record: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     mode: {
       type: String,
-      default: () => CREATE_MODE
+      default: () => CREATE_MODE,
     },
     titles: {
       type: Object as PropType<IFormTitles>,
-      default: () => ({})
+      default: () => ({}),
     },
     buttons: {
       type: Object as PropType<IFormButtons>,
-      default: () => ({})
+      default: () => ({}),
     },
     messages: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
 
   setup(props, { emit }) {
@@ -259,19 +311,86 @@ export default defineComponent({
       record: props.record,
       buttons: props.buttons,
       messages: props.messages,
-      mode: props.mode
-    })
+      mode: props.mode,
+    });
 
     const titles = reactive({
-      create: 'Crear elemento',
-      update: 'Actualizar elemento',
+      create: "Crear elemento",
+      update: "Actualizar elemento",
       hidden: false,
-      ...props.titles
-    })
-  
-    const { menus, menuToggle } = useMenuToggle()
+      ...props.titles,
+    });
 
-    const { createRecord, updateRecord } = useHTTP()
+    const { menus, menuToggle, setMenu } = useMenuToggle();
+
+    const { createRecord, updateRecord } = useHTTP();
+
+    const isCreateForm = computed(() => props.mode === CREATE_MODE);
+
+    const title = computed(() => {
+      return props.mode === CREATE_MODE ? titles.create : titles.update;
+    });
+
+    const mainButtonLabel = computed(() => {
+      return props.mode === CREATE_MODE
+        ? form.buttons?.main?.createLabel
+        : form.buttons?.main?.updateLabel;
+    });
+
+    const availableFields = computed(() => {
+      return Object.fromEntries(
+        Object.entries(form.fields).filter(([, field]) => {
+          return (
+            !field.hidden &&
+            ((props.mode === CREATE_MODE && !field.updateOnly) ||
+              (props.mode === UPDATE_MODE && !field.createOnly))
+          );
+        })
+      );
+    });
+
+    const triggerCreate = async () => {
+      if (form.buttons.main) form.buttons.main.loading = true;
+      const formData = getFormData();
+
+      if (form.buttons.main && form.buttons.main.onClick) {
+        form.buttons.main.onClick(formData);
+      } else {
+        const created = await createRecord(
+          props.url,
+          formData,
+          form.fields,
+          form.messages
+        );
+
+        if (created) {
+          emit("created", created);
+        }
+      }
+      if (form.buttons.main) form.buttons.main.loading = false;
+    };
+
+    const triggerUpdate = async () => {
+      if (form.buttons.main) form.buttons.main.loading = true;
+
+      const formData = getFormData();
+
+      if (
+        form.buttons.main &&
+        form.buttons.main.onClick &&
+        typeof form.buttons.main.onClick
+      ) {
+        form.buttons.main.onClick(formData);
+      } else {
+        const url = buildURL(props.url, props.record[props.lookupField]);
+        const updated = await updateRecord(url, formData, form.fields, form.messages);
+
+        if (updated) {
+          emit("updated", updated);
+        }
+      }
+      if (form.buttons.main) form.buttons.main.loading = false;
+    };
 
     return {
       // Variables
@@ -280,55 +399,20 @@ export default defineComponent({
 
       fieldAttrs,
       menuToggle,
+      setMenu,
 
-      isCreateForm: computed(() => props.mode === CREATE_MODE),
+      isCreateForm,
+      title,
+      mainButtonLabel,
+      availableFields,
 
-      title: computed(() => {
-        return props.mode === CREATE_MODE ? titles.create : titles.update
-      }),
+      triggerCreate,
+      triggerUpdate,
 
-      mainButtonLabel: computed(() => {
-        return props.mode === CREATE_MODE ? form.buttons?.main?.createLabel : form.buttons?.main?.updateLabel
-      }),
-
-      availableFields: computed(() => { 
-        return Object.fromEntries(Object.entries(form.fields).filter(([, field]) => {
-          return !field.hidden && (
-            (props.mode === CREATE_MODE && !field.updateOnly) ||
-            (props.mode === UPDATE_MODE && !field.createOnly)
-          )
-        }))
-      }),
-
-    async triggerCreate() {
-      const formData = getFormData()
-  
-      if (form.buttons.main && form.buttons.main.onClick) {
-        form.buttons.main.onClick(formData)
-      } else {
-        const created = await createRecord(props.url, formData, form.fields, form.messages)
-  
-        if (created) {
-          emit('created', created)
-        }
-      }
-    },
-
-    async triggerUpdate () {
-      const formData = getFormData()
-
-      if (form.buttons.main && form.buttons.main.onClick && typeof form.buttons.main.onClick) {
-        form.buttons.main.onClick(formData)
-      } else {
-        const url = buildURL(props.url, props.record[props.lookupField])
-        const updated = await updateRecord(url, formData, form.fields, form.messages)
-
-        if (updated) {
-          emit('updated', updated)
-        }
-      }
-    }
-    }
-  }
-})
+      onSubmit() {
+        isCreateForm ? triggerCreate() : triggerUpdate();
+      },
+    };
+  },
+});
 </script>

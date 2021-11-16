@@ -183,7 +183,7 @@ export function useForm<T extends Object>(props: IFormProps<T>) {
 
   const form = reactive({
     fields: props.fields,
-    isValid: false,
+    isValid: true,
     buttons: getButtons(props.buttons),
     messages: getNotificationMessages(props.messages)
   })
@@ -260,13 +260,13 @@ export function useForm<T extends Object>(props: IFormProps<T>) {
     }
   })
 
-  Object.values(form.fields).forEach(field => {
-    watch(() => field, (currentField, previousField) => {
-      if (!currentField['wasFocused'] || previousField['wasFocused']) {
-        form.isValid = validateForm(form.fields)
-      }
-    })
-  })
+  // Object.values(form.fields).forEach(field => {
+  //   watch(() => field, (currentField, previousField) => {
+  //     if (!currentField['wasFocused'] || previousField['wasFocused']) {
+  //       form.isValid = validateForm(form.fields)
+  //     }
+  //   })
+  // })
 
   return {
     form,

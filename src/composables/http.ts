@@ -1,4 +1,4 @@
-import { ref, reactive, watch, onMounted, Ref } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import { AxiosInstance, AxiosResponse } from "axios"
 
 import { IParams, ISameAPIEnpoint } from '@/interfaces/HTTP'
@@ -91,7 +91,7 @@ export function getForeignKeys<T>(fields: IFormField<T>): void {
   })
 }
 
-function handleFormError(fields: IFormField<Object>, message: {[key: string]: any} | string) {
+function handleFormError<T>(fields: T, message: {[key: string]: any} | string) {
   const fieldsKeys = Object.keys(fields)
 
   if (typeof message === 'object') {
@@ -163,13 +163,14 @@ export async function createRecord(url: string, form: FormData, fields: IFormFie
   }
 
   if (messages.create.display) {
+    console.log(http.notify)
     http.notify.create(messages.create)
   }
 
   return response
 }
 
-export async function updateRecord<T>(url: string, form: FormData, fields?: IFormField<T>, messages?: INotifications): Promise<any> {
+export async function updateRecord<T>(url: string, form: FormData, fields?: T, messages?: INotifications): Promise<any> {
   let response: any
   try {
     response = await http.axios.patch(url, form)
@@ -194,10 +195,9 @@ export async function updateRecord<T>(url: string, form: FormData, fields?: IFor
   return response
 }
 
-export function getRecords(url: string, initialfilterParams: IParams): IRecords {
+export function getRecords(url: string, filterParams: IParams): IRecords {
   const search = ref('')
   const loading = ref(false)
-  const filterParams = reactive(initialfilterParams)
 
   const list = reactive({
     unmutableItems: [] as any,
@@ -274,16 +274,13 @@ export function getRecords(url: string, initialfilterParams: IParams): IRecords 
   }
 }
 
-export function retrieveRecord<T>(url: string, lookupValue: string, form: IForm<T>, retrievingRecord?: Ref<boolean>): void {
-  if (retrievingRecord) retrievingRecord.value = true
-
+export function retrieveRecord<T>(url: string, lookupValue: string, form: IForm<T>): void {
   try {
     http.axios.get(buildURL(url, lookupValue)).then(({ data }) => {
       form.record = data
       if (Object.prototype.hasOwnProperty.call(form, 'dialog')) form.dialog = true
-    }).finally(() => { if (retrievingRecord) retrievingRecord.value = false })
+    })
   } catch (error) {
-    if (retrievingRecord) retrievingRecord.value = false
     console.error(error)
   }
 }

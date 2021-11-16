@@ -10,9 +10,14 @@ export function useMenuToggle() {
     else menus[fieldKey].hide()
   }
 
+  const setMenu = (el) => {
+    return (fieldKey: string) => { if (el) menus[fieldKey] = el }
+  }
+
   return {
     menus,
-    menuToggle
+    menuToggle,
+    setMenu
   }
 
 }

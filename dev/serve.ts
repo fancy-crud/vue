@@ -14,7 +14,11 @@ import FancyCrud from '../src/entry.esm';
 
 const app = createApp(Dev);
 
-app.use(Quasar, {});
+app.use(Quasar, {
+    plugins: {
+        Notify
+    },
+});
 
 app.use(FancyCrud, { axios, Notify });
 
