@@ -1,7 +1,11 @@
 {
   "name": "fancy-crud",
-  "version": "0.0.24",
-  "description": "",
+  "version": "0.0.25",
+  "description": "FancyCrud es una librería pensada para la creación de formularios y presentación de datos, en tablas utilizando Quasar Framework, gestionando el CRUD sobre registros.",
+  "license": "MIT",
+  "keywords": [
+    "form", "quasar", "material", "vue", "vue3"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.ts",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
