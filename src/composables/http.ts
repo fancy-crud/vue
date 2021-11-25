@@ -163,7 +163,6 @@ export async function createRecord(url: string, form: FormData, fields: IFormFie
   }
 
   if (messages.create.display) {
-    console.log(http.notify)
     http.notify.create(messages.create)
   }
 

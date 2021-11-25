@@ -1,5 +1,5 @@
 import { Ref, reactive, watch } from 'vue'
-import { http } from '@/composables/http'
+import { http, getRecords } from '@/composables/http'
 import { IColumn, ITableRowButtons } from '@/interfaces/Table'
 import { IParams } from '@/interfaces/HTTP'
 import { AxiosResponse } from 'axios'
@@ -155,6 +155,8 @@ export function useTable<T extends Object>(props: T) {
   const buttons = setupButtons(props['buttons'])
   const columns = setupColumns(table['form']['fields'], props['rowActions'])
 
+  const recordsManager = getRecords(props['url'], props['filterParams']);
+
   const setFormBtnAuxFunctionality = () => {
     if (!Object.prototype.hasOwnProperty.call(table['form'], "dialog")) {
       table['form'].dialog = false;
@@ -192,6 +194,7 @@ export function useTable<T extends Object>(props: T) {
   return {
     table,
     buttons,
-    columns
+    columns,
+    recordsManager
   }
 }

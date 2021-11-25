@@ -77,7 +77,7 @@
                 <template v-slot:prepend>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy
-                      :ref="setMenu(fieldKey)"
+                      :ref="(el) => setMenu(el, fieldKey)"
                       transition-show="scale"
                       transition-hide="scale"
                     >
@@ -125,8 +125,8 @@
                 <div class="col-1">
                   <q-btn
                     v-if="field.inputType === 'image'"
-                    @mouseenter="menuToggle(menus, fieldKey, true)"
-                    @mouseleave="menuToggle(menus, fieldKey, false)"
+                    @mouseenter="menuToggle(fieldKey, true)"
+                    @mouseleave="menuToggle(fieldKey, false)"
                     :color="record[fieldKey] ? 'primary' : 'grey'"
                     type="a"
                     :href="record[fieldKey]"
@@ -240,9 +240,9 @@
                 <q-btn
                   v-if="!form.buttons.main.hidden"
                   v-bind="form.buttons.main"
-                  type="submit"
                   :label="mainButtonLabel"
                   :disable="!form.isValid || form.buttons.main.loading"
+                  type="submit"
                 />
                 <q-btn
                   v-if="!form.buttons.aux.hidden"
@@ -266,6 +266,23 @@ import { useForm, CREATE_MODE, UPDATE_MODE } from "@/composables/form";
 import { useHTTP, buildURL } from "@/composables/http";
 
 import { useMenuToggle } from "@/composables/utils";
+import {
+  QSelect,
+  QSeparator,
+  QInput,
+  QDate,
+  QPopupProxy,
+  QIcon,
+  QFile,
+  QCard,
+  QCardSection,
+  QCardActions,
+  QCheckbox,
+  QBtn,
+  QOptionGroup,
+  QForm,
+  QMenu,
+} from "quasar";
 
 export default defineComponent({
   name: "FancyForm",
@@ -332,9 +349,16 @@ export default defineComponent({
     });
 
     const mainButtonLabel = computed(() => {
-      return props.mode === CREATE_MODE
-        ? form.buttons?.main?.createLabel
-        : form.buttons?.main?.updateLabel;
+      let label = "Crear Elemento";
+
+      if (form.buttons && form.buttons.main) {
+        const createLabel = form.buttons.main.createLabel || "";
+        const updateLabel = form.buttons.main.updateLabel || "";
+
+        label = props.mode === CREATE_MODE ? createLabel : updateLabel;
+      }
+
+      return label;
     });
 
     const availableFields = computed(() => {
@@ -410,9 +434,27 @@ export default defineComponent({
       triggerUpdate,
 
       onSubmit() {
-        isCreateForm ? triggerCreate() : triggerUpdate();
+        isCreateForm.value ? triggerCreate() : triggerUpdate();
       },
     };
+  },
+
+  components: {
+    QSelect,
+    QSeparator,
+    QInput,
+    QDate,
+    QPopupProxy,
+    QIcon,
+    QFile,
+    QCard,
+    QCardSection,
+    QCardActions,
+    QCheckbox,
+    QBtn,
+    QOptionGroup,
+    QForm,
+    QMenu,
   },
 });
 </script>

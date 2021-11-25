@@ -5,9 +5,9 @@ module.exports = {
       rtlSupport: false
     }
   },
-  // transpileDependencies: [
-  //   'quasar'
-  // ],
+  transpileDependencies: [
+    // 'quasar'
+  ],
   // chainWebpack: config => {
   //   config.module
   //     .rule('vue')

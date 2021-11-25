@@ -26,6 +26,8 @@ class Artist(models.Model):
 
     name = models.CharField(max_length=5)
     gender = models.CharField(max_length=1, choices=GENDERS)
+    image = models.ImageField(upload_to='artists', null=True)
+    image2 = models.ImageField(upload_to='artists', null=True)
 
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

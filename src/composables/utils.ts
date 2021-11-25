@@ -10,8 +10,8 @@ export function useMenuToggle() {
     else menus[fieldKey].hide()
   }
 
-  const setMenu = (el) => {
-    return (fieldKey: string) => { if (el) menus[fieldKey] = el }
+  const setMenu = (el: any, fieldKey: string) => {
+    if (el) menus[fieldKey] = el
   }
 
   return {

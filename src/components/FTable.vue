@@ -48,8 +48,8 @@
         <slot :name="`column-${fieldKey}`" v-bind="props">
           <template v-if="field.inputType === 'image'">
             <q-btn
-              @mouseenter="menuToggle(menus, `fieldKey${props.key}`, true)"
-              @mouseleave="menuToggle(menus, `fieldKey${props.key}`, false)"
+              @mouseenter="menuToggle(`fieldKey${fieldKey}${props.key}`, true)"
+              @mouseleave="menuToggle(`fieldKey${fieldKey}${props.key}`, false)"
               :color="props.row[fieldKey] ? 'primary' : 'grey'"
               :href="props.row[fieldKey]"
               type="a"
@@ -58,13 +58,7 @@
               round
               flat
             >
-              <q-menu
-                :ref="
-                  (el) => {
-                    if (el) menus[`fieldKey${props.key}`] = el;
-                  }
-                "
-              >
+              <q-menu :ref="(el) => setMenu(el, `fieldKey${fieldKey}${props.key}`)">
                 <div class="fancy__image-preview">
                   <img :src="props.row[fieldKey]" />
                 </div>
@@ -161,21 +155,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, readonly } from "vue";
-import FForm from "./FForm.vue";
+import { defineComponent, reactive, computed } from "vue";
+import _ from 'lodash'
 
 import { useTable, exportData } from "@/composables/table";
 import { useMenuToggle } from "@/composables/utils";
-import { useHTTP } from "@/composables/http";
+import { useHTTP, buildURL } from "@/composables/http";
+import { CREATE_MODE, UPDATE_MODE } from "@/composables/form";
 
-let originalFormFields = {};
+import FForm from "./FForm.vue";
+
+import {
+  QDialog,
+  QSeparator,
+  QInput,
+  QPopupProxy,
+  QIcon,
+  QCard,
+  QCardSection,
+  QCardActions,
+  QCheckbox,
+  QBtn,
+  QMenu,
+  QTable,
+  QPagination,
+  QSpinner,
+  QTd,
+  ClosePopup,
+} from "quasar";
 
 export default defineComponent({
   name: "FancyTable",
-
-  components: {
-    FForm,
-  },
 
   props: {
     modelValue: {
@@ -229,37 +239,39 @@ export default defineComponent({
   },
 
   setup(props, context) {
+    let originalFormFields = {};
     const http = useHTTP();
 
     // Used to reset form fields to initial
     // state before create dialog is open
     if (Object.keys(originalFormFields).length === 0) {
-      const stringForm = JSON.stringify(props.modelValue.fields);
-      const parseForm = JSON.parse(stringForm);
-
-      originalFormFields = readonly(parseForm);
+      originalFormFields = _.cloneDeep(props.modelValue.fields);
     }
 
-    const { table, columns, buttons: tableButtons } = useTable(props);
-    const { menus, menuToggle } = useMenuToggle();
+    const {
+      table,
+      columns,
+      recordsManager,
+      buttons: tableButtons,
+    } = useTable(props);
+    const { menus, menuToggle, setMenu } = useMenuToggle();
 
     let recordToDelete = reactive({});
 
-    const records = http.getRecords(props.url, props.filterParams);
-
     const openCreateDialog = () => {
-      table.form.fields = JSON.parse(JSON.stringify(originalFormFields));
+      table.form.fields = _.cloneDeep(originalFormFields);
 
       if (tableButtons.create.onClick) {
         tableButtons.create.onClick();
       } else {
         table.form.dialog = true;
         table.form.record = {};
-        table.form.settings.isCreateForm = true;
+        table.form.settings.mode = CREATE_MODE;
       }
     };
 
     const openEditDialog = <T>(field: T) => {
+      table.form.fields = _.cloneDeep(originalFormFields);
       const lookupField = table.form.settings.lookupField
         ? String(table.form.settings.lookupField)
         : "id";
@@ -267,12 +279,12 @@ export default defineComponent({
       if (tableButtons.edit.onClick) {
         tableButtons.edit.onClick(field);
       } else {
-        table.form.settings.isCreateForm = false;
+        table.form.settings.mode = UPDATE_MODE;
         http.retrieveRecord(props.url, field[lookupField], table.form);
       }
     };
 
-    const triggerGetRecords = () => records.fetchItems();
+    const triggerGetRecords = () => recordsManager.fetchItems();
 
     const triggerDelete = async () => {
       const lookupValue = String(recordToDelete[props.deleteLookupField]);
@@ -303,13 +315,15 @@ export default defineComponent({
       const lookupField = table.form.settings.lookupField
         ? String(table.form.settings.lookupField)
         : "id";
+      const url = buildURL(props.url, field[lookupField]);
       const form = new FormData();
 
       form.set(fieldKey, String(field[fieldKey]));
-      http.updateRecord(props.url, field[lookupField], form);
+      http.updateRecord(url, form);
     };
 
     const triggerRowAction = (event: EventTarget, row: { [key: string]: any }) => {
+      event;
       if (!props.disableRowClick) {
         if (typeof props.onRowAction === "function") {
           props.onRowAction(row);
@@ -324,12 +338,12 @@ export default defineComponent({
         tableButtons.export.onClick();
       } else {
         // loading.value = true
-        exportData(props.url, records.filterParams, table.form.fields, records.loading);
+        exportData(props.url, recordsManager.filterParams, table.form.fields, recordsManager.loading);
       }
     };
 
     const paginationCount = computed(() =>
-      Math.ceil(records.pagination.rowsNumber / records.pagination.rowsPerPage)
+      Math.ceil(recordsManager.pagination.rowsNumber / recordsManager.pagination.rowsPerPage)
     );
 
     const onCreated = () => {
@@ -343,7 +357,7 @@ export default defineComponent({
     };
 
     return {
-      ...records,
+      ...recordsManager,
       tableButtons,
       paginationCount,
       openCreateDialog,
@@ -354,6 +368,7 @@ export default defineComponent({
       toggleCheckboxStatus,
       openEditDialog,
 
+      setMenu,
       handleDelete,
       triggerDelete,
       recordToDelete,
@@ -364,22 +379,48 @@ export default defineComponent({
       onUpdated,
     };
   },
+
+  components: {
+    FForm,
+    QDialog,
+    QSeparator,
+    QInput,
+    QPopupProxy,
+    QIcon,
+    QCard,
+    QCardSection,
+    QCardActions,
+    QCheckbox,
+    QBtn,
+    QMenu,
+    QTable,
+    QPagination,
+    QSpinner,
+    QTd,
+  },
+
+  directives: {
+    ClosePopup,
+  },
 });
 </script>
 
-<style lang="sass" scoped>
-.q-table__bottom
-  justify-content: center !important
+<style>
+.q-table__bottom {
+  justify-content: center !important;
+}
 
-.fancy__image-preview
-  display: flex
-  justify-content: center
-  align-content: center
-  overflow: hidden
-  max-height: 300px
-  max-width: 300px
-  width: 300px
-  img
-    width: 80%
-    // height: 300px
+.fancy__image-preview {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  overflow: hidden;
+  max-height: 300px;
+  max-width: 300px;
+  width: 300px;
+}
+
+.fancy__image-preview > img {
+  width: 80%;
+}
 </style>

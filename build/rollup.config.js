@@ -1,18 +1,21 @@
 // rollup.config.js
 import fs from 'fs';
 import path from 'path';
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
-import buble from '@rollup/plugin-buble';
-import resolve from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
+import sass from 'rollup-plugin-sass';
 import { terser } from 'rollup-plugin-terser';
 import ttypescript from 'ttypescript';
 import typescript from 'rollup-plugin-typescript2';
 import minimist from 'minimist';
+
+const VuePlugin = require('rollup-plugin-vue')
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -43,13 +46,15 @@ const baseConfig = {
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
+      'preventAssignment': true
     },
     vue: {
       compileTemplate: true,
     },
     postVue: [
-      resolve({
+      nodeResolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        preferBuiltins: false
       }),
       // Process only `<style module>` blocks.
       PostCSS({
@@ -105,6 +110,7 @@ if (!argv.format || argv.format === 'es') {
       exports: 'named',
     },
     plugins: [
+      // VuePlugin(),
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
@@ -129,7 +135,9 @@ if (!argv.format || argv.format === 'es') {
         ],
       }),
       // buble({transforms: { asyncAwait: false }}),
-      commonjs()
+      commonjs(),
+      sass(),
+      peerDepsExternal()
     ],
   };
   buildFormats.push(esConfig);
@@ -150,12 +158,15 @@ if (!argv.format || argv.format === 'cjs') {
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      // VuePlugin(),
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
 
       // buble({transforms: { asyncAwait: false }}),
-      commonjs()
+      commonjs(),
+      sass(),
+      peerDepsExternal()
     ],
   };
   buildFormats.push(umdConfig);
@@ -176,6 +187,7 @@ if (!argv.format || argv.format === 'iife') {
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      // VuePlugin(),
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
@@ -185,7 +197,9 @@ if (!argv.format || argv.format === 'iife') {
         },
       }),
       // buble({transforms: { asyncAwait: false }}),
-      commonjs()
+      commonjs(),
+      sass(),
+      peerDepsExternal()
     ],
   };
   buildFormats.push(unpkgConfig);

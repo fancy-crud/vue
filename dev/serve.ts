@@ -10,7 +10,8 @@ import '@quasar/extras/roboto-font/roboto-font.css'
 import '@quasar/extras/material-icons/material-icons.css'
 
 // import quasarUserOptions from './quasar-user-options'
-import FancyCrud from '../src/entry.esm';
+// import FancyCrud from 'fancy-crud';
+import FancyCrud from '@/entry.esm'
 
 const app = createApp(Dev);
 

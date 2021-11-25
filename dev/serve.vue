@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <div class="row justify-center q-mt-lg">
-      <div class="col-12">
-        <f-filters v-model="filters" />
-      </div>
-      <div class="col-6">
-        <f-form v-model="form.fields" v-bind="form.settings"></f-form>
-      </div>
-
+    <div class="row justify-center q-col-gutter-lg">
       <div class="col-10 pl-sm">
         <f-table
           v-model="table.form"
           v-bind="table.settings"
+          :filterParams="plainFilters"
+          hard-delete
+        />
+      </div>
+      <div class="col-10 pl-sm">
+        <f-table
+          v-model="table2.form"
+          v-bind="table2.settings"
           :filterParams="plainFilters"
           hard-delete
         />
@@ -23,6 +24,7 @@
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import { useFilters } from "@/entry.esm";
+import _ from 'lodash'
 
 export default defineComponent({
   name: "ServeDev",
@@ -35,7 +37,7 @@ export default defineComponent({
           rules: ["required"],
           inputType: "date",
         },
-        is_active: { modelValue: true, hidden: true },
+        is_active: { modelValue: false, inputType: "checkbox" },
       },
       settings: {
         url: "genres/",
@@ -55,7 +57,6 @@ export default defineComponent({
           is_active: {
             label: "Estatus",
             modelValue: true,
-            hidden: true,
             inputType: "checkbox",
           },
         },
@@ -82,8 +83,60 @@ export default defineComponent({
       },
     });
 
+    const table2 = reactive({
+      form: {
+        fields: {
+          name: {
+            label: "Nombre del artista",
+            rules: ["required"],
+          },
+          gender: {
+            label: "Genero",
+            rules: ["required"],
+          },
+          image: {
+            label: "Imagen",
+            inputType: 'image'
+          },
+          image2: {
+            label: "Imagen 2",
+            inputType: 'image'
+          },
+          is_active: {
+            label: "Estatus",
+            modelValue: true,
+            inputType: "checkbox",
+          },
+        },
+        settings: {
+          url: "artists/",
+        },
+      },
+      settings: {
+        url: "artists/",
+      },
+    });
+
+    const original = reactive({
+      greeting: 'Hello',
+      breakfast: 'Eggs',
+      fields: {
+        name: {
+          label: 'Name',
+        }
+      }
+    })
+
+    const clone = Object.assign({}, original)
+    clone
+
+    console.log(original)
+
+    console.log(_.cloneDeep(original))
+
     return {
       table,
+      table2,
       form,
       filters,
       plainFilters,
