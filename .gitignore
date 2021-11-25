@@ -2,7 +2,7 @@
 node_modules/
 /dist/
 /__pycache__/
-/media/
+server/media/
 undefined/
 
 # local env files
