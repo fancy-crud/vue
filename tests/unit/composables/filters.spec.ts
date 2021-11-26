@@ -31,14 +31,6 @@ describe('Tests filters.ts', () => {
 
   const { filters, plainFilters } = useFilters(_filters)
 
-  // beforeAll(() => {
-  //   spy = jest.spyOn(plainFilters, 'country')    
-  // })
-
-  // afterEach(() => {
-  //   spy.mockClear()
-  // })
-
   it('Keep initial filters unedited', () => {
     expect(_filters)
   })
