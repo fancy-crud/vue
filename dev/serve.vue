@@ -1,13 +1,20 @@
 <template>
   <div id="app">
     <div class="row justify-center q-col-gutter-lg">
+      <div class="col-12">
+        <f-form v-model="form.fields" v-bind="form.settings">
+          <template v-slot:form-header="{ title }">
+            <h5>{{ title }}</h5>
+          </template>
+        </f-form>
+      </div>
       <div class="col-10 pl-sm">
         <f-table
           v-model="table.form"
           v-bind="table.settings"
           :filterParams="plainFilters"
           hard-delete
-        />
+        >
       </div>
       <div class="col-10 pl-sm">
         <f-table
