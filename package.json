@@ -1,8 +1,12 @@
 {
   "name": "fancy-crud",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "FancyCrud es una librería pensada para la creación de formularios y presentación de datos, en tablas utilizando Quasar Framework, gestionando el CRUD sobre registros.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cafadev/fancy-crud.git"
+  },
   "keywords": [
     "form", "quasar", "material", "vue", "vue3"
   ],
