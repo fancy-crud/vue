@@ -106,11 +106,7 @@
                 <div class="col-11 pr-2">
                   <q-file
                     v-bind="fieldAttrs(field)"
-                    :ref="
-                      (el) => {
-                        if (el) field.ref = el;
-                      }
-                    "
+                    :ref="(el) => setRef(fielf, el)"
                   >
                     <template v-slot:prepend>
                       <q-icon
@@ -128,19 +124,15 @@
                     @mouseenter="menuToggle(fieldKey, true)"
                     @mouseleave="menuToggle(fieldKey, false)"
                     :color="record[fieldKey] ? 'primary' : 'grey'"
-                    type="a"
                     :href="record[fieldKey]"
                     target="_blank"
                     icon="image"
+                    type="a"
                     flat
                     round
                   >
                     <q-menu
-                      :ref="
-                        (el) => {
-                          if (el) menus[fieldKey] = el;
-                        }
-                      "
+                      :ref="el => setMenu(el, fieldKey)"
                     >
                       <q-card>
                         <img :src="record[fieldKey]" />
@@ -166,11 +158,7 @@
               <q-card-section class="py-1">
                 <q-checkbox
                   v-bind="fieldAttrs(field)"
-                  :ref="
-                    (el) => {
-                      if (el) field.ref = el;
-                    }
-                  "
+                  :ref="el => setRef(field, el)"
                 />
               </q-card-section>
             </q-card>
@@ -179,11 +167,7 @@
               <q-card-section class="py-1">
                 <q-option-group
                   v-bind="fieldAttrs(field)"
-                  :ref="
-                    (el) => {
-                      if (el) field.ref = el;
-                    }
-                  "
+                  :ref="el => setRef(field, el)"
                   type="radio"
                 />
               </q-card-section>
@@ -192,11 +176,7 @@
             <q-input
               v-else-if="field.inputType === 'password'"
               v-bind="fieldAttrs(field)"
-              :ref="
-                (el) => {
-                  if (el) field.ref = el;
-                }
-              "
+              :ref="el => setRef(field, el)"
               :type="field.showPassword ? 'text' : 'password'"
             >
               <template v-slot:append>
@@ -211,11 +191,7 @@
             <q-input
               v-else
               v-bind="fieldAttrs(field)"
-              :ref="
-                (el) => {
-                  if (el) field.ref = el;
-                }
-              "
+              :ref="el => setRef(field, el)"
             />
           </section>
 
@@ -373,6 +349,12 @@ export default defineComponent({
       );
     });
 
+    const setRef = (field: any, _ref: any) => {
+      if (_ref) {
+        field.ref = _ref
+      }
+    }
+
     const triggerCreate = async () => {
       if (form.buttons.main) form.buttons.main.loading = true;
       const formData = getFormData();
@@ -424,6 +406,7 @@ export default defineComponent({
       fieldAttrs,
       menuToggle,
       setMenu,
+      setRef,
 
       isCreateForm,
       title,
