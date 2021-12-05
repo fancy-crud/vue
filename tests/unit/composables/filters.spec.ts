@@ -1,8 +1,7 @@
 import 'regenerator-runtime/runtime'
 import { isReactive, nextTick } from 'vue'
 import { IFilters } from '@/interfaces/Filters'
-import { useFilters } from '@/composables/filters'
-import { http } from '@/composables/http'
+import { useFilters, http } from '@/composables'
 import axios from 'axios'
 // import moxios from 'moxios'
 

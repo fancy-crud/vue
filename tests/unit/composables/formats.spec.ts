@@ -1,4 +1,4 @@
-import { useFormats } from '@/composables/utils'
+import { useFormats } from '@/composables'
 
 describe('Tests to useRules functions', () => {
   const { moneyFormat, percentageFormat, dateTimeFormat } = useFormats()

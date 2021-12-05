@@ -1,5 +1,5 @@
 import { parseRules, createDefaultKeys, fillFieldsWithRecordValues } from '@/composables/form'
-import { useRules } from '@/composables/utils'
+import { useRules } from '@/composables'
 
 
 describe('Tests form.ts functions', () => {

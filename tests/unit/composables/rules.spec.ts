@@ -1,5 +1,5 @@
 // import { shallowMount } from '@vue/test-utils'
-import { useRules } from '@/composables/utils'
+import { useRules } from '@/composables'
 
 describe('Tests to useRules functions', () => {
   const messageError = 'In error case message'
