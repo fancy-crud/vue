@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="row justify-center q-col-gutter-lg">
-      <div class="col-12">
+      <div class="col-10">
         <f-form v-model="form.fields" v-bind="form.settings">
           <template v-slot:form-header="{ title }">
             <h5>{{ title }}</h5>
@@ -14,7 +14,7 @@
           v-bind="table.settings"
           :filterParams="plainFilters"
           hard-delete
-        >
+        />
       </div>
       <div class="col-10 pl-sm">
         <f-table
@@ -31,7 +31,6 @@
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import { useFilters } from "@/entry.esm";
-import _ from 'lodash'
 
 export default defineComponent({
   name: "ServeDev",
@@ -62,9 +61,12 @@ export default defineComponent({
             rules: ["required"],
           },
           is_active: {
-            label: "Estatus",
+            label: "Estatus oculto",
             modelValue: true,
             inputType: "checkbox",
+            inTable: {
+              hidden: true,
+            }
           },
         },
         settings: {
@@ -123,23 +125,6 @@ export default defineComponent({
         url: "artists/",
       },
     });
-
-    const original = reactive({
-      greeting: 'Hello',
-      breakfast: 'Eggs',
-      fields: {
-        name: {
-          label: 'Name',
-        }
-      }
-    })
-
-    const clone = Object.assign({}, original)
-    clone
-
-    console.log(original)
-
-    console.log(_.cloneDeep(original))
 
     return {
       table,
