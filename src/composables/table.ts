@@ -1,5 +1,5 @@
 import { Ref, reactive, watch } from 'vue'
-import { http, getRecords } from '@/composables/http'
+import { http, getRecords } from '@/composables'
 import { IColumn, ITableRowButtons } from '@/interfaces/Table'
 import { IParams } from '@/interfaces/HTTP'
 import { AxiosResponse } from 'axios'

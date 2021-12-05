@@ -2,7 +2,7 @@ import { watch, reactive } from 'vue'
 
 import { IFormField, IFormProps, IFormButtons, IFormRecord } from "@/interfaces/Form";
 import { getForeignKeys } from './http';
-import { useRules } from "@/composables/utils";
+import { useRules } from "@/composables";
 import { INotifications } from '@/interfaces/Notification';
 
 
