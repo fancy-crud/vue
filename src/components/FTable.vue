@@ -158,10 +158,15 @@
 import { defineComponent, reactive, computed } from "vue";
 import _ from 'lodash'
 
-import { useTable, exportData } from "@/composables/table";
-import { useMenuToggle } from "@/composables/utils";
-import { useHTTP, buildURL } from "@/composables/http";
-import { CREATE_MODE, UPDATE_MODE } from "@/composables/form";
+import {
+  useTable,
+  exportData,
+  useMenuToggle,
+  useHTTP,
+  buildURL,
+  CREATE_MODE,
+  UPDATE_MODE
+} from "@/composables";
 
 import FForm from "./FForm.vue";
 

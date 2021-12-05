@@ -22,22 +22,14 @@
             <q-select
               v-if="field.inputType === 'select'"
               v-bind="fieldAttrs(field)"
-              :ref="
-                (el) => {
-                  if (el) field.ref = el;
-                }
-              "
+              :ref="(el) => setRef(field, el)"
             />
 
             <q-input
               v-else-if="field.inputType === 'textarea'"
               v-model="field.value"
               v-bind="fieldAttrs(field)"
-              :ref="
-                (el) => {
-                  if (el) field.ref = el;
-                }
-              "
+              :ref="(el) => setRef(field, el)"
               type="textarea"
             />
 
@@ -90,11 +82,7 @@
               <q-input
                 v-else
                 v-bind="fieldAttrs(field)"
-                :ref="
-                  (el) => {
-                    if (el) field.ref = el;
-                  }
-                "
+                :ref="(el) => setRef(field, el)"
                 readonly
               />
             </template>
@@ -106,7 +94,7 @@
                 <div class="col-11 pr-2">
                   <q-file
                     v-bind="fieldAttrs(field)"
-                    :ref="(el) => setRef(fielf, el)"
+                    :ref="(el) => setRef(field, el)"
                   >
                     <template v-slot:prepend>
                       <q-icon
@@ -131,9 +119,7 @@
                     flat
                     round
                   >
-                    <q-menu
-                      :ref="el => setMenu(el, fieldKey)"
-                    >
+                    <q-menu :ref="(el) => setRef(field, el)">
                       <q-card>
                         <img :src="record[fieldKey]" />
                       </q-card>
@@ -238,10 +224,15 @@
 import { defineComponent, reactive, PropType, computed } from "vue";
 import { IFormTitles, IFormButtons } from "@/interfaces/Form";
 
-import { useForm, CREATE_MODE, UPDATE_MODE } from "@/composables/form";
-import { useHTTP, buildURL } from "@/composables/http";
+import {
+  useForm,
+  useMenuToggle,
+  useHTTP,
+  buildURL,
+  CREATE_MODE,
+  UPDATE_MODE,
+} from "@/composables";
 
-import { useMenuToggle } from "@/composables/utils";
 import {
   QSelect,
   QSeparator,
