@@ -11,6 +11,9 @@ export function setupColumns<T>(fields: T, rowActions: boolean) {
 
   fieldsNames.forEach((fieldKey: string) => {
     const field = fields[fieldKey]
+
+    if (field.inTable && field.inTable.hidden) return
+
     const column = { 
       name: fieldKey,
       label: field.label,
@@ -18,7 +21,7 @@ export function setupColumns<T>(fields: T, rowActions: boolean) {
       field: fieldKey,
       align: 'left',
       sortable: true,
-      ...field.header,
+      ...field.inTable,
     }
 
     columns.push(column)
