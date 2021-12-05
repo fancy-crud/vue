@@ -26,12 +26,7 @@ export default defineComponent({
       Object.keys(filters).forEach((filterKey: string) => {
         const filter = filters[filterKey];
 
-        watch(
-          () => filter.value,
-          () => {
-            emit("update:modelValue", filters);
-          }
-        );
+        watch(() => filter.value, () => emit("update:modelValue", filters));
       });
     });
 
