@@ -1,13 +1,19 @@
 import { h } from "tsx-dom"
-import _ from 'lodash'
-import { resetModelValue } from '@/core'
-import { FButton, FFormFooterAttributes } from '.'
+import _ from "lodash"
+import { resetModelValue } from "@/core"
+import { FButton, FFormFooterAttributes } from "."
 import { handleErrorRequest, triggerCreateOrUpdate } from "../http"
 import { AxiosError } from "axios"
 import { successNotification } from "../notifications"
 import { FormModes } from "../form"
 
-export function FFormFooter({ form, resetFormTo, slots, onCreate, onUpdate }: FFormFooterAttributes) {
+export function FFormFooter({
+  form,
+  resetFormTo,
+  slots,
+  onCreate,
+  onUpdate,
+}: FFormFooterAttributes) {
   const cloneForm = _.cloneDeep(resetFormTo)
   const mainButton = form.settings.buttons.main
 
@@ -18,8 +24,8 @@ export function FFormFooter({ form, resetFormTo, slots, onCreate, onUpdate }: FF
 
   const onClick = async () => {
     let result: {
-      isActionSucceed: boolean;
-      value: any;
+      isActionSucceed: boolean
+      value: any
     }
 
     try {
@@ -27,16 +33,16 @@ export function FFormFooter({ form, resetFormTo, slots, onCreate, onUpdate }: FF
     } catch (err) {
       const error = err as { value: AxiosError }
       handleErrorRequest(form, error.value.response)
-      form.generalError = 'Uno o más campos presentaron errores'
+      form.generalError = "Uno o más campos presentaron errores"
       return
     }
 
     const onCreateOrUpdate = {
       [FormModes.CREATE_MODE]: onCreate,
-      [FormModes.UPDATE_MODE]: onUpdate
+      [FormModes.UPDATE_MODE]: onUpdate,
     }[form.settings.mode]
 
-    if (typeof onCreateOrUpdate === 'function') onCreateOrUpdate(result.value)
+    if (typeof onCreateOrUpdate === "function") onCreateOrUpdate(result.value)
 
     successNotification()
     resetModelValue(form, cloneForm)
@@ -46,32 +52,26 @@ export function FFormFooter({ form, resetFormTo, slots, onCreate, onUpdate }: FF
     mainButton.onClick = onClick
   }
 
-  const MainButton = () => (
-    <FButton
-      label={ mainButton.label }
-      disabled={ !form.settings.isValid }
-      mode={ form.settings.mode }
-      { ...mainButton }
-    />
-  )
+  const MainButton = FButton({
+    label: mainButton.label,
+    disabled: !form.settings.isValid,
+    mode: form.settings.mode,
+    ...mainButton,
+  })
 
   const AuxButton = () => (
-    <FButton
-      label={ auxButton.label }
-      mode={ form.settings.mode }
-      { ...auxButton }
-    />
+    <FButton label={auxButton.label} mode={form.settings.mode} {...auxButton} />
   )
-  
+
   const DefaultFooter = () => (
     <footer class="px-3">
-      <MainButton />
+      ${MainButton}
       <AuxButton />
     </footer>
   )
 
-  const hasFooterSlot = slots && slots['form-footer']
-  const Footer = hasFooterSlot ? slots['form-footer'] : DefaultFooter
+  const hasFooterSlot = slots && slots["form-footer"]
+  const Footer = hasFooterSlot ? slots["form-footer"] : DefaultFooter
 
   return <Footer />
 }

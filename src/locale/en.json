@@ -1,0 +1,13 @@
+{
+  "values": {
+    "Yes": "Si",
+    "No": "No",
+    "Ok": "Ok",
+    "Cancel": "Cancelar",
+    "Create new": "Create new",
+    "Search": "Search",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Create": "Create"
+  }
+}

@@ -1,30 +1,38 @@
 import { h } from "tsx-dom"
-import { Form } from ".."
+import { html } from "uhtml"
+import { Form, FormModes } from ".."
+import { defineComponent, computed } from "@/core"
 
 interface FHeaderAttributes {
-  form: Form;
+  form: Form
   slots?: {
     [k: string]: any
   }
 }
 
-export function FFormHeader({ form, slots }: FHeaderAttributes) {
-  let title: string | undefined = ''
+export const FFormHeader = ({ form, slots }: FHeaderAttributes) => {
+  return defineComponent(
+    () => {
+      let title = computed(() => {
+        if (typeof form.settings.title === "string") {
+          return form.settings.title
+        }
+        return form.settings.mode === FormModes.CREATE_MODE
+          ? form.settings.title.create
+          : form.settings.title.update
+      })
 
-  if (typeof form.settings.title === 'string') {
-    title = form.settings.title
-  }
-  else {
-    title = form.settings.title.create
-  }
+      // const Header = hasHeaderSlot ? hasHeaderSlot : DefaultHeader
 
-  const DefaultHeader = () => (
-    <header class="p-3">
-      <h3 class="text-2xl">{ title }</h3>
-    </header>
+      const header = <h3 class="text-2xl">{title.value}</h3>
+      const hasHeaderSlot = slots && slots["form-header"]
+      const content = hasHeaderSlot ? slots["form-header"] : header
+
+      return () => {
+        return html`${content}`
+      }
+    },
+    null,
+    <header class="p-3"></header>
   )
-  const hasHeaderSlot = slots && slots['form-header']
-  const Header = hasHeaderSlot ? hasHeaderSlot : DefaultHeader
-
-  return <Header />
 }
