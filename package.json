@@ -8,7 +8,7 @@
   "module": "./dist/fancy-crud.es.js",
   "types": "./dist/src/index.d.ts",
   "scripts": {
-    "serve": "vite --port 9090 --host 0.0.0.0 --open",
+    "dev": "vite --port 9090 --host 0.0.0.0 --open",
     "build": "node build/exports.js && vite build && tsc --emitDeclarationOnly",
     "semantic-release": "semantic-release --branches main"
   },
