@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "./",
     "baseUrl": ".",
     "module": "ESNext",
     "target": "ESNext",
@@ -17,15 +18,14 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "typeRoots": [
-      "src/types"
+      "vite/client",
+      "./typings"
     ],
     "types": [
       "vite/client",
-      // "vue/ref-macros",
-      // "src/**/*.vue"
     ],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
     }
   },
   "exclude": [

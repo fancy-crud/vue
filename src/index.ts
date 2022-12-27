@@ -1,17 +1,17 @@
-
-import { App, Plugin } from 'vue'
+import 'animate.css'
+import type { App, Plugin } from 'vue'
 
 // import * as components from '@/components/index';
-import { setHttpConfig, setStatusCodesHandlers } from '@/composables'
+import { setHttpConfig } from '@/http/composables/requests'
+import { setStatusCodesHandlers } from '@/settings/composables'
 import './styles/main.sass'
-
 
 const components: Record<string, any> = {}
 // install function executed by Vue.use()
 const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
-
   Object.entries(import.meta.globEager('@/components/**/*.vue')).forEach(([key, value]) => {
-    if (key.includes('/viewer/')) return
+    if (key.includes('/viewer/'))
+      return
 
     const componentName = key.match(/[\w]+?(?=\.)/g)
 
@@ -21,22 +21,24 @@ const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
     }
   })
 
-  if (options.http) {
+  if (options.http)
     setHttpConfig(options.http)
-  }
 
-  if (options.statusCodesHandlers) {
-    console.log(options.statusCodesHandlers)
+  if (options.statusCodesHandlers)
     setStatusCodesHandlers(options.statusCodesHandlers)
-  }
-};
+}
 
 // Create module definition for Vue.use()
-export default install;
+export default install
 
 // To allow individual component use, export components
 // each can be registered via Vue.component()
-export * from './components';
-export * from './composables'
-export * from './locales'
-export * from './types'
+export * from './common'
+// export * from './filters'
+// export * from './forms'
+// export * from './http'
+// export * from './inputs'
+// export * from './locales'
+// export * from './notifications'
+// export * from './settings'
+// export * from './tables'

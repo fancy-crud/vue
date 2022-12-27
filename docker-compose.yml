@@ -6,7 +6,7 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     volumes:
-      - '.:/home/fancy-crud/fancy-crud'
+      - .:/home/fancy-crud/fancy-crud
     ports:
       - "9090:9090"
     tty: true
