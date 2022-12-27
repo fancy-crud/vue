@@ -18,11 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import type { AxiosError, AxiosResponse } from 'axios'
-import { FormModes } from '@/types'
-import type { Button, Form } from '@/types'
-import { triggerCreateOrUpdate } from '@/composables'
+import type { Button, Form } from '@/forms'
 
 const props = defineProps<{
   form: Form

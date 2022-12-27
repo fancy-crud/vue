@@ -10,8 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject } from 'vue'
-import type { NormalizedFieldStructure } from '@/types'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const field = computed(() => inject('field') as NormalizedFieldStructure)
 

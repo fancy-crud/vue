@@ -3,14 +3,13 @@ import type {
   Form,
   IFormRecord,
   NormalizedFieldStructure,
-  NormalizedFields,
 } from '@/forms'
 
-export function fillFieldsWithRecordValues(fields: NormalizedFields, record: IFormRecord) {
+export function fillFieldsWithRecordValues(form: Form, record: IFormRecord) {
   if (Object.keys(record || {}).length === 0)
     return
 
-  Object.entries(fields).forEach(([fieldKey, field]) => {
+  Object.entries(form.fields).forEach(([fieldKey, field]) => {
     if (field.type !== 'file' && field.type !== 'image') {
       field.modelValue = fieldKey
         .split('.')
@@ -26,7 +25,7 @@ export function fillFieldsWithRecordValues(fields: NormalizedFields, record: IFo
   })
 }
 
-export function getFormData(form: { fields: NormalizedFields }) {
+export function getFormData(form: Form) {
   interface Handle { fieldKey: string; field: NormalizedFieldStructure }
 
   const metadata: { [key: string]: unknown } = {}
@@ -64,7 +63,6 @@ export function getFormData(form: { fields: NormalizedFields }) {
       else {
         metadata[formKey] = value
       }
-      console.log(metadata)
     }
 
     if (!field.modelValue) {
@@ -128,7 +126,8 @@ export async function validateForm(form: Form, _fieldKey?: string) {
   let isValid = true
 
   if (_fieldKey) {
-    isValid = validateRules(form.fields[_fieldKey])
+    type FieldKey = keyof typeof form.fields
+    isValid = validateRules(form.fields[_fieldKey as FieldKey])
 
     if (!isValid)
       return
@@ -155,29 +154,26 @@ export async function validateForm(form: Form, _fieldKey?: string) {
 }
 
 export function resetModelValue(form: Form, cloneForm: Form) {
+  type FieldKey = keyof typeof form.fields
+
   Object.entries(cloneForm.fields).forEach(([fieldKey, field]) => {
-    Object.assign(form.fields[fieldKey], {
+    Object.assign(form.fields[fieldKey as FieldKey], {
       modelValue: field.modelValue,
       errors: [],
     })
   })
 }
 
-export function useForm<T extends CreateForm>(args: T): Form {
+export function useForm<T>(args: CreateForm<T>): Form<T> {
   const { fields, settings } = args
   const _fields = normalizeFormFields(fields)
 
   const _settings = normalizeFormSettings(settings)
-  const form = reactive({ ...args })
-
-  Object.assign(
-    form,
-    {
-      ...args,
-      fields: _fields,
-      settings: _settings,
-    },
-  )
+  const form = reactive({
+    ...args,
+    fields: _fields,
+    settings: _settings,
+  })
 
   return form
 }

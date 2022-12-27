@@ -77,9 +77,15 @@ export interface Actions {
   }
 }
 
-export interface Fields extends Record<string, FieldStructure> {}
+export type Fields<T> = {
+  [Key in keyof T]: FieldStructure
+}
 
-export interface NormalizedFields extends Record<string, NormalizedFieldStructure> {}
+// export interface NormalizedFields extends Record<string, NormalizedFieldStructure> {}
+
+export type NormalizedFields<T> = {
+  [Key in keyof T]: NormalizedFieldStructure
+}
 
 export interface Title {
   create?: string
@@ -112,16 +118,17 @@ export interface FieldWatcher {
 
 export interface IFormRecord extends Record<string, any> {}
 
-export interface Form {
+export interface Form<T = object> {
   id: string
-  fields: NormalizedFields
+  fields: NormalizedFields<T>
   settings: NormalizedSettings
   generalErrors?: string[]
   record?: IFormRecord
 }
-export interface CreateForm {
+
+export interface CreateForm<T> {
   id: string
-  fields: Fields
+  fields: Fields<T>
   settings: Settings
   record?: IFormRecord
 }

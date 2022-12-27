@@ -45,7 +45,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
 const props = defineProps<{
   modelValue: boolean
 }>()
@@ -61,7 +60,8 @@ const modelValue = ref(props.modelValue)
 const closeModal = (cancel = true) => {
   modelValue.value = false
 
-  if (cancel) emit('cancel')
+  if (cancel)
+    emit('cancel')
   else emit('accept')
 }
 

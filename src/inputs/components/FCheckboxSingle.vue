@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedFieldStructure } from '@/types'
-import { setInputCheckboxModelValue, useErrorStyles, useSetModelValue } from '@/composables'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const props = defineProps<{
   field: NormalizedFieldStructure

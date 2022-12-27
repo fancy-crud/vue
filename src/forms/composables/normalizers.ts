@@ -1,24 +1,21 @@
-import {
-  Fields,
-  FieldStructure,
-  NormalizedFields,
-  NormalizedFieldStructure,
+import { parseRules } from './rules'
+import type {
   Buttons,
-  Title,
-  Settings,
-  FormModes,
+  FieldStructure,
+  Fields,
+  NormalizedButtons,
+  NormalizedFieldStructure,
+  NormalizedFields,
   NormalizedSettings,
-  NormalizedButtons
-} from "@/types"
-import { parseRules } from "./rules"
-import { getDefaults } from '@/settings'
-import { useLocale } from "@/composables"
+  Settings,
+  Title,
+} from '@/forms'
 
 const t = useLocale()
 
 export function createDefaultKeys(
   fieldKey: string,
-  field: FieldStructure
+  field: FieldStructure,
 ): NormalizedFieldStructure {
   const _field = Object.assign(
     {},
@@ -26,40 +23,37 @@ export function createDefaultKeys(
       id: `field-${fieldKey}-control`,
       modelKey: fieldKey,
       name: fieldKey,
-      type: "text",
+      type: 'text',
       rules: [],
       errors: [],
       wasFocused: false,
       modelValue: field.multiple ? [] : null,
       showPassword: false,
-      class: "",
+      class: '',
       ref: null,
-      // RenderField: controls[field.type || "text"].control,
-      // onInput: (e: Event) => e,
       ...field,
-    }
+    },
   )
 
-  if (_field.type === "autocomplete") {
-    _field.valueString = ""
-  }
+  if (_field.type === 'autocomplete')
+    _field.valueString = ''
 
   if (_field.url && (!_field.options || !Array.isArray(_field.options)))
     _field.options = []
 
   const defaults = getDefaults()
   const controlsClasses = defaults.classes
-  type controlClassType = keyof typeof controlsClasses;
-  _field.class = `${controlsClasses[_field.type as controlClassType || "text"]} ${_field.class}`.trim()
+  type controlClassType = keyof typeof controlsClasses
+  _field.class = `${controlsClasses[_field.type as controlClassType || 'text']} ${_field.class}`.trim()
 
   return _field
 }
 
-export function normalizeFormFields(fields: Fields): NormalizedFields {
-  const normalizedFields = {} as NormalizedFields
+export function normalizeFormFields<T>(fields: Fields<T>): NormalizedFields<T> {
+  const normalizedFields = {} as NormalizedFields<T>
 
   Object.entries(fields).forEach(([fieldKey, field]) => {
-    const _field = createDefaultKeys(fieldKey, field)
+    const _field = createDefaultKeys(fieldKey, field as FieldStructure)
 
     parseRules(_field.rules)
 
@@ -76,16 +70,16 @@ export function normalizeButtons(buttons?: Buttons) {
   const defaultMainButton = {
     class: defaults.classes.mainButton,
     label: {
-      create: t.value("create-new"),
-      update: t.value("update-record"),
+      create: t.value('create-new'),
+      update: t.value('update-record'),
     },
   }
 
   const defaultAuxButton = {
     class: defaults.classes.auxButton,
     label: {
-      create: t.value("cancel"),
-      update: t.value("cancel"),
+      create: t.value('cancel'),
+      update: t.value('cancel'),
     },
   }
 
@@ -103,17 +97,17 @@ export function normalizeButtons(buttons?: Buttons) {
         ...defaultAuxButton,
         ...auxButton,
       },
-    }
+    },
   ) as NormalizedButtons
 
-  if (typeof normalizedButtons.main.label === "object") {
+  if (typeof normalizedButtons.main.label === 'object') {
     normalizedButtons.main.label = {
       ...defaultMainButton.label,
       ...normalizedButtons.main.label,
     }
   }
 
-  if (typeof normalizedButtons.aux.label === "object") {
+  if (typeof normalizedButtons.aux.label === 'object') {
     normalizedButtons.aux.label = {
       ...defaultAuxButton.label,
       ...normalizedButtons.aux.label,
@@ -125,17 +119,19 @@ export function normalizeButtons(buttons?: Buttons) {
 
 export function normalizeTitle(title?: string | Title) {
   const defaultTitle = {
-    create: t.value("create-new-record"),
-    update: t.value("update-record"),
+    create: t.value('create-new-record'),
+    update: t.value('update-record'),
   }
 
-  if (!title) return defaultTitle
+  if (!title)
+    return defaultTitle
 
   let _title: string | typeof defaultTitle
 
-  if (typeof title === "string") {
+  if (typeof title === 'string') {
     _title = title
-  } else {
+  }
+  else {
     _title = {
       ...defaultTitle,
       ...title,
@@ -148,11 +144,11 @@ export function normalizeTitle(title?: string | Title) {
 export function normalizeFormSettings(settings: Settings): NormalizedSettings {
   const _settings = Object.assign(settings, {
     mode: settings.mode || FormModes.CREATE_MODE,
-    lookupField: settings.lookupField || "id",
+    lookupField: settings.lookupField || 'id',
     title: normalizeTitle(settings.title),
     buttons: normalizeButtons(settings.buttons),
     isValid: false,
-    statusCodesHandlers: settings.statusCodesHandlers || {}
+    statusCodesHandlers: settings.statusCodesHandlers || {},
   })
 
   return _settings

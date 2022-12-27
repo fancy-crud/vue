@@ -10,8 +10,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { Form } from '@/types'
-import { FormModes } from '@/types'
+import type { Form } from '@/forms'
 
 const props = defineProps<{
   form: Form

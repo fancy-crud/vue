@@ -19,18 +19,17 @@
 
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
-import type { NormalizedFieldStructure, NormalizedFields } from '@/types'
+import type { NormalizedFieldStructure, NormalizedFields } from '@/forms'
 
-import FInput from '@/components/inputs/FInput/FInput.vue'
-import FInputDate from '@/components/inputs/FInputDate/FInputDate.vue'
-import FCheckbox from '@/components/inputs/FCheckbox/FCheckbox.vue'
-import FInputPassword from '@/components/inputs/FInputPassword/FInputPassword.vue'
-import FSelect from '@/components/inputs/FSelect/FSelect.vue'
-import FRadio from '@/components/inputs/FRadio/FRadio.vue'
-import FColor from '@/components/inputs/FColor/FColor.vue'
-import FTextarea from '@/components/inputs/FTextarea/FTextarea.vue'
-import FInputFile from '@/components/inputs/FInputFile/FInputFile.vue'
-import { getForeignKeys } from '@/composables'
+import FInput from '@/inputs/components/FInput.vue'
+import FInputDate from '@/inputs/components/FInputDate.vue'
+import FCheckbox from '@/inputs/components/FCheckbox.vue'
+import FInputPassword from '@/inputs/components/FInputPassword.vue'
+import FSelect from '@/inputs/components/FSelect.vue'
+import FRadio from '@/inputs/components/FRadio.vue'
+import FColor from '@/inputs/components/FColor.vue'
+import FTextarea from '@/inputs/components/FTextarea.vue'
+import FInputFile from '@/inputs/components/FInputFile.vue'
 
 const props = defineProps<{
   filters: NormalizedFields

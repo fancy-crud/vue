@@ -1,8 +1,8 @@
 <template>
   <div>
-    <f-sidebar>
-      <f-sidebar-item title="Forms" />
-      <f-sidebar-item
+    <FSidebar>
+      <FSidebarItem title="Forms" />
+      <FSidebarItem
         v-for="(_, inputKey) in inputs"
         :key="inputKey"
         :label="inputKey.toUpperCase()"
@@ -16,7 +16,7 @@
       >
         <component :is="inputType" />
       </template>
-    </f-sidebar>
+    </FSidebar>
   </div>
 </template>
 

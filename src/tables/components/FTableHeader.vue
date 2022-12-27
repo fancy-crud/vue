@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TableHeader } from '@/types'
+import type { TableHeader } from '@/tables'
 
 const props = defineProps<{
   headers: TableHeader[]

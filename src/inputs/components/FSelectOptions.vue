@@ -53,9 +53,8 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import _ from 'lodash'
-import type { NormalizedFieldStructure } from '@/types'
+import type { NormalizedFieldStructure } from '@/forms'
 
 interface Option {
   _isSelected?: boolean

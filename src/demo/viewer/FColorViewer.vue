@@ -7,8 +7,6 @@
 </template>
 
 <script lang='ts' setup>
-import { useForm } from '@/forms/composables'
-
 const form = useForm({
   id: 'color-field',
   fields: {

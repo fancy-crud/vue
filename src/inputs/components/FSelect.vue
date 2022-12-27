@@ -85,12 +85,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, reactive, ref, watch } from 'vue'
 import _ from 'lodash'
-import type { Instance as PopperInstance } from '@popperjs/core'
 import { createPopper } from '@popperjs/core'
-import type { NormalizedFieldStructure, RecordManager } from '@/types'
-import { addOptionsToField, getRecords, useErrorStyles } from '@/composables'
+import type { Instance as PopperInstance } from '@popperjs/core'
+import type { NormalizedFieldStructure, RecordManager } from '@/forms'
 
 interface State {
   modelValue: unknown

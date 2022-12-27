@@ -22,9 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { provide } from 'vue'
-import type { NormalizedFieldStructure } from '@/types'
-import { setInputFileModelValue, useErrorStyles } from '@/composables'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const props = defineProps<{
   field: NormalizedFieldStructure

@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useLocale } from '@/composables'
 const props = defineProps<{
   hideEdit?: boolean
   hideDelete?: boolean

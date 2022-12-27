@@ -20,7 +20,7 @@
         v-if="isImageType"
         ref="targetEl"
         class="bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 w-56"
-        :class="{'hidden': !display }"
+        :class="{ hidden: !display }"
       >
         <img
           :src="url"
@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
 import { createPopper } from '@popperjs/core'
 
 const props = defineProps<{

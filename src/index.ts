@@ -9,7 +9,7 @@ import './styles/main.sass'
 const components: Record<string, any> = {}
 // install function executed by Vue.use()
 const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
-  Object.entries(import.meta.globEager('@/components/**/*.vue')).forEach(([key, value]) => {
+  Object.entries(import.meta.globEager('@/**/components/*.vue')).forEach(([key, value]) => {
     if (key.includes('/viewer/'))
       return
 
@@ -34,11 +34,11 @@ export default install
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from './common'
-// export * from './filters'
-// export * from './forms'
-// export * from './http'
+export * from './filters'
+export * from './forms'
+export * from './http'
 // export * from './inputs'
-// export * from './locales'
-// export * from './notifications'
-// export * from './settings'
-// export * from './tables'
+export * from './locales'
+export * from './notifications'
+export * from './settings'
+export * from './tables'

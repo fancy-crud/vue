@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios'
-import type { Form } from '@/forms'
+import type { Form, NormalizedFieldStructure } from '@/forms'
 import type { HandleRequestStatusCodes } from '@/http'
 
 const t = useLocale()
@@ -12,6 +12,8 @@ function handleBadRequest(form: Form, data?: any) {
   if (!data)
     return
 
+  type FieldKey = keyof typeof form.fields
+
   Object.entries(data).forEach(([fieldKey, value]) => {
     let messageError = ''
     if (Array.isArray(value) && value.length)
@@ -20,7 +22,7 @@ function handleBadRequest(form: Form, data?: any) {
     else
       messageError = (value as string)
 
-    if (!form.fields[fieldKey]) {
+    if (!form.fields[fieldKey as FieldKey]) {
       if (Array.isArray(form.generalErrors))
         form.generalErrors.push(`${fieldKey} - ${messageError}`)
 
@@ -28,7 +30,7 @@ function handleBadRequest(form: Form, data?: any) {
         form.generalErrors = [`${fieldKey} - ${messageError}`]
     }
     else {
-      form.fields[fieldKey].errors = [messageError]
+      (form.fields[fieldKey as FieldKey] as NormalizedFieldStructure).errors = [messageError]
     }
   })
 }

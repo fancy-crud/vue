@@ -23,9 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide } from 'vue'
-import type { NormalizedFieldStructure } from '@/types'
-import { setInputTextModelValue, togglePasswordVisibility, useErrorStyles, useSetModelValue } from '@/composables'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const props = defineProps<{
   field: NormalizedFieldStructure

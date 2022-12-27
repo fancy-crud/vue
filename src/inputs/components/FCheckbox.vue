@@ -22,8 +22,7 @@
 
 <script lang="ts" setup>
 import { computed, provide } from 'vue'
-import { useErrorStyles } from '@/composables'
-import type { NormalizedFieldStructure } from '@/types'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const props = defineProps<{
   field: NormalizedFieldStructure

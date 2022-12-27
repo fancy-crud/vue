@@ -14,7 +14,8 @@
   </teleport>
 </template>
 
-<script lang="ts" setup>import { onMounted, provide, ref, watch } from 'vue';
+<script lang="ts" setup>
+import { onMounted, provide, ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: boolean
@@ -57,6 +58,7 @@ onMounted(() => {
     },
   })
 
-  if (display.value) open()
+  if (display.value)
+    open()
 })
 </script>

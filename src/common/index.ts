@@ -4,8 +4,6 @@ export * from './composables'
 export function exportComponents() {
   const components = import.meta.globEager('./**/*.vue')
 
-  console.log(components)
-
   const exportable: any = {}
 
   function getName(key: string) {

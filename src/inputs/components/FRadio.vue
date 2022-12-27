@@ -31,10 +31,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, ref } from 'vue'
 import _ from 'lodash'
-import type { NormalizedFieldStructure } from '@/types'
-import { setInputRadioModelValue, useErrorStyles } from '@/composables'
+import type { NormalizedFieldStructure } from '@/forms'
 
 const props = defineProps<{
   field: NormalizedFieldStructure

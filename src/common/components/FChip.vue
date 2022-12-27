@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang='ts'>
-import { useAttrs } from 'vue'
-import { useDefaultBackgroundColor } from '@/composables'
 const attrs = useAttrs() as any
 
 const bgColor = useDefaultBackgroundColor(
