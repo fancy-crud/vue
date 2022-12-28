@@ -29,9 +29,5 @@ const emit = defineEmits<{
 }>()
 
 const errorStyles = useErrorStyles(props.field)
-
-const modelValue = useSetModelValue(props.field, () => {
-  setInputCheckboxModelValue(props.field, modelValue.value)
-  emit('update:modelValue', modelValue.value)
-})
+const modelValue = useFieldModelValue(props.field, 'checkbox', emit)
 </script>

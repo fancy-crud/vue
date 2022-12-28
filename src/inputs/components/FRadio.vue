@@ -52,10 +52,10 @@ const options = computed(() => _.cloneDeep(props.field.options))
 const optionLabel = ref(props.field.optionLabel || '')
 
 const errorStyles = useErrorStyles(props.field)
+const modelValue = useFieldModelValue(props.field, 'radio', emit)
 
 function setModelValue(value: any) {
-  setInputRadioModelValue(props.field, value)
-  emit('update:modelValue', value)
+  modelValue.value = value
 }
 
 function getOptionLabel(option: any) {

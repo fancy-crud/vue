@@ -88,7 +88,8 @@
 import _ from 'lodash'
 import { createPopper } from '@popperjs/core'
 import type { Instance as PopperInstance } from '@popperjs/core'
-import type { NormalizedFieldStructure, RecordManager } from '@/forms'
+import type { NormalizedFieldStructure } from '@/forms'
+import type { RecordManager } from '@/http'
 
 interface State {
   modelValue: unknown

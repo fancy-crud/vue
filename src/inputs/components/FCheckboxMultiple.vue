@@ -33,17 +33,17 @@ const options = computed(() => _.cloneDeep(props.field.options))
 const optionLabel = ref(props.field.optionLabel || '')
 
 const errorStyles = useErrorStyles(props.field)
+const modelValue = useFieldModelValue(props.field, 'checkbox', emit)
 
-function setModelValue(value: any) {
-  setInputCheckboxModelValue(props.field, value)
-  emit('update:modelValue', value)
+function setModelValue(value: unknown) {
+  modelValue.value = value
 }
 
 function getOptionLabel(option: any) {
-  if (typeof option !== 'object')
-    return option
+  if (typeof option === 'object')
+    return option[optionLabel.value]
 
-  return option[optionLabel.value]
+  return option
 }
 
 function isChecked(option: unknown) {

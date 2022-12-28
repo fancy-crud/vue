@@ -51,10 +51,7 @@ const inputRef = ref<HTMLInputElement>()
 const dateInput = ref<any>()
 
 const errorStyles = useErrorStyles(props.field)
-const modelValue = useSetModelValue(props.field, () => {
-  setInputTextModelValue(props.field, modelValue.value)
-  emit('update:modelValue', modelValue.value)
-})
+const modelValue = useFieldModelValue(props.field, 'text', emit)
 
 const setModel = (e: Event) => {
   const value = (e.target as HTMLInputElement).value

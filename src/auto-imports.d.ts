@@ -10,8 +10,6 @@ declare global {
   const $toRef: typeof import('vue/macros')['$toRef']
   const EffectScope: typeof import('vue')['EffectScope']
   const FormModes: typeof import('./forms/typings/index')['FormModes']
-  const NO_ACTION: typeof import('./forms/composables/actions')['NO_ACTION']
-  const actions: typeof import('./forms/composables/actions')['actions']
   const addOptionsToField: typeof import('./http/composables/requests')['addOptionsToField']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -64,6 +62,7 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
+  const modelValueTypes: typeof import('./inputs/composables/index')['modelValueTypes']
   const nextTick: typeof import('vue')['nextTick']
   const normalizeButtons: typeof import('./forms/composables/normalizers')['normalizeButtons']
   const normalizeFormFields: typeof import('./forms/composables/normalizers')['normalizeFormFields']
@@ -111,14 +110,14 @@ declare global {
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const retrieveRecord: typeof import('./http/composables/requests')['retrieveRecord']
   const setDefaultClasses: typeof import('./settings/composables/index')['setDefaultClasses']
-  const setFormMode: typeof import('./forms/composables/actions')['setFormMode']
-  const setFormRecord: typeof import('./forms/composables/actions')['setFormRecord']
+  const setFormMode: typeof import('./inputs/composables/index')['setFormMode']
+  const setFormRecord: typeof import('./inputs/composables/index')['setFormRecord']
   const setHttpConfig: typeof import('./http/composables/requests')['setHttpConfig']
-  const setInputCheckboxModelValue: typeof import('./forms/composables/actions')['setInputCheckboxModelValue']
-  const setInputFileModelValue: typeof import('./forms/composables/actions')['setInputFileModelValue']
-  const setInputRadioModelValue: typeof import('./forms/composables/actions')['setInputRadioModelValue']
-  const setInputSelectModelValue: typeof import('./forms/composables/actions')['setInputSelectModelValue']
-  const setInputTextModelValue: typeof import('./forms/composables/actions')['setInputTextModelValue']
+  const setInputCheckboxModelValue: typeof import('./inputs/composables/index')['setInputCheckboxModelValue']
+  const setInputFileModelValue: typeof import('./inputs/composables/index')['setInputFileModelValue']
+  const setInputRadioModelValue: typeof import('./inputs/composables/index')['setInputRadioModelValue']
+  const setInputSelectModelValue: typeof import('./inputs/composables/index')['setInputSelectModelValue']
+  const setInputTextModelValue: typeof import('./inputs/composables/index')['setInputTextModelValue']
   const setLocale: typeof import('./locales/composables/locale')['setLocale']
   const setStatusCodesHandlers: typeof import('./settings/composables/index')['setStatusCodesHandlers']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -135,7 +134,7 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const togglePasswordVisibility: typeof import('./forms/composables/actions')['togglePasswordVisibility']
+  const togglePasswordVisibility: typeof import('./inputs/composables/index')['togglePasswordVisibility']
   const triggerCreateOrUpdate: typeof import('./http/composables/requests')['triggerCreateOrUpdate']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
@@ -181,7 +180,7 @@ declare global {
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
   const useDebouncedRefHistory: typeof import('@vueuse/core')['useDebouncedRefHistory']
-  const useDefaultBackgroundColor: typeof import('./common/composables/index')['useDefaultBackgroundColor']
+  const useDefaultBackgroundColor: typeof import('./common/composables/styles')['useDefaultBackgroundColor']
   const useDeviceMotion: typeof import('@vueuse/core')['useDeviceMotion']
   const useDeviceOrientation: typeof import('@vueuse/core')['useDeviceOrientation']
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio']
@@ -202,6 +201,7 @@ declare global {
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
   const useFetch: typeof import('@vueuse/core')['useFetch']
+  const useFieldModelValue: typeof import('./inputs/composables/index')['useFieldModelValue']
   const useFileDialog: typeof import('@vueuse/core')['useFileDialog']
   const useFileSystemAccess: typeof import('@vueuse/core')['useFileSystemAccess']
   const useFilters: typeof import('./filters/composables/index')['useFilters']
@@ -261,7 +261,6 @@ declare global {
   const useScroll: typeof import('@vueuse/core')['useScroll']
   const useScrollLock: typeof import('@vueuse/core')['useScrollLock']
   const useSessionStorage: typeof import('@vueuse/core')['useSessionStorage']
-  const useSetModelValue: typeof import('./forms/composables/actions')['useSetModelValue']
   const useShare: typeof import('@vueuse/core')['useShare']
   const useSlots: typeof import('vue')['useSlots']
   const useSorted: typeof import('@vueuse/core')['useSorted']
@@ -337,8 +336,6 @@ declare module 'vue' {
     readonly $toRef: UnwrapRef<typeof import('vue/macros')['$toRef']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly FormModes: UnwrapRef<typeof import('./forms/typings/index')['FormModes']>
-    readonly NO_ACTION: UnwrapRef<typeof import('./forms/composables/actions')['NO_ACTION']>
-    readonly actions: UnwrapRef<typeof import('./forms/composables/actions')['actions']>
     readonly addOptionsToField: UnwrapRef<typeof import('./http/composables/requests')['addOptionsToField']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
@@ -391,6 +388,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
+    readonly modelValueTypes: UnwrapRef<typeof import('./inputs/composables/index')['modelValueTypes']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly normalizeButtons: UnwrapRef<typeof import('./forms/composables/normalizers')['normalizeButtons']>
     readonly normalizeFormFields: UnwrapRef<typeof import('./forms/composables/normalizers')['normalizeFormFields']>
@@ -438,14 +436,14 @@ declare module 'vue' {
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly retrieveRecord: UnwrapRef<typeof import('./http/composables/requests')['retrieveRecord']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./settings/composables/index')['setDefaultClasses']>
-    readonly setFormMode: UnwrapRef<typeof import('./forms/composables/actions')['setFormMode']>
-    readonly setFormRecord: UnwrapRef<typeof import('./forms/composables/actions')['setFormRecord']>
+    readonly setFormMode: UnwrapRef<typeof import('./inputs/composables/index')['setFormMode']>
+    readonly setFormRecord: UnwrapRef<typeof import('./inputs/composables/index')['setFormRecord']>
     readonly setHttpConfig: UnwrapRef<typeof import('./http/composables/requests')['setHttpConfig']>
-    readonly setInputCheckboxModelValue: UnwrapRef<typeof import('./forms/composables/actions')['setInputCheckboxModelValue']>
-    readonly setInputFileModelValue: UnwrapRef<typeof import('./forms/composables/actions')['setInputFileModelValue']>
-    readonly setInputRadioModelValue: UnwrapRef<typeof import('./forms/composables/actions')['setInputRadioModelValue']>
-    readonly setInputSelectModelValue: UnwrapRef<typeof import('./forms/composables/actions')['setInputSelectModelValue']>
-    readonly setInputTextModelValue: UnwrapRef<typeof import('./forms/composables/actions')['setInputTextModelValue']>
+    readonly setInputCheckboxModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputCheckboxModelValue']>
+    readonly setInputFileModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputFileModelValue']>
+    readonly setInputRadioModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputRadioModelValue']>
+    readonly setInputSelectModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputSelectModelValue']>
+    readonly setInputTextModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputTextModelValue']>
     readonly setLocale: UnwrapRef<typeof import('./locales/composables/locale')['setLocale']>
     readonly setStatusCodesHandlers: UnwrapRef<typeof import('./settings/composables/index')['setStatusCodesHandlers']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
@@ -462,7 +460,7 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly togglePasswordVisibility: UnwrapRef<typeof import('./forms/composables/actions')['togglePasswordVisibility']>
+    readonly togglePasswordVisibility: UnwrapRef<typeof import('./inputs/composables/index')['togglePasswordVisibility']>
     readonly triggerCreateOrUpdate: UnwrapRef<typeof import('./http/composables/requests')['triggerCreateOrUpdate']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
@@ -508,7 +506,7 @@ declare module 'vue' {
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
     readonly useDebouncedRefHistory: UnwrapRef<typeof import('@vueuse/core')['useDebouncedRefHistory']>
-    readonly useDefaultBackgroundColor: UnwrapRef<typeof import('./common/composables/index')['useDefaultBackgroundColor']>
+    readonly useDefaultBackgroundColor: UnwrapRef<typeof import('./common/composables/styles')['useDefaultBackgroundColor']>
     readonly useDeviceMotion: UnwrapRef<typeof import('@vueuse/core')['useDeviceMotion']>
     readonly useDeviceOrientation: UnwrapRef<typeof import('@vueuse/core')['useDeviceOrientation']>
     readonly useDevicePixelRatio: UnwrapRef<typeof import('@vueuse/core')['useDevicePixelRatio']>
@@ -529,6 +527,7 @@ declare module 'vue' {
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>
+    readonly useFieldModelValue: UnwrapRef<typeof import('./inputs/composables/index')['useFieldModelValue']>
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
     readonly useFilters: UnwrapRef<typeof import('./filters/composables/index')['useFilters']>
@@ -588,7 +587,6 @@ declare module 'vue' {
     readonly useScroll: UnwrapRef<typeof import('@vueuse/core')['useScroll']>
     readonly useScrollLock: UnwrapRef<typeof import('@vueuse/core')['useScrollLock']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
-    readonly useSetModelValue: UnwrapRef<typeof import('./forms/composables/actions')['useSetModelValue']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useSorted: UnwrapRef<typeof import('@vueuse/core')['useSorted']>

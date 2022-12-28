@@ -35,9 +35,10 @@ const emit = defineEmits<{
 provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
+const modelValue = useFieldModelValue(props.field, 'file', emit)
+
 const setModelValue = (e: Event) => {
   const files = (e.target as HTMLInputElement).files
-  setInputFileModelValue(props.field, files)
-  emit('update:modelValue', props.field.modelValue)
+  modelValue.value = files
 }
 </script>

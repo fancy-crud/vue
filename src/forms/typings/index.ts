@@ -21,6 +21,7 @@ export interface Buttons {
 export interface NormalizedButtons extends Required<Buttons> {}
 
 export interface FieldStructure extends InputHTMLAttributes {
+  clearable?: boolean
   label?: string
   multiple?: boolean
   valueString?: string | null

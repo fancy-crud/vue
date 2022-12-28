@@ -11,7 +11,7 @@ export const setInputSelectModelValue = (field: NormalizedFieldStructure, value:
   )
 }
 
-export const setInputCheckboxModelValue = (field: NormalizedFieldStructure, value: unknown) => {
+export const setInputCheckboxModelValue = (field: NormalizedFieldStructure, value: any) => {
   const singleValue = () => {
     field.modelValue = value
   }
@@ -38,14 +38,14 @@ export const setInputCheckboxModelValue = (field: NormalizedFieldStructure, valu
   singleValue()
 }
 
-export const setInputFileModelValue = (field: NormalizedFieldStructure, files: any) => {
+export const setInputFileModelValue = (field: NormalizedFieldStructure, value: any) => {
   const _files = []
 
-  if (!files)
+  if (!value)
     return
 
-  for (let index = 0; index < files.length; index++)
-    _files.push(files[index])
+  for (let index = 0; index < value.length; index++)
+    _files.push(value[index])
 
   field.modelValue = _files
 }
@@ -58,19 +58,17 @@ export const togglePasswordVisibility = (field: NormalizedFieldStructure) => {
   field.showPassword = !field.showPassword
 }
 
-export const actions: any = {
-  text: { onInput: setInputTextModelValue },
-  textarea: { onInput: setInputTextModelValue },
-  color: { onChange: setInputTextModelValue, onInput: null },
-  date: { onInput: setInputTextModelValue },
-  select: { onInput: setInputSelectModelValue },
-  radio: { onInput: setInputSelectModelValue },
-  checkbox: { onInput: setInputCheckboxModelValue },
-  file: { onChange: setInputFileModelValue },
-  image: { onChange: setInputFileModelValue },
+export const modelValueTypes: Record<string, (field: NormalizedFieldStructure, value: any) => void> = {
+  text: setInputTextModelValue,
+  textarea: setInputTextModelValue,
+  color: setInputTextModelValue,
+  date: setInputTextModelValue,
+  select: setInputSelectModelValue,
+  radio: setInputSelectModelValue,
+  checkbox: setInputCheckboxModelValue,
+  file: setInputFileModelValue,
+  image: setInputFileModelValue,
 }
-
-export const NO_ACTION = () => null
 
 export function setFormMode(form: Form, mode: FormModes) {
   form.settings.mode = mode
@@ -80,15 +78,33 @@ export function setFormRecord(form: Form, record: unknown) {
   Object.assign(form, { record })
 }
 
-export function useSetModelValue(field: NormalizedFieldStructure, callback: () => void) {
+export function useFieldModelValue(field: NormalizedFieldStructure, type: string, emit: (name: 'update:modelValue', ...args: any[]) => void) {
   const modelValue = ref<unknown>(field.modelValue)
+  const timeout = ref<NodeJS.Timeout | null>(null)
+
+  const modelValueType = modelValueTypes[type]
+
+  watch(() => field.modelValue, () => modelValue.value = field.modelValue)
 
   watch(() => modelValue.value, () => {
     field.errors = []
-    callback()
-  })
 
-  watch(() => field.modelValue, () => modelValue.value = field.modelValue)
+    if (field.bounceTime) {
+      if (timeout.value) {
+        clearTimeout(timeout.value)
+        timeout.value = null
+      }
+
+      timeout.value = setTimeout(() => {
+        modelValueType(field, modelValue.value)
+        emit('update:modelValue', modelValue.value)
+      }, field.bounceTime)
+    }
+    else {
+      modelValueType(field, modelValue.value)
+      emit('update:modelValue', modelValue.value)
+    }
+  })
 
   return modelValue
 }

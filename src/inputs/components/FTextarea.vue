@@ -28,8 +28,5 @@ const emit = defineEmits<{
 provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
-const modelValue = useSetModelValue(props.field, () => {
-  setInputTextModelValue(props.field, modelValue.value)
-  emit('update:modelValue', modelValue.value)
-})
+const modelValue = useFieldModelValue(props.field, 'text', emit)
 </script>
