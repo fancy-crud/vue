@@ -77,10 +77,6 @@ const { getHandler } = useHandleRequestStatusCodes(props.form.settings.statusCod
 
 const notifications = computed(() => notificationStore.value)
 
-watch(notifications, () => {
-  console.log(notifications.value.length)
-})
-
 const beforeAndAfterFieldSlots = computed(() => {
   return Object.entries(slots).filter(
     ([slotName]) => slotName.startsWith('before-') || slotName.startsWith('after-'),

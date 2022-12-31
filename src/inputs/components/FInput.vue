@@ -29,4 +29,7 @@ provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'text', emit)
+const { validate } = useRules()
+
+onMounted(() => validate(props.field))
 </script>

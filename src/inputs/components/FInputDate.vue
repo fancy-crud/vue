@@ -52,13 +52,21 @@ const dateInput = ref<any>()
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'text', emit)
+const { validate } = useRules()
 
-const setModel = (e: Event) => {
+onMounted(() => {
+  initDatePicker()
+  validate(props.field)
+})
+
+onUnmounted(() => dateInput.value.hide())
+
+function setModel(e: Event) {
   const value = (e.target as HTMLInputElement).value
   modelValue.value = value
 }
 
-onMounted(() => {
+function initDatePicker() {
   if (inputRef.value) {
     dateInput.value = new Datepicker(inputRef.value, {
       todayHighlight: true,
@@ -66,7 +74,5 @@ onMounted(() => {
       clearBtn: true,
     })
   }
-})
-
-onUnmounted(() => dateInput.value.hide())
+}
 </script>

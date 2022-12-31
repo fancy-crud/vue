@@ -6,6 +6,7 @@
         :label="getLabel(mainButton)"
         :icon="mainButton.icon"
         :class="mainButton.class"
+        :disabled="!isFormValid(props.form.fields)"
       />
       <f-button
         @click="auxOnClick"
@@ -30,6 +31,8 @@ const emit = defineEmits<{
   (e: 'update', response: AxiosResponse): void
   (e: 'error', response?: AxiosResponse): void
 }>()
+
+const { isFormValid } = useRules()
 
 const mainButton = computed(() => props.form.settings.buttons.main)
 const auxButton = computed(() => props.form.settings.buttons.aux)

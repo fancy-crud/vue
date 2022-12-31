@@ -36,8 +36,11 @@ provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'file', emit)
+const { validate } = useRules()
 
-const setModelValue = (e: Event) => {
+onMounted(() => validate(props.field))
+
+function setModelValue(e: Event) {
   const files = (e.target as HTMLInputElement).files
   modelValue.value = files
 }

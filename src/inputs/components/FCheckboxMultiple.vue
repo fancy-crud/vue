@@ -35,6 +35,10 @@ const optionLabel = ref(props.field.optionLabel || '')
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'checkbox', emit)
 
+const { validate } = useRules()
+
+onMounted(() => validate(props.field))
+
 function setModelValue(value: unknown) {
   modelValue.value = value
 }

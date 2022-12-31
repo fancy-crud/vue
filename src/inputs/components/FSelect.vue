@@ -115,6 +115,8 @@ const targetElement = ref<HTMLElement>()
 const popper = ref<PopperInstance | null>()
 const optionsList = ref()
 const input = ref<HTMLInputElement | null>()
+
+const { validate } = useRules()
 const state = reactive<State>({
   listWidth: 0,
   searchTerm: '',
@@ -124,6 +126,8 @@ const state = reactive<State>({
 
 setupRecordsManager()
 setupModelValue()
+
+onMounted(() => validate(props.field))
 
 window.onresize = () => {
   state.listWidth = triggerElement.value?.offsetWidth || 0

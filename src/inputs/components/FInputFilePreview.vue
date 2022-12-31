@@ -50,25 +50,24 @@ const iconClass = computed(() => {
   return props.type === 'image' ? 'mdi-image' : 'mdi-file'
 })
 
-const openPreview = () => {
+onMounted(() => createPopper(triggerEl.value, targetEl.value, {
+  placement: 'left',
+  modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 10],
+      },
+    },
+  ],
+}),
+)
+
+function openPreview() {
   display.value = true
 }
 
-const closePreview = () => {
+function closePreview() {
   display.value = false
 }
-
-onMounted(() => {
-  createPopper(triggerEl.value, targetEl.value, {
-    placement: 'left',
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 10],
-        },
-      },
-    ],
-  })
-})
 </script>

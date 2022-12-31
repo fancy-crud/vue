@@ -53,6 +53,9 @@ const optionLabel = ref(props.field.optionLabel || '')
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'radio', emit)
+const { validate } = useRules()
+
+onMounted(() => validate(props.field))
 
 function setModelValue(value: any) {
   modelValue.value = value

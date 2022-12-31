@@ -121,38 +121,6 @@ export function getFormData(form: Form) {
   return { jsonForm: metadata, formData }
 }
 
-export async function validateForm(form: Form, _fieldKey?: string) {
-  const formMode = form.settings.mode
-  let isValid = true
-
-  if (_fieldKey) {
-    type FieldKey = keyof typeof form.fields
-    isValid = validateRules(form.fields[_fieldKey as FieldKey])
-
-    if (!isValid)
-      return
-  }
-
-  Object.entries(form.fields).forEach(([fieldKey, field]) => {
-    const skipField
-      = (formMode === FormModes.CREATE_MODE && field.updateOnly)
-      || (formMode === FormModes.UPDATE_MODE && field.createOnly)
-
-    if (!field.rules.length || skipField) {
-      field.errors = []
-      return
-    }
-
-    const result = validateRules(field, !(fieldKey === _fieldKey))
-
-    if (isValid)
-      isValid = result
-  })
-
-  if (isValid !== form.settings.isValid)
-    form.settings.isValid = isValid
-}
-
 export function resetModelValue(form: Form, cloneForm: Form) {
   type FieldKey = keyof typeof form.fields
 
@@ -169,7 +137,7 @@ export function useForm<T>(args: CreateForm<T>): Form<T> {
   const _fields = normalizeFormFields(fields)
 
   const _settings = normalizeFormSettings(settings)
-  const form = reactive({
+  const form: Form<T> = reactive({
     ...args,
     fields: _fields,
     settings: _settings,

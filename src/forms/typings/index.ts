@@ -1,4 +1,5 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes } from 'vue'
+import type { ButtonHTMLAttributes, InputHTMLAttributes, UnwrapRef } from 'vue'
+import type { ZodTypeAny } from 'zod'
 import type { HandleRequestStatusCodes } from '@/http'
 
 export enum FormModes {
@@ -45,6 +46,7 @@ export interface FieldStructure extends InputHTMLAttributes {
   updateOnly?: boolean
   hidden?: boolean
   hintText?: string
+  rules?: ZodTypeAny
   bounceTime?: number
   table?: {
     label?: string
@@ -66,7 +68,6 @@ export interface NormalizedFieldStructure extends FieldStructure {
   modelValue: unknown
   ref: any
   errors: string[]
-  rules: Array<(value: any) => string | boolean> | never[]
   onInput?: (e: Event) => void
 }
 
@@ -81,8 +82,6 @@ export interface Actions {
 export type Fields<T> = {
   [Key in keyof T]: FieldStructure
 }
-
-// export interface NormalizedFields extends Record<string, NormalizedFieldStructure> {}
 
 export type NormalizedFields<T> = {
   [Key in keyof T]: NormalizedFieldStructure
@@ -99,7 +98,6 @@ export interface Settings {
   mode?: FormModes
   title?: string | Title
   lookupField?: string
-  isValid?: boolean
   statusCodesHandlers?: Record<number, HandleRequestStatusCodes>
 }
 
@@ -121,7 +119,7 @@ export interface IFormRecord extends Record<string, any> {}
 
 export interface Form<T = object> {
   id: string
-  fields: NormalizedFields<T>
+  fields: NormalizedFields<T> | UnwrapRef<NormalizedFields<T>>
   settings: NormalizedSettings
   generalErrors?: string[]
   record?: IFormRecord

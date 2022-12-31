@@ -42,10 +42,13 @@
     "esno": "0.10.0",
     "flowbite": "^1.4.7",
     "flowbite-datepicker": "^1.2.1",
+    "joi": "^17.7.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "vue": "^3.2.19",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "yup": "^0.32.11",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.1",

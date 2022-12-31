@@ -37,10 +37,13 @@ provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'text', emit)
+const { validate } = useRules()
 
 const iconVisibility = computed(() => {
   return props.field.showPassword ? 'mdi mdi-eye' : 'mdi mdi-eye-off'
 })
 
 const inputType = computed(() => props.field.showPassword ? 'text' : 'password')
+
+onMounted(() => validate(props.field))
 </script>

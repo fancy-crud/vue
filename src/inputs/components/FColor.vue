@@ -41,8 +41,11 @@ provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'text', emit)
+const { validate } = useRules()
 
 const selectedColor = computed(() => {
   return { backgroundColor: (modelValue.value as string) || '' }
 })
+
+onMounted(() => validate(props.field))
 </script>

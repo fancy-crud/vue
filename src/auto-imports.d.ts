@@ -62,7 +62,7 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
-  const modelValueTypes: typeof import('./inputs/composables/index')['modelValueTypes']
+  const modelValueTypes: typeof import('./inputs/composables/model-value')['modelValueTypes']
   const nextTick: typeof import('vue')['nextTick']
   const normalizeButtons: typeof import('./forms/composables/normalizers')['normalizeButtons']
   const normalizeFormFields: typeof import('./forms/composables/normalizers')['normalizeFormFields']
@@ -86,7 +86,6 @@ declare global {
   const onStartTyping: typeof import('@vueuse/core')['onStartTyping']
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
-  const parseRules: typeof import('./forms/composables/rules')['parseRules']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const provide: typeof import('vue')['provide']
   const pushNotification: typeof import('./notifications/composables/index')['pushNotification']
@@ -110,14 +109,14 @@ declare global {
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const retrieveRecord: typeof import('./http/composables/requests')['retrieveRecord']
   const setDefaultClasses: typeof import('./settings/composables/index')['setDefaultClasses']
-  const setFormMode: typeof import('./inputs/composables/index')['setFormMode']
-  const setFormRecord: typeof import('./inputs/composables/index')['setFormRecord']
+  const setFormMode: typeof import('./inputs/composables/model-value')['setFormMode']
+  const setFormRecord: typeof import('./inputs/composables/model-value')['setFormRecord']
   const setHttpConfig: typeof import('./http/composables/requests')['setHttpConfig']
-  const setInputCheckboxModelValue: typeof import('./inputs/composables/index')['setInputCheckboxModelValue']
-  const setInputFileModelValue: typeof import('./inputs/composables/index')['setInputFileModelValue']
-  const setInputRadioModelValue: typeof import('./inputs/composables/index')['setInputRadioModelValue']
-  const setInputSelectModelValue: typeof import('./inputs/composables/index')['setInputSelectModelValue']
-  const setInputTextModelValue: typeof import('./inputs/composables/index')['setInputTextModelValue']
+  const setInputCheckboxModelValue: typeof import('./inputs/composables/model-value')['setInputCheckboxModelValue']
+  const setInputFileModelValue: typeof import('./inputs/composables/model-value')['setInputFileModelValue']
+  const setInputRadioModelValue: typeof import('./inputs/composables/model-value')['setInputRadioModelValue']
+  const setInputSelectModelValue: typeof import('./inputs/composables/model-value')['setInputSelectModelValue']
+  const setInputTextModelValue: typeof import('./inputs/composables/model-value')['setInputTextModelValue']
   const setLocale: typeof import('./locales/composables/locale')['setLocale']
   const setStatusCodesHandlers: typeof import('./settings/composables/index')['setStatusCodesHandlers']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -134,7 +133,7 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const togglePasswordVisibility: typeof import('./inputs/composables/index')['togglePasswordVisibility']
+  const togglePasswordVisibility: typeof import('./inputs/composables/model-value')['togglePasswordVisibility']
   const triggerCreateOrUpdate: typeof import('./http/composables/requests')['triggerCreateOrUpdate']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
@@ -201,7 +200,7 @@ declare global {
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
   const useFetch: typeof import('@vueuse/core')['useFetch']
-  const useFieldModelValue: typeof import('./inputs/composables/index')['useFieldModelValue']
+  const useFieldModelValue: typeof import('./inputs/composables/model-value')['useFieldModelValue']
   const useFileDialog: typeof import('@vueuse/core')['useFileDialog']
   const useFileSystemAccess: typeof import('@vueuse/core')['useFileSystemAccess']
   const useFilters: typeof import('./filters/composables/index')['useFilters']
@@ -254,7 +253,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
-  const useRules: typeof import('./forms/composables/rules')['useRules']
+  const useRules: typeof import('./inputs/composables/rules')['useRules']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
   const useScriptTag: typeof import('@vueuse/core')['useScriptTag']
@@ -305,8 +304,6 @@ declare global {
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
   const useXLSX: typeof import('./tables/composables/index')['useXLSX']
-  const validateForm: typeof import('./forms/composables/builder')['validateForm']
-  const validateRules: typeof import('./forms/composables/rules')['validateRules']
   const warningNotification: typeof import('./notifications/composables/index')['warningNotification']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
@@ -388,7 +385,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
-    readonly modelValueTypes: UnwrapRef<typeof import('./inputs/composables/index')['modelValueTypes']>
+    readonly modelValueTypes: UnwrapRef<typeof import('./inputs/composables/model-value')['modelValueTypes']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly normalizeButtons: UnwrapRef<typeof import('./forms/composables/normalizers')['normalizeButtons']>
     readonly normalizeFormFields: UnwrapRef<typeof import('./forms/composables/normalizers')['normalizeFormFields']>
@@ -412,7 +409,6 @@ declare module 'vue' {
     readonly onStartTyping: UnwrapRef<typeof import('@vueuse/core')['onStartTyping']>
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
-    readonly parseRules: UnwrapRef<typeof import('./forms/composables/rules')['parseRules']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly pushNotification: UnwrapRef<typeof import('./notifications/composables/index')['pushNotification']>
@@ -436,14 +432,14 @@ declare module 'vue' {
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly retrieveRecord: UnwrapRef<typeof import('./http/composables/requests')['retrieveRecord']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./settings/composables/index')['setDefaultClasses']>
-    readonly setFormMode: UnwrapRef<typeof import('./inputs/composables/index')['setFormMode']>
-    readonly setFormRecord: UnwrapRef<typeof import('./inputs/composables/index')['setFormRecord']>
+    readonly setFormMode: UnwrapRef<typeof import('./inputs/composables/model-value')['setFormMode']>
+    readonly setFormRecord: UnwrapRef<typeof import('./inputs/composables/model-value')['setFormRecord']>
     readonly setHttpConfig: UnwrapRef<typeof import('./http/composables/requests')['setHttpConfig']>
-    readonly setInputCheckboxModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputCheckboxModelValue']>
-    readonly setInputFileModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputFileModelValue']>
-    readonly setInputRadioModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputRadioModelValue']>
-    readonly setInputSelectModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputSelectModelValue']>
-    readonly setInputTextModelValue: UnwrapRef<typeof import('./inputs/composables/index')['setInputTextModelValue']>
+    readonly setInputCheckboxModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['setInputCheckboxModelValue']>
+    readonly setInputFileModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['setInputFileModelValue']>
+    readonly setInputRadioModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['setInputRadioModelValue']>
+    readonly setInputSelectModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['setInputSelectModelValue']>
+    readonly setInputTextModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['setInputTextModelValue']>
     readonly setLocale: UnwrapRef<typeof import('./locales/composables/locale')['setLocale']>
     readonly setStatusCodesHandlers: UnwrapRef<typeof import('./settings/composables/index')['setStatusCodesHandlers']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
@@ -460,7 +456,7 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly togglePasswordVisibility: UnwrapRef<typeof import('./inputs/composables/index')['togglePasswordVisibility']>
+    readonly togglePasswordVisibility: UnwrapRef<typeof import('./inputs/composables/model-value')['togglePasswordVisibility']>
     readonly triggerCreateOrUpdate: UnwrapRef<typeof import('./http/composables/requests')['triggerCreateOrUpdate']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
@@ -527,7 +523,7 @@ declare module 'vue' {
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>
-    readonly useFieldModelValue: UnwrapRef<typeof import('./inputs/composables/index')['useFieldModelValue']>
+    readonly useFieldModelValue: UnwrapRef<typeof import('./inputs/composables/model-value')['useFieldModelValue']>
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
     readonly useFilters: UnwrapRef<typeof import('./filters/composables/index')['useFilters']>
@@ -580,7 +576,7 @@ declare module 'vue' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useRules: UnwrapRef<typeof import('./forms/composables/rules')['useRules']>
+    readonly useRules: UnwrapRef<typeof import('./inputs/composables/rules')['useRules']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
@@ -631,8 +627,6 @@ declare module 'vue' {
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
     readonly useXLSX: UnwrapRef<typeof import('./tables/composables/index')['useXLSX']>
-    readonly validateForm: UnwrapRef<typeof import('./forms/composables/builder')['validateForm']>
-    readonly validateRules: UnwrapRef<typeof import('./forms/composables/rules')['validateRules']>
     readonly warningNotification: UnwrapRef<typeof import('./notifications/composables/index')['warningNotification']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>

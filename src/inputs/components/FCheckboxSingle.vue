@@ -30,4 +30,7 @@ const emit = defineEmits<{
 
 const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'checkbox', emit)
+const { validate } = useRules()
+
+onMounted(() => validate(props.field))
 </script>

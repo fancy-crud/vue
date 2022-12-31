@@ -1,4 +1,3 @@
-import { parseRules } from './rules'
 import type {
   Buttons,
   FieldStructure,
@@ -24,7 +23,6 @@ export function createDefaultKeys(
       modelKey: fieldKey,
       name: fieldKey,
       type: 'text',
-      rules: [],
       errors: [],
       wasFocused: false,
       modelValue: field.multiple ? [] : null,
@@ -55,7 +53,7 @@ export function normalizeFormFields<T>(fields: Fields<T>): NormalizedFields<T> {
   Object.entries(fields).forEach(([fieldKey, field]) => {
     const _field = createDefaultKeys(fieldKey, field as FieldStructure)
 
-    parseRules(_field.rules)
+    // parseRules(_field.rules)
 
     Object.assign(normalizedFields, {
       [fieldKey]: _field,
@@ -147,7 +145,6 @@ export function normalizeFormSettings(settings: Settings): NormalizedSettings {
     lookupField: settings.lookupField || 'id',
     title: normalizeTitle(settings.title),
     buttons: normalizeButtons(settings.buttons),
-    isValid: false,
     statusCodesHandlers: settings.statusCodesHandlers || {},
   })
 

@@ -2,7 +2,7 @@
   <button
     v-bind="$attrs"
     ref="buttonRef"
-    :disabled="props.loading"
+    :disabled="props.disabled || props.loading"
     :class="className"
     class="f-button f-button--hover"
     type="button"
@@ -57,6 +57,7 @@ const props = defineProps<{
   icon?: string
   tooltip?: string
   tooltipPlacement?: string
+  disabled?: boolean
 }>()
 const attrs = useAttrs() as any
 
@@ -71,8 +72,10 @@ const bgColor = useDefaultBackgroundColor(
 
 const className = computed(() => {
   const isIcon = props.icon ? 'f-button--icon' : ''
+  const _bgColor = props.disabled ? `${bgColor.value}/70` : bgColor.value
+
   return [
-    bgColor.value,
+    _bgColor,
     isIcon,
   ]
 })
