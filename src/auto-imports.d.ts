@@ -28,7 +28,6 @@ declare global {
   const createHeaders: typeof import('./tables/composables/index')['createHeaders']
   const createInjectionState: typeof import('@vueuse/core')['createInjectionState']
   const createReactiveFn: typeof import('@vueuse/core')['createReactiveFn']
-  const createRecord: typeof import('./http/composables/requests')['createRecord']
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
@@ -36,7 +35,6 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
-  const deleteRecord: typeof import('./http/composables/requests')['deleteRecord']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const errorNotification: typeof import('./notifications/composables/index')['errorNotification']
@@ -47,7 +45,6 @@ declare global {
   const getDefaults: typeof import('./settings/composables/index')['getDefaults']
   const getForeignKeys: typeof import('./http/composables/requests')['getForeignKeys']
   const getFormData: typeof import('./forms/composables/builder')['getFormData']
-  const getRecords: typeof import('./http/composables/requests')['getRecords']
   const getStatusCodesHandlers: typeof import('./settings/composables/index')['getStatusCodesHandlers']
   const h: typeof import('vue')['h']
   const handleUnauthorizedUser: typeof import('./http/composables/response-handlers')['handleUnauthorizedUser']
@@ -107,7 +104,6 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const retrieveRecord: typeof import('./http/composables/requests')['retrieveRecord']
   const setDefaultClasses: typeof import('./settings/composables/index')['setDefaultClasses']
   const setFormMode: typeof import('./inputs/composables/model-value')['setFormMode']
   const setFormRecord: typeof import('./inputs/composables/model-value')['setFormRecord']
@@ -134,7 +130,6 @@ declare global {
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
   const togglePasswordVisibility: typeof import('./inputs/composables/model-value')['togglePasswordVisibility']
-  const triggerCreateOrUpdate: typeof import('./http/composables/requests')['triggerCreateOrUpdate']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -144,7 +139,6 @@ declare global {
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
-  const updateRecord: typeof import('./http/composables/requests')['updateRecord']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
@@ -169,6 +163,7 @@ declare global {
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
+  const useCreateRequest: typeof import('./http/composables/requests')['useCreateRequest']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -180,6 +175,7 @@ declare global {
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
   const useDebouncedRefHistory: typeof import('@vueuse/core')['useDebouncedRefHistory']
   const useDefaultBackgroundColor: typeof import('./common/composables/styles')['useDefaultBackgroundColor']
+  const useDeleteRequest: typeof import('./http/composables/requests')['useDeleteRequest']
   const useDeviceMotion: typeof import('@vueuse/core')['useDeviceMotion']
   const useDeviceOrientation: typeof import('@vueuse/core')['useDeviceOrientation']
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio']
@@ -221,6 +217,7 @@ declare global {
   const useIntervalFn: typeof import('@vueuse/core')['useIntervalFn']
   const useKeyModifier: typeof import('@vueuse/core')['useKeyModifier']
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
+  const useListRequest: typeof import('./http/composables/requests')['useListRequest']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
   const useLocale: typeof import('./locales/composables/locale')['useLocale']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
@@ -253,6 +250,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
+  const useRetrieveRequest: typeof import('./http/composables/requests')['useRetrieveRequest']
   const useRules: typeof import('./inputs/composables/rules')['useRules']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
@@ -289,6 +287,7 @@ declare global {
   const useToString: typeof import('@vueuse/core')['useToString']
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useTransition: typeof import('@vueuse/core')['useTransition']
+  const useUpdateRequest: typeof import('./http/composables/requests')['useUpdateRequest']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
   const useVModel: typeof import('@vueuse/core')['useVModel']
@@ -351,7 +350,6 @@ declare module 'vue' {
     readonly createHeaders: UnwrapRef<typeof import('./tables/composables/index')['createHeaders']>
     readonly createInjectionState: UnwrapRef<typeof import('@vueuse/core')['createInjectionState']>
     readonly createReactiveFn: UnwrapRef<typeof import('@vueuse/core')['createReactiveFn']>
-    readonly createRecord: UnwrapRef<typeof import('./http/composables/requests')['createRecord']>
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
@@ -359,7 +357,6 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
-    readonly deleteRecord: UnwrapRef<typeof import('./http/composables/requests')['deleteRecord']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly errorNotification: UnwrapRef<typeof import('./notifications/composables/index')['errorNotification']>
@@ -370,7 +367,6 @@ declare module 'vue' {
     readonly getDefaults: UnwrapRef<typeof import('./settings/composables/index')['getDefaults']>
     readonly getForeignKeys: UnwrapRef<typeof import('./http/composables/requests')['getForeignKeys']>
     readonly getFormData: UnwrapRef<typeof import('./forms/composables/builder')['getFormData']>
-    readonly getRecords: UnwrapRef<typeof import('./http/composables/requests')['getRecords']>
     readonly getStatusCodesHandlers: UnwrapRef<typeof import('./settings/composables/index')['getStatusCodesHandlers']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly handleUnauthorizedUser: UnwrapRef<typeof import('./http/composables/response-handlers')['handleUnauthorizedUser']>
@@ -430,7 +426,6 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly retrieveRecord: UnwrapRef<typeof import('./http/composables/requests')['retrieveRecord']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./settings/composables/index')['setDefaultClasses']>
     readonly setFormMode: UnwrapRef<typeof import('./inputs/composables/model-value')['setFormMode']>
     readonly setFormRecord: UnwrapRef<typeof import('./inputs/composables/model-value')['setFormRecord']>
@@ -457,7 +452,6 @@ declare module 'vue' {
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
     readonly togglePasswordVisibility: UnwrapRef<typeof import('./inputs/composables/model-value')['togglePasswordVisibility']>
-    readonly triggerCreateOrUpdate: UnwrapRef<typeof import('./http/composables/requests')['triggerCreateOrUpdate']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -467,7 +461,6 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
-    readonly updateRecord: UnwrapRef<typeof import('./http/composables/requests')['updateRecord']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
@@ -492,6 +485,7 @@ declare module 'vue' {
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
+    readonly useCreateRequest: UnwrapRef<typeof import('./http/composables/requests')['useCreateRequest']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -503,6 +497,7 @@ declare module 'vue' {
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
     readonly useDebouncedRefHistory: UnwrapRef<typeof import('@vueuse/core')['useDebouncedRefHistory']>
     readonly useDefaultBackgroundColor: UnwrapRef<typeof import('./common/composables/styles')['useDefaultBackgroundColor']>
+    readonly useDeleteRequest: UnwrapRef<typeof import('./http/composables/requests')['useDeleteRequest']>
     readonly useDeviceMotion: UnwrapRef<typeof import('@vueuse/core')['useDeviceMotion']>
     readonly useDeviceOrientation: UnwrapRef<typeof import('@vueuse/core')['useDeviceOrientation']>
     readonly useDevicePixelRatio: UnwrapRef<typeof import('@vueuse/core')['useDevicePixelRatio']>
@@ -544,6 +539,7 @@ declare module 'vue' {
     readonly useIntervalFn: UnwrapRef<typeof import('@vueuse/core')['useIntervalFn']>
     readonly useKeyModifier: UnwrapRef<typeof import('@vueuse/core')['useKeyModifier']>
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
+    readonly useListRequest: UnwrapRef<typeof import('./http/composables/requests')['useListRequest']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
     readonly useLocale: UnwrapRef<typeof import('./locales/composables/locale')['useLocale']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
@@ -576,6 +572,7 @@ declare module 'vue' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
+    readonly useRetrieveRequest: UnwrapRef<typeof import('./http/composables/requests')['useRetrieveRequest']>
     readonly useRules: UnwrapRef<typeof import('./inputs/composables/rules')['useRules']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
@@ -612,6 +609,7 @@ declare module 'vue' {
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
+    readonly useUpdateRequest: UnwrapRef<typeof import('./http/composables/requests')['useUpdateRequest']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>

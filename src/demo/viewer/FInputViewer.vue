@@ -1,10 +1,8 @@
 <template>
   <f-form :form="form" />
 
-  <input v-model="form.fields.input.modelValue" type="text">
-
   <div class="p-10 mt-10 border">
-    {{ form.fields.input.modelValue }}
+    {{ list }}
   </div>
 </template>
 
@@ -17,18 +15,22 @@ const form = useForm({
     input: {
       label: 'Text',
       modelValue: 'Como',
-      // bounceTime: 3000,
+      bounceTime: 3000,
       rules: rules.string().min(1),
-    },
-    number: {
-      label: 'Number',
-      modelValue: '0',
-      rules: rules.coerce.number(),
-      type: 'number',
     },
   },
   settings: {
     url: 'artists/',
   },
 })
+
+const { list, filterParams } = useListRequest('artists/', { search: '' }, {}, {
+  autoTrigger: true,
+  hotFetch: true,
+})
+
+watch(() => form.fields.input.modelValue as string, (value) => {
+  filterParams.search = value
+})
 </script>
+

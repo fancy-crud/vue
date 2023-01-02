@@ -1,8 +1,9 @@
 import _ from 'lodash'
-import type { AxiosInstance, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
+import type { Ref } from 'vue'
 
-import type { Form, NormalizedFieldStructure, NormalizedFields } from '@/forms'
-import type { CreateRequest, DeleteRequest, GetListRequest, RecordManager, RetrieveRequest, SameAPIEndpoint, UpdateRequest } from '@/http'
+import type { NormalizedFieldStructure, NormalizedFields } from '@/forms'
+import type { CreateRequestOptions, DeleteRequestOptions, JSONForm, ListRequestOptions, Pagination, RecordManager, RequestDefaultOptions, RetrieveRequestOptions, SameAPIEndpoint, UpdateRequestOptions } from '@/http'
 
 export const http = {
   axios: {} as AxiosInstance,
@@ -20,6 +21,16 @@ function getPaginationResultsKey(data: any) {
 function getPaginationCountKey(data: any) {
   const splittedKey = http.pagination.count.split('.')
   return splittedKey.reduce((accum, key) => accum[key], data)
+}
+
+function onSuccess(response: AxiosResponse, options?: RequestDefaultOptions) {
+  if (typeof options?.onSuccess === 'function')
+    options?.onSuccess(response)
+}
+
+function onFailed(error: AxiosError, options?: RequestDefaultOptions) {
+  if (typeof options?.onFailed === 'function')
+    options?.onFailed(error)
 }
 
 export function setHttpConfig(options: unknown) {
@@ -44,7 +55,7 @@ export function buildURL({
   return result.replaceAll('//', '/')
 }
 
-function _getSameAPIEndpoint(fields: NormalizedFields) {
+function _getSameAPIEndpoint<T>(fields: NormalizedFields<T>) {
   const fieldsEntries = Object.entries<NormalizedFieldStructure>(fields)
   const sameAPIEndpoint: SameAPIEndpoint = {}
   fieldsEntries.forEach(([fieldKey, field]) => {
@@ -97,164 +108,190 @@ export function addOptionsToField(field: NormalizedFieldStructure, data: any) {
       getPaginationResultsKey(data),
     )
   }
-  9
   return options
 }
 
-export function getForeignKeys(fields: NormalizedFields): void {
+export function getForeignKeys<T>(fields: NormalizedFields<T>): void {
   const sameAPIEndpoint: SameAPIEndpoint = _getSameAPIEndpoint(fields)
+
+  type FieldKey = keyof typeof fields
 
   Object.entries(sameAPIEndpoint).forEach(([url, fieldKeys]) => {
     http.axios.get(url).then(({ data }) => {
       fieldKeys.forEach((fieldKey) => {
-        fields[fieldKey].options = addOptionsToField(fields[fieldKey], data)
+        fields[fieldKey as FieldKey].options = addOptionsToField(fields[fieldKey as FieldKey], data)
       })
     })
       .catch(e => console.log(e))
   })
 }
 
-export async function createRecord({ url, form }: CreateRequest) {
-  let response: AxiosResponse
+export function useCreateRequest<T>(url: string, form: JSONForm | FormData, options?: CreateRequestOptions) {
+  const loading = ref(false)
+  const data: Ref<T | null> = ref(null)
 
-  try {
-    response = await http.axios.post(url, form)
-  }
-  catch (error) {
-    throw { isActionSucceed: false, value: error }
+  function trigger() {
+    loading.value = true
+    http.axios.post(url, form)
+      .then((response: AxiosResponse<T>) => {
+        data.value = response.data
+        onSuccess(response, options)
+      })
+      .catch((e) => {
+        onFailed(e, options)
+      })
+      .finally(() => loading.value = false)
   }
 
-  return { isActionSucceed: true, value: response }
+  if (options?.autoTrigger !== false)
+    trigger()
+
+  return {
+    trigger,
+    data,
+    loading,
+  }
 }
 
-export async function updateRecord({ url, form, lookupValue }: UpdateRequest) {
+export function useUpdateRequest<T>(url: string, lookupValue: string | number, form: JSONForm | FormData, options?: UpdateRequestOptions) {
+  const loading = ref(false)
+  const data: Ref<T | null> = ref(null)
   const _url = buildURL({ url, lookupValue })
-  let response: any
 
-  try {
-    response = await http.axios.patch(_url, form)
-  }
-  catch (error: unknown) {
-    throw { isActionSucceed: false, value: error }
+  function trigger() {
+    loading.value = true
+    http.axios.post(_url, form)
+      .then((response: AxiosResponse<T>) => {
+        data.value = response.data
+        onSuccess(response, options)
+      })
+      .catch((e) => {
+        onFailed(e, options)
+      })
+      .finally(() => loading.value = false)
   }
 
-  return { isActionSucceed: true, value: response }
+  if (options?.autoTrigger !== false)
+    trigger()
+
+  return {
+    trigger,
+    data,
+    loading,
+  }
 }
 
-export async function retrieveRecord({ url, lookupValue }: RetrieveRequest) {
+export function useRetrieveRequest<T>(url: string, lookupValue: string | number, options?: RetrieveRequestOptions) {
+  const loading = ref(true)
+  const data: Ref<T | null> = ref(null)
   const _url = buildURL({ url, lookupValue })
-  let response: AxiosResponse
 
-  try {
-    response = await http.axios.get(_url)
-  }
-  catch (error) {
-    throw { isActionSucceed: false, value: error }
+  function trigger() {
+    loading.value = true
+    http.axios.post(_url)
+      .then((response: AxiosResponse<T>) => {
+        data.value = response.data
+        onSuccess(response, options)
+      })
+      .catch((e) => {
+        onFailed(e, options)
+      })
+      .finally(() => loading.value = false)
   }
 
-  return { isActionSucceed: true, value: response }
+  if (options?.autoTrigger !== false)
+    trigger()
+
+  return {
+    trigger,
+    data,
+    loading,
+  }
 }
 
-export async function deleteRecord(settings: DeleteRequest) {
-  const { url, lookupValue, fieldName, hardDelete } = settings
+export function useDeleteRequest(url: string, lookupValue: string | number, fieldName?: string, hardDelete?: boolean, options?: DeleteRequestOptions) {
+  const loading = ref(false)
+  if (options?.autoTrigger !== false)
+    trigger()
 
-  const requestHardDelete = async () => {
-    let response: AxiosResponse
-
-    try {
-      const _url = buildURL({ url, lookupValue })
-      response = await http.axios.delete(_url)
-    }
-    catch (error) {
-      throw { isActionSucceed: false, value: error }
-    }
-
-    return { isActionSucceed: true, value: response }
+  function requestHardDelete() {
+    loading.value = true
+    const _url = buildURL({ url, lookupValue })
+    http.axios.delete(_url)
+      .then(response => onSuccess(response, options))
+      .catch(e => onFailed(e, options))
+      .finally(() => loading.value = false)
   }
 
-  const requestSoftDelete = async () => {
+  function requestSoftDelete() {
     if (!fieldName)
       throw new Error('Field parameter is required when hardDelete is false')
 
-    let response: AxiosResponse
-
-    try {
-      const _url = buildURL({ url, lookupValue })
-      response = await http.axios.patch(_url, { [fieldName]: false })
-    }
-    catch (error) {
-      throw { isActionSucceed: false, value: error }
-    }
-
-    return { isActionSucceed: true, value: response }
+    loading.value = true
+    const _url = buildURL({ url, lookupValue })
+    http.axios.patch(_url, { [fieldName]: false })
+      .then(response => onSuccess(response, options))
+      .catch(e => onFailed(e, options))
+      .finally(() => loading.value = false)
   }
 
-  if (hardDelete)
-    return await requestHardDelete()
+  function trigger() {
+    if (hardDelete)
+      requestHardDelete()
 
-  return await requestSoftDelete()
+    requestSoftDelete()
+  }
+
+  return {
+    trigger,
+    loading,
+  }
 }
 
-export async function triggerCreateOrUpdate(form: Form) {
-  const mode = form.settings.mode
-  const record = form.record || {}
-  const { jsonForm, formData } = getFormData(form)
-  const _formData = formData || jsonForm
-
-  const request = {
-    url: form.settings.url,
-    form: _formData,
-    lookupValue: record[form.settings.lookupField],
-  }
-
-  const modes: { [k: string]: typeof createRecord | typeof updateRecord } = {
-    [FormModes.CREATE_MODE]: createRecord,
-    [FormModes.UPDATE_MODE]: updateRecord,
-  }
-
-  const dispatchRequest = modes[mode || FormModes.CREATE_MODE]
-
-  const response = await dispatchRequest(request)
-  return response
-}
-
-export function getRecords(args: GetListRequest): RecordManager {
-  const { url, _search, initialFilterParams } = args
-
+export function useListRequest<T, F = any>(url: string, filterParams?: F, pagination?: Pagination, options?: ListRequestOptions): RecordManager<T, F> {
   const loading = ref(false)
-  const search = ref(_search || '')
+  const mutableList: Ref<T[]> = ref([])
 
-  const pagination = reactive(
-    Object.assign({ page: 1, rowsPerPage: 10, count: 10 }, args.pagination || {}),
+  const _filterParams = reactive(Object.assign({}, filterParams))
+  const _pagination = reactive(
+    Object.assign({ page: 1, count: 10 }, pagination),
   )
 
-  const filterParams = reactive(initialFilterParams || {})
+  const list = computed(() => mutableList.value)
 
-  const list = reactive({
-    unmutedItems: [] as unknown[],
-    items: [] as unknown[],
+  watch(() => _filterParams, () => resetPagination(), { deep: true })
+  watch(() => _pagination.page, () => {
+    if (options?.hotFetch !== false)
+      fetchItems(_pagination.page)
   })
 
-  const setDataList = (data: any) => {
+  function setDataList(data: any) {
     if (Array.isArray(data)) {
-      list.items = data
-      pagination.count = data.length
+      mutableList.value = data
+      _pagination.count = data.length
       return
     }
 
     const results = getPaginationResultsKey(data)
     const count = getPaginationCountKey(data)
 
-    list.items = results
-    pagination.count = count
+    mutableList.value = results
+    _pagination.count = count
   }
 
-  const fetchItems = (page = 1) => {
+  function resetPagination() {
+    _pagination.page = 1
+
+    if (options?.hotFetch !== false)
+      fetchItems()
+  }
+
+  function fetchItems(page = 1) {
+    loading.value = true
     const params = {
-      limit: pagination.rowsPerPage,
-      search: search.value,
+      limit: 10,
       offset: 0,
-      ...filterParams,
+      ..._filterParams,
     }
 
     const offset = (page - 1) * params.limit
@@ -262,27 +299,27 @@ export function getRecords(args: GetListRequest): RecordManager {
     if (offset > 0)
       params.offset = offset
 
-    loading.value = true
-
     http.axios.get(url, { params })
-      .then(({ data }) => setDataList(data))
+      .then((response: AxiosResponse<T>) => {
+        setDataList(response.data)
+
+        if (typeof options?.onSuccess === 'function')
+          options?.onSuccess(response)
+      })
+      .catch((e) => {
+        if (typeof options?.onFailed === 'function')
+          options?.onFailed(e)
+      })
       .finally(() => loading.value = false)
   }
 
-  const resetPagination = () => {
-    pagination.page = 1
+  if (options?.autoTrigger !== false)
     fetchItems()
-  }
-
-  watch(() => JSON.stringify(filterParams), () => resetPagination())
-  watch(() => search.value, () => resetPagination())
-  watch(() => pagination.page, () => fetchItems(pagination.page))
 
   return {
     fetchItems,
-    filterParams,
-    pagination,
-    search,
+    filterParams: _filterParams,
+    pagination: _pagination,
     loading,
     list,
   }
