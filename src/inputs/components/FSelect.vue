@@ -107,7 +107,7 @@ const props = defineProps<{
 
 provide('field', props.field)
 
-let recordsManager: RecordManager | null = null
+let recordsManager: RecordManager<unknown, { search: string }> | null = null
 
 const errorStyles = useErrorStyles(props.field)
 const triggerElement = ref<HTMLElement>()
@@ -198,7 +198,7 @@ watch(() => state.searchTerm, () => {
     if (!recordsManager)
       return
 
-    recordsManager.search.value = state.searchTerm
+    recordsManager.filterParams.search = state.searchTerm
   }, 1000)
 })
 
@@ -211,11 +211,11 @@ watch(() => state.modelValue, (modelValue) => {
   state.searchTerm = ''
 })
 
-watch(() => recordsManager?.list.items, () => {
+watch(() => recordsManager?.list.value, () => {
   if (!props.field.options || !recordsManager)
     return
 
-  addOptionsToField(props.field, recordsManager?.list.items)
+  addOptionsToField(props.field, recordsManager?.list.value)
 })
 
 function displayComma(optionIndex: number) {
@@ -223,12 +223,8 @@ function displayComma(optionIndex: number) {
 }
 
 function setupRecordsManager() {
-  if (props.field.url) {
-    recordsManager = getRecords({
-      url: props.field.url,
-      initialFilterParams: props.field.filterParams as object,
-    })
-  }
+  if (props.field.url)
+    recordsManager = useListRequest<unknown, any>(props.field.url, props.field.filterParams)
 }
 
 function loadMoreOptions() {
@@ -236,7 +232,7 @@ function loadMoreOptions() {
     return
 
   const updatePaginationPage = (
-    (recordsManager.pagination.page === 1 && !recordsManager.list.items.length)
+    (recordsManager.pagination.page === 1 && !recordsManager.list.value.length)
     || props.field.options.length < recordsManager.pagination.count
   )
 

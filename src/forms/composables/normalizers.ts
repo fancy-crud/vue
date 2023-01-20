@@ -63,7 +63,7 @@ export function normalizeFormFields<T>(fields: Fields<T>): NormalizedFields<T> {
   return normalizedFields
 }
 
-export function normalizeButtons(buttons?: Buttons) {
+export function normalizeButtons(buttons?: Buttons): NormalizedButtons {
   const defaults = getDefaults()
   const defaultMainButton = {
     class: defaults.classes.mainButton,
@@ -84,7 +84,7 @@ export function normalizeButtons(buttons?: Buttons) {
   const mainButton = buttons ? buttons.main || {} : {}
   const auxButton = buttons ? buttons.aux || {} : {}
 
-  const normalizedButtons = Object.assign(
+  const normalizedButtons: NormalizedButtons = Object.assign(
     {},
     {
       main: {
@@ -115,7 +115,7 @@ export function normalizeButtons(buttons?: Buttons) {
   return normalizedButtons
 }
 
-export function normalizeTitle(title?: string | Title) {
+export function normalizeTitle(title?: string | Title): string | { create: string; update: string } {
   const defaultTitle = {
     create: t.value('create-new-record'),
     update: t.value('update-record'),

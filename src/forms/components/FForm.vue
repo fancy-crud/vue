@@ -37,8 +37,7 @@
     </ul>
 
     <f-form-footer
-      @create="onSuccess"
-      @update="onSuccess"
+      @success="onSuccess"
       @error="dispatchErrorNotification"
       :form="form"
     />
@@ -57,7 +56,7 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
-import type { AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 import type { Form } from '@/forms/typings'
 import { FormModes } from '@/forms/typings'
 
@@ -67,8 +66,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'success', formMode: FormModes, response: AxiosResponse): void
-  (e: 'error', formMode: FormModes, response?: AxiosResponse): void
+  (e: 'success', response: AxiosResponse): void
+  (e: 'error', response?: AxiosError): void
 }>()
 
 const slots = useSlots()
@@ -110,15 +109,15 @@ const onSuccess = (response: AxiosResponse) => {
   if (handler)
     handler(props.form, response.data)
 
-  emit('success', props.form.settings.mode, response)
+  emit('success', response)
 }
 
-const dispatchErrorNotification = (error?: AxiosResponse) => {
-  const handler = getHandler(error)
+const dispatchErrorNotification = (error?: AxiosError) => {
+  const handler = getHandler(error?.response)
 
   if (handler)
-    handler(props.form, error?.data)
+    handler(props.form, error?.response?.data)
 
-  emit('error', props.form.settings.mode, error)
+  emit('error', error)
 }
 </script>

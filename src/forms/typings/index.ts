@@ -1,16 +1,21 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, UnwrapRef } from 'vue'
+import type { Events, InputHTMLAttributes, TextareaHTMLAttributes, UnwrapRef } from 'vue'
 import type { ZodTypeAny } from 'zod'
 import type { HandleRequestStatusCodes } from '@/http'
+
+type EventHandlers<E> = {
+  [K in keyof E]?: E[K] extends (...args: any) => any ? E[K] : (payload: E[K]) => void
+}
 
 export enum FormModes {
   CREATE_MODE,
   UPDATE_MODE,
 }
 
-export interface Button extends ButtonHTMLAttributes {
+export interface Button extends EventHandlers<Events> {
   label?: { create?: string; update?: string }
   loading?: boolean
   icon?: string
+  class?: string
   onClick?: (payload?: MouseEvent) => void
 }
 
@@ -21,7 +26,9 @@ export interface Buttons {
 
 export interface NormalizedButtons extends Required<Buttons> {}
 
-export interface FieldStructure extends InputHTMLAttributes {
+type InputAttributes = InputHTMLAttributes & TextareaHTMLAttributes
+
+export interface FieldStructure extends InputAttributes {
   clearable?: boolean
   label?: string
   multiple?: boolean
@@ -101,13 +108,8 @@ export interface Settings {
   statusCodesHandlers?: Record<number, HandleRequestStatusCodes>
 }
 
-export interface NormalizedSettings extends Settings {
-  url: string
-  buttons: Required<Buttons>
-  mode: FormModes
-  title: string | Title
-  lookupField: string
-  statusCodesHandlers: Record<number, HandleRequestStatusCodes>
+export interface NormalizedSettings extends Required<Settings> {
+  buttons: NormalizedButtons
 }
 
 export interface FieldWatcher {

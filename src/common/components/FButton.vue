@@ -1,10 +1,6 @@
 <template>
   <button
-    v-bind="$attrs"
-    ref="buttonRef"
-    :disabled="props.disabled || props.loading"
-    :class="className"
-    class="f-button f-button--hover"
+    class="bg-primary-500 text-white rounded-lg hover:shadow-md hover:shadow-primary-300"
     type="button"
   >
     <svg

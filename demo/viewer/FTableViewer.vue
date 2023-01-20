@@ -4,7 +4,6 @@
       <f-filter :filters="filters" />
     </template>
   </f-table>
-  testing semantic-release
 </template>
 
 <script lang='ts' setup>
@@ -27,15 +26,15 @@ const form = useForm({
   id: 'formulario',
   fields: {
     name: {
-      label: 'Name',
-      xlsx: {
-        label: 'Nombre',
-      },
+      label: 'Primer Nombre',
+    },
+    gender: {
+      label: 'Gender',
     },
     created_at: {
       label: 'Created at',
       table: { ...createdAtTable },
-      xlsx: { ...createdAtTable },
+      updateOnly: true,
     },
   },
   settings: {

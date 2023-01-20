@@ -20,8 +20,7 @@
             max-width="max-w-3xl"
           >
             <f-form
-              @create="fetchItems()"
-              @update="fetchItems()"
+              @success="fetchItems()"
               :key="formModalKey"
               :form="props.table.form"
             >
@@ -59,7 +58,7 @@
           @delete="openDeleteModal"
           @hot-update="updateCheckbox"
           :headers="headers"
-          :items="list.items"
+          :items="list"
         />
       </table>
       <f-progress-bar v-if="loading" />
@@ -92,6 +91,7 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
+import type { AxiosResponse } from 'axios'
 import type { Table } from '@/tables/typings'
 
 const props = defineProps<{
@@ -113,14 +113,14 @@ const formModalKey = ref(0)
 const rowToDelete = ref<any>(null)
 const deleteModal = ref(false)
 
-const { list, loading, pagination, fetchItems } = getRecords({
-  url: props.table.settings.url,
-  initialFilterParams: props.table.settings.filterParams,
-  pagination: props.table.settings.pagination,
-})
+const { list, loading, pagination, triggerRequest: fetchItems } = useListRequest(
+  props.table.settings.url,
+  props.table.settings.filterParams,
+  props.table.settings.pagination,
+)
 
 const ItemsCount = computed(() => {
-  let count = pagination.rowsPerPage - list.items.length
+  let count = (pagination.rowsPerPage) - list.value.length
 
   if (count === 0)
     count = pagination.page * pagination.rowsPerPage
@@ -143,7 +143,7 @@ fetchItems()
 
 function exportXlsx() {
   const xlsx = useXLSX(props.table)
-  xlsx.fetchItems()
+  xlsx.triggerRequest()
 }
 
 function closeModal() {
@@ -172,18 +172,21 @@ function openEditModal(row: any) {
   if (typeof props.table.form.settings.buttons.aux.onClick !== 'function')
     Object.assign(props.table.form.settings.buttons.aux, { onClick: closeModal })
 
-  retrieveRecord({ url: props.table.settings.url, lookupValue }).then((response) => {
-    Object.assign(props.table.form, {
-      record: response.value.data,
-    })
+  useRetrieveRequest(props.table.settings.url, lookupValue, {
+    onSuccess(response: AxiosResponse) {
+      Object.assign(props.table.form, {
+        record: response.data,
+      })
 
-    Object.assign(props.table.form.settings, {
-      mode: FormModes.UPDATE_MODE,
-    })
+      Object.assign(props.table.form.settings, {
+        mode: FormModes.UPDATE_MODE,
+      })
 
-    fillFieldsWithRecordValues(props.table.form.fields, props.table.form.record || {})
-    formModalKey.value++
-    formModal.value = true
+      fillFieldsWithRecordValues(props.table.form, props.table.form.record || {})
+
+      formModalKey.value++
+      formModal.value = true
+    },
   })
 }
 
@@ -201,12 +204,11 @@ function openDeleteModal(row: any, requestDeleteConfirmation = true) {
   if (Object.prototype.hasOwnProperty.call(row, lookupField))
     lookupValue = String(row[lookupField])
 
-  deleteRecord({
-    url: props.table.settings.url,
-    lookupValue,
-    fieldName: 'is_active',
-    hardDelete: false,
-  }).then(() => fetchItems())
+  useDeleteRequest(props.table.settings.url, lookupValue, 'is_active', false, {
+    onSuccess() {
+      fetchItems()
+    },
+  })
 }
 
 function updateCheckbox(value: { field: string; row: any }) {
@@ -217,12 +219,8 @@ function updateCheckbox(value: { field: string; row: any }) {
   if (Object.prototype.hasOwnProperty.call(value.row, lookupField))
     lookupValue = String(value.row[lookupField])
 
-  updateRecord({
-    url: props.table.settings.url,
-    lookupValue,
-    form: {
-      [value.field]: !value.row[value.field],
-    },
+  useUpdateRequest(props.table.settings.url, lookupValue, {
+    [value.field]: !value.row[value.field],
   })
 }
 </script>

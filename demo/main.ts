@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import axios from 'axios'
-import FancyCrud from '../index'
+import FancyCrud from '../src/index'
 import App from './App.vue'
 
 import '@mdi/font/css/materialdesignicons.css'
 import 'flowbite'
-import '../styles/main.sass'
+import './styles/main.sass'
 
 axios.defaults.baseURL = 'http://localhost:9000/api/'
 

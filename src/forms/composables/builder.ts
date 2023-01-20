@@ -3,6 +3,7 @@ import type {
   Form,
   IFormRecord,
   NormalizedFieldStructure,
+  NormalizedFields,
 } from '@/forms'
 
 export function fillFieldsWithRecordValues(form: Form, record: IFormRecord) {
@@ -25,7 +26,7 @@ export function fillFieldsWithRecordValues(form: Form, record: IFormRecord) {
   })
 }
 
-export function getFormData(form: Form) {
+export function getFormData<T = object>(fields: NormalizedFields<T>) {
   interface Handle { fieldKey: string; field: NormalizedFieldStructure }
 
   const metadata: { [key: string]: unknown } = {}
@@ -101,7 +102,9 @@ export function getFormData(form: Form) {
     metadata[field.modelKey || fieldKey] = value
   }
 
-  Object.entries(form.fields).forEach(([fieldKey, field]) => {
+  const entriesFields: [string, NormalizedFieldStructure][] = Object.entries(fields)
+
+  entriesFields.forEach(([fieldKey, field]) => {
     if (field.url || field.optionValue) {
       handleListValues({ fieldKey, field })
       return

@@ -1,20 +1,20 @@
 import type { Fields, NormalizedFields } from '@/forms'
 
-export function useFilters<T extends Fields>(_filters: T) {
-  const filters: NormalizedFields = reactive({}) as NormalizedFields
+export function useFilters<T>(_filters: Fields<T>) {
+  const filters = reactive({}) as NormalizedFields<T>
 
-  Object.assign(filters, normalizeFormFields(_filters))
+  Object.assign(filters, normalizeFormFields<T>(_filters))
 
   const filterParams = reactive(
-    getFormData({ fields: filters }).jsonForm,
+    getFormData(filters).jsonForm,
   )
 
   const filterParamsStringify = computed(() => {
-    return JSON.stringify(getFormData({ fields: filters }).jsonForm)
+    return JSON.stringify(getFormData(filters).jsonForm)
   })
 
   watch(filterParamsStringify, () => {
-    Object.assign(filterParams, getFormData({ fields: filters }).jsonForm)
+    Object.assign(filterParams, getFormData(filters).jsonForm)
   })
 
   return {

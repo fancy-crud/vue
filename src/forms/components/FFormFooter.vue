@@ -27,9 +27,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'create', response: AxiosResponse): void
-  (e: 'update', response: AxiosResponse): void
-  (e: 'error', response?: AxiosResponse): void
+  (e: 'success', response: AxiosResponse): void
+  (e: 'error', response?: AxiosError): void
 }>()
 
 const { isFormValid } = useRules()
@@ -47,35 +46,47 @@ const mainOnClick = async () => {
     return
   }
 
-  let result: {
-    isActionSucceed: boolean
-    value: AxiosResponse
-  }
-
-  const emitEvent = (response: AxiosResponse) => {
-    if (props.form.settings.mode === FormModes.CREATE_MODE)
-      emit('create', response)
-    else emit('update', response)
-  }
-
-  const emitErrorEvent = (response?: AxiosResponse) => {
-    emit('error', response)
-  }
-
-  try {
-    result = await triggerCreateOrUpdate(props.form)
-  }
-  catch (err) {
-    const error = err as { value: AxiosError }
-    emitErrorEvent(error.value.response)
-    return
-  }
-
-  emitEvent(result.value)
+  if (props.form.settings.mode === FormModes.CREATE_MODE)
+    createRequest()
+  else
+    updateRequest()
 }
 
-const auxOnClick = () => {
+function auxOnClick() {
   if (typeof props.form.settings.buttons.aux.onClick === 'function')
     props.form.settings.buttons.aux.onClick()
+}
+
+function createRequest() {
+  const { jsonForm, formData } = getFormData(props.form.fields)
+  const _formData = formData || jsonForm
+
+  useCreateRequest(props.form.settings.url, _formData, {
+    onSuccess(response: AxiosResponse) {
+      emit('success', response)
+    },
+
+    onFailed(error: AxiosError) {
+      emit('error', error)
+    },
+  })
+}
+
+function updateRequest() {
+  const record = props.form.record || {}
+  const lookupValue = record[props.form.settings.lookupField]
+
+  const { jsonForm, formData } = getFormData(props.form.fields)
+  const _formData = formData || jsonForm
+
+  useUpdateRequest(props.form.settings.url, lookupValue, _formData, {
+    onSuccess(response: AxiosResponse) {
+      emit('success', response)
+    },
+
+    onFailed(error: AxiosError) {
+      emit('error', error)
+    },
+  })
 }
 </script>

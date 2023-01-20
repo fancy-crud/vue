@@ -15,21 +15,23 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
+    "outDir": "./dist_types",
     "typeRoots": [
       "vite/client",
-      "./typings"
+      "src/**/typings",
+      "./node_modules/zod/lib/external"
     ],
     "types": [
       "vite/client",
     ],
     "paths": {
       "@/*": ["src/*"],
+      "~/*": ["demo/*"],
     }
   },
   "exclude": [
+    "dist",
     "node_modules",
-    "demo",
     "cypress",
     "**/**/*.test.ts",
     "**/**/*.stories.tsx",

@@ -32,7 +32,7 @@ import FTextarea from '@/inputs/components/FTextarea.vue'
 import FInputFile from '@/inputs/components/FInputFile.vue'
 
 const props = defineProps<{
-  filters: NormalizedFields
+  filters: NormalizedFields<object>
 }>()
 
 const controls = {

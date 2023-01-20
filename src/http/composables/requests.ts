@@ -130,7 +130,7 @@ export function useCreateRequest<T>(url: string, form: JSONForm | FormData, opti
   const loading = ref(false)
   const data: Ref<T | null> = ref(null)
 
-  function trigger() {
+  function triggerRequest() {
     loading.value = true
     http.axios.post(url, form)
       .then((response: AxiosResponse<T>) => {
@@ -144,10 +144,10 @@ export function useCreateRequest<T>(url: string, form: JSONForm | FormData, opti
   }
 
   if (options?.autoTrigger !== false)
-    trigger()
+    triggerRequest()
 
   return {
-    trigger,
+    triggerRequest,
     data,
     loading,
   }
@@ -158,7 +158,7 @@ export function useUpdateRequest<T>(url: string, lookupValue: string | number, f
   const data: Ref<T | null> = ref(null)
   const _url = buildURL({ url, lookupValue })
 
-  function trigger() {
+  function triggerRequest() {
     loading.value = true
     http.axios.post(_url, form)
       .then((response: AxiosResponse<T>) => {
@@ -172,10 +172,10 @@ export function useUpdateRequest<T>(url: string, lookupValue: string | number, f
   }
 
   if (options?.autoTrigger !== false)
-    trigger()
+    triggerRequest()
 
   return {
-    trigger,
+    triggerRequest,
     data,
     loading,
   }
@@ -186,9 +186,9 @@ export function useRetrieveRequest<T>(url: string, lookupValue: string | number,
   const data: Ref<T | null> = ref(null)
   const _url = buildURL({ url, lookupValue })
 
-  function trigger() {
+  function triggerRequest() {
     loading.value = true
-    http.axios.post(_url)
+    http.axios.get(_url)
       .then((response: AxiosResponse<T>) => {
         data.value = response.data
         onSuccess(response, options)
@@ -200,10 +200,10 @@ export function useRetrieveRequest<T>(url: string, lookupValue: string | number,
   }
 
   if (options?.autoTrigger !== false)
-    trigger()
+    triggerRequest()
 
   return {
-    trigger,
+    triggerRequest,
     data,
     loading,
   }
@@ -212,7 +212,7 @@ export function useRetrieveRequest<T>(url: string, lookupValue: string | number,
 export function useDeleteRequest(url: string, lookupValue: string | number, fieldName?: string, hardDelete?: boolean, options?: DeleteRequestOptions) {
   const loading = ref(false)
   if (options?.autoTrigger !== false)
-    trigger()
+    triggerRequest()
 
   function requestHardDelete() {
     loading.value = true
@@ -235,7 +235,7 @@ export function useDeleteRequest(url: string, lookupValue: string | number, fiel
       .finally(() => loading.value = false)
   }
 
-  function trigger() {
+  function triggerRequest() {
     if (hardDelete)
       requestHardDelete()
 
@@ -243,7 +243,7 @@ export function useDeleteRequest(url: string, lookupValue: string | number, fiel
   }
 
   return {
-    trigger,
+    triggerRequest,
     loading,
   }
 }
@@ -254,7 +254,7 @@ export function useListRequest<T, F = any>(url: string, filterParams?: F, pagina
 
   const _filterParams = reactive(Object.assign({}, filterParams))
   const _pagination = reactive(
-    Object.assign({ page: 1, count: 10 }, pagination),
+    Object.assign({ page: 1, count: 10, rowsPerPage: 10 }, pagination),
   )
 
   const list = computed(() => mutableList.value)
@@ -262,7 +262,7 @@ export function useListRequest<T, F = any>(url: string, filterParams?: F, pagina
   watch(() => _filterParams, () => resetPagination(), { deep: true })
   watch(() => _pagination.page, () => {
     if (options?.hotFetch !== false)
-      fetchItems(_pagination.page)
+      triggerRequest(_pagination.page)
   })
 
   function setDataList(data: any) {
@@ -283,10 +283,10 @@ export function useListRequest<T, F = any>(url: string, filterParams?: F, pagina
     _pagination.page = 1
 
     if (options?.hotFetch !== false)
-      fetchItems()
+      triggerRequest()
   }
 
-  function fetchItems(page = 1) {
+  function triggerRequest(page = 1) {
     loading.value = true
     const params = {
       limit: 10,
@@ -314,10 +314,10 @@ export function useListRequest<T, F = any>(url: string, filterParams?: F, pagina
   }
 
   if (options?.autoTrigger !== false)
-    fetchItems()
+    triggerRequest()
 
   return {
-    fetchItems,
+    triggerRequest,
     filterParams: _filterParams,
     pagination: _pagination,
     loading,

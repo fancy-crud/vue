@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[props.maxWidth]"
-    class="relative w-full h-full md:h-auto animate__animated animate__slideInDown"
+    class="relative w-full h-full md:h-auto animate__animated animate__zoomIn animate__faster"
   >
     <div
       v-bind="$attrs"

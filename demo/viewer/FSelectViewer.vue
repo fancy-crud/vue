@@ -18,6 +18,11 @@ const options = [
   { id: 4, name: 'days', gender: 'm', image: null, image2: null, is_active: true, created_at: '2022-03-24T12:13:53.170353-06:00', updated_at: '2022-05-01T19:34:43.246611-06:00' },
   { id: 8, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:22.381332-06:00', updated_at: '2022-03-27T12:29:22.381388-06:00' },
   { id: 9, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
+  { id: 1, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
+  { id: 2, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
+  { id: 3, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
+  { id: 4, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
+  { id: 5, name: 'dsa', gender: 'f', image: null, image2: null, is_active: true, created_at: '2022-03-27T12:29:58.391627-06:00', updated_at: '2022-03-27T12:29:58.391713-06:00' },
 ]
 
 const form = useForm({
@@ -28,6 +33,7 @@ const form = useForm({
       type: 'autocomplete',
       placeholder: 'Select',
       optionLabel: 'name',
+      multiple: true,
       optionValue: 'id',
       chips: true,
       filterParams: {

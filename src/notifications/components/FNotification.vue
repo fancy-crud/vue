@@ -51,10 +51,13 @@ const emit = defineEmits<{
   (e: 'dismiss'): void
 }>()
 
-const notificationRef = ref()
+const notificationRef = ref<HTMLElement | null>(null)
 
 onMounted(() => {
-  const dismiss = new Dismiss(notificationRef.value, {
+  if (!notificationRef.value)
+    return
+
+  const dismiss = new Dismiss(notificationRef.value, null, {
     timing: 'ease-out',
     onHide() {
       emit('dismiss')

@@ -27,6 +27,7 @@ type FilterParams<T> = { [Key in keyof T]: unknown }
 export interface Pagination {
   page?: number
   count?: number
+  rowsPerPage?: number
 }
 
 export interface GetListRequest<T = {}> {
@@ -39,7 +40,7 @@ export interface GetListRequest<T = {}> {
 export interface RecordManager<T, F> {
   filterParams: UnwrapNestedRefs<F>
   pagination: Required<Pagination>
-  fetchItems: (page?: number) => void
+  triggerRequest: (page?: number) => void
   loading: Ref<boolean>
   list: ComputedRef<T[]>
 }

@@ -1,12 +1,14 @@
 import { utils as xUtils, writeFile as xWriteFile } from 'xlsx'
-import type { NormalizedFields } from '@/forms'
+import type { NormalizedFieldStructure, NormalizedFields } from '@/forms'
 import type { Table, TableHeader } from '@/tables'
 
 type FieldFn = (row: unknown, index: number) => unknown
 type FormatFn = (value: unknown) => unknown
 
-export function createHeaders(fields: NormalizedFields, key: 'table' | 'xlsx' = 'table', excludes = true): TableHeader[] {
-  return Object.entries(fields).reduce((accumulator: TableHeader[], [fieldKey, field]) => {
+export function createHeaders<T extends object>(fields: NormalizedFields<T>, key: 'table' | 'xlsx' = 'table', excludes = true): TableHeader[] {
+  const entriesFields: [string, NormalizedFieldStructure][] = Object.entries(fields)
+
+  return entriesFields.reduce((accumulator: TableHeader[], [fieldKey, field]) => {
     const skip = excludes && field[key]?.exclude
 
     if (skip)
@@ -25,10 +27,10 @@ export function createHeaders(fields: NormalizedFields, key: 'table' | 'xlsx' = 
 }
 
 export function useXLSX(table: Table) {
-  const { fetchItems, list, loading } = getRecords({
-    url: table.settings.url,
-    initialFilterParams: table.settings.filterParams,
-  })
+  const { triggerRequest: fetchItems, list, loading } = useListRequest(
+    table.settings.url,
+    table.settings.filterParams,
+  )
 
   const getValue = computed(() => (row: any, header: TableHeader, rowIndex: number) => {
     let value: any
@@ -44,12 +46,12 @@ export function useXLSX(table: Table) {
     return value
   })
 
-  watch(() => list.items, generateFile)
+  watch(list, generateFile)
 
   function generateFile() {
     const xlsxHeaders = createHeaders(table.form.fields, 'xlsx')
 
-    const items = list.items.map((item, itemIndex) => {
+    const items = list.value.map((item, itemIndex) => {
       const result: Record<string, unknown> = {}
 
       xlsxHeaders.forEach((header) => {
@@ -69,7 +71,7 @@ export function useXLSX(table: Table) {
   }
 
   return {
-    fetchItems,
+    triggerRequest: fetchItems,
     list,
     loading,
   }
