@@ -1,13 +1,9 @@
 <template>
-  <f-form :form="form" />
+  <f-input :field="form.fields.firstName" />
 
-  <!-- <div c`lass="p-10 mt-10 border">
-    {{ form.fields }}
-  </div>` -->
+  <!-- <f-form :form="form" /> -->
 
-  <!-- <f-button class="">
-    Hello
-  </f-button> -->
+  {{ form.fields.firstName.modelValue }}
 </template>
 
 <script lang='ts' setup>
@@ -19,6 +15,7 @@ const form = useForm({
     firstName: {
       label: 'First name',
       modelValue: 'Hello',
+      class: 'col-span-12',
       rules: rules.string().min(1),
     },
     lastName: {
@@ -29,13 +26,5 @@ const form = useForm({
     url: 'artists/',
   },
 })
-
-form.fields.firstName.onDblclick = () => {
-  console.log('double click')
-}
-
-const { list } = useListRequest('artists/', { search: '' }, {}, {
-  autoTrigger: true,
-  hotFetch: true,
-})
 </script>
+

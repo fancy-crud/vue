@@ -9,7 +9,6 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"misterJ.vue-volar-extention-pack",
-		"johnsoncodehk.vscode-typescript-vue-plugin",
 		"lokalise.i18n-ally",
 		"antfu.iconify",
 		"dbaeumer.vscode-eslint",

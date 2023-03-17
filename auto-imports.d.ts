@@ -21,6 +21,7 @@ declare global {
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
+  const controls: typeof import('./src/settings/composables/index')['controls']
   const createApp: typeof import('vue')['createApp']
   const createDefaultKeys: typeof import('./src/forms/composables/normalizers')['createDefaultKeys']
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
@@ -104,6 +105,7 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const setControls: typeof import('./src/settings/composables/index')['setControls']
   const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
   const setFormMode: typeof import('./src/inputs/composables/model-value')['setFormMode']
   const setFormRecord: typeof import('./src/inputs/composables/model-value')['setFormRecord']
@@ -343,6 +345,7 @@ declare module 'vue' {
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
+    readonly controls: UnwrapRef<typeof import('./src/settings/composables/index')['controls']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createDefaultKeys: UnwrapRef<typeof import('./src/forms/composables/normalizers')['createDefaultKeys']>
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
@@ -426,6 +429,7 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setControls: UnwrapRef<typeof import('./src/settings/composables/index')['setControls']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
     readonly setFormMode: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setFormMode']>
     readonly setFormRecord: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setFormRecord']>

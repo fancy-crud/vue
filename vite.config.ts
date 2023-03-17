@@ -45,6 +45,7 @@ export default defineConfig({
     Components({
       dirs: [
         'src/**/components',
+        'node_modules/@oruga-ui/oruga-next/src/components/**',
       ],
 
       // allow auto import and register components used in markdown

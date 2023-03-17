@@ -42,8 +42,13 @@ export function useRules() {
     return result.success
   })
 
+  function hasFieldErrors(field: NormalizedFieldStructure) {
+    return !!field.errors.length
+  }
+
   return {
     validate,
+    hasFieldErrors,
     rules,
     isFormValid,
   }

@@ -19,7 +19,8 @@
     "typeRoots": [
       "vite/client",
       "src/**/typings",
-      "./node_modules/zod/lib/external"
+      "./node_modules/zod/lib/external",
+      "./node_modules/@oruga-ui/oruga-next/src/components/**"
     ],
     "types": [
       "vite/client",

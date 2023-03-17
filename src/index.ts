@@ -1,14 +1,15 @@
 import 'animate.css'
 import type { App, Plugin } from 'vue'
 
-// import * as components from '@/components/index';
+import Oruga from '@oruga-ui/oruga-next'
 import { setHttpConfig } from '@/http/composables/requests'
-import { setStatusCodesHandlers } from '@/settings/composables'
+import { setControls, setStatusCodesHandlers } from '@/settings/composables'
 import './styles/main.sass'
 
 const components: Record<string, any> = {}
 // install function executed by Vue.use()
 const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
+  app.use(Oruga)
   Object.entries(import.meta.globEager('@/**/components/*.vue')).forEach(([key, value]) => {
     if (key.includes('/viewer/'))
       return
@@ -26,6 +27,9 @@ const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
 
   if (options.statusCodesHandlers)
     setStatusCodesHandlers(options.statusCodesHandlers)
+
+  if (options.controls)
+    setControls(options.controls)
 }
 
 // Create module definition for Vue.use()

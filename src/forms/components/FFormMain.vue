@@ -10,7 +10,8 @@
       <slot :name="`before-${fieldKey}`" />
       <component
         :is="getComponent(field)"
-        v-bind="{ field }"
+        v-bind="field"
+        v-model="field.modelValue"
       />
       <slot :name="`after-${fieldKey}`" />
     </template>
@@ -19,33 +20,11 @@
 
 <script lang="ts" setup>
 import type { Form, NormalizedFieldStructure } from '@/forms'
-import FInput from '@/inputs/components/FInput.vue'
-import FInputDate from '@/inputs/components/FInputDate.vue'
-import FCheckbox from '@/inputs/components/FCheckbox.vue'
-import FInputPassword from '@/inputs/components/FInputPassword.vue'
-import FSelect from '@/inputs/components/FSelect.vue'
-import FRadio from '@/inputs/components/FRadio.vue'
-import FColor from '@/inputs/components/FColor.vue'
-import FTextarea from '@/inputs/components/FTextarea.vue'
-import FInputFile from '@/inputs/components/FInputFile.vue'
+import { controls } from '@/settings'
 
 const props = defineProps<{
   form: Form
 }>()
-
-const controls = {
-  text: FInput,
-  date: FInputDate,
-  password: FInputPassword,
-  select: FSelect,
-  autocomplete: FSelect,
-  checkbox: FCheckbox,
-  radio: FRadio,
-  color: FColor,
-  textarea: FTextarea,
-  file: FInputFile,
-  image: FInputFile,
-}
 
 const getComponent = (field: NormalizedFieldStructure) => {
   type ControlType = keyof typeof controls

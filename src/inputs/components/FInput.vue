@@ -1,17 +1,7 @@
 <template>
-  <f-control-wrap>
-    <f-control-label :class="[errorStyles.textColor]">
-      {{ field.label }}
-    </f-control-label>
-
-    <input
-      v-model="modelValue"
-      v-bind="field"
-      :class="[errorStyles.borderColor]"
-    >
-
-    <f-control-hint-message />
-  </f-control-wrap>
+  <o-field :label="props.field.label" :variant="variant" :message="message">
+    <o-input v-bind="props.field" v-model="modelValue" />
+  </o-field>
 </template>
 
 <script lang="ts" setup>
@@ -25,11 +15,21 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: unknown): void
 }>()
 
-provide('field', props.field)
-
-const errorStyles = useErrorStyles(props.field)
 const modelValue = useFieldModelValue(props.field, 'text', emit)
-const { validate } = useRules()
+const { validate, hasFieldErrors } = useRules()
 
 onMounted(() => validate(props.field))
+
+const variant = computed(() => hasFieldErrors(props.field) ? 'danger' : '')
+
+const message = computed(() => {
+  let result: string = props.field.hintText ? props.field.hintText : ''
+
+  if (props.field.errors.length)
+    result = props.field.errors[0]
+
+  return result
+})
+
+watch(modelValue, () => console.log(modelValue.value))
 </script>

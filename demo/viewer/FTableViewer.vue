@@ -1,9 +1,11 @@
 <template>
-  <f-table :table="table">
-    <template #table-header-prepend>
-      <f-filter :filters="filters" />
-    </template>
-  </f-table>
+  <div class="pb-5">
+    <f-table :table="table">
+      <template #table-header-prepend>
+        <f-filter :filters="filters" />
+      </template>
+    </f-table>
+  </div>
 </template>
 
 <script lang='ts' setup>
@@ -26,7 +28,7 @@ const form = useForm({
   id: 'formulario',
   fields: {
     name: {
-      label: 'Primer Nombre',
+      label: 'First name',
     },
     gender: {
       label: 'Gender',

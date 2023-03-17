@@ -1,6 +1,8 @@
 <template>
   <button
-    class="bg-primary-500 text-white rounded-lg hover:shadow-md hover:shadow-primary-300"
+    v-bind="$attrs"
+    ref="buttonRef"
+    :disabled="props.loading"
     type="button"
   >
     <svg
@@ -20,15 +22,11 @@
         fill="currentColor"
       />
     </svg>
-    <template v-if="props.icon">
-      <i
-        :class="props.icon"
-        class="w-5 h-5 flex items-center justify-center"
-      />
-    </template>
-    <slot v-else>
+    <slot name="prepend" />
+    <slot>
       {{ props.label }}
     </slot>
+    <slot name="append" />
   </button>
 
   <teleport to="body">
@@ -50,31 +48,15 @@
 const props = defineProps<{
   loading?: boolean
   label?: string
-  icon?: string
+  icon?: boolean
   tooltip?: string
   tooltipPlacement?: string
   disabled?: boolean
 }>()
-const attrs = useAttrs() as any
 
 const buttonRef = ref()
 const tooltipRef = ref()
 const tooltipPopper = ref()
-
-const bgColor = useDefaultBackgroundColor(
-  'bg-gray-300',
-  typeof attrs === 'object' && attrs.class ? attrs.class : '',
-)
-
-const className = computed(() => {
-  const isIcon = props.icon ? 'f-button--icon' : ''
-  const _bgColor = props.disabled ? `${bgColor.value}/70` : bgColor.value
-
-  return [
-    _bgColor,
-    isIcon,
-  ]
-})
 
 onMounted(() => {
   if (props.tooltip) {
@@ -85,12 +67,3 @@ onMounted(() => {
   }
 })
 </script>
-
-<style lang="sass">
-.f-button
-  @apply font-medium px-5 py-3 focus:outline-none
-  @apply focus:ring-0 transition-all duration-500
-
-.f-button--icon
-  @apply p-2.5
-</style>

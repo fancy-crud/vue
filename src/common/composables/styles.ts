@@ -12,4 +12,3 @@ export function useDefaultBackgroundColor(defaultBgColor: string, colorContainer
     return bgColor || defaultBgColor
   })
 }
-
