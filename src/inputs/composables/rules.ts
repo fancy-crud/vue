@@ -32,8 +32,11 @@ function validate(field: NormalizedFieldStructure) {
   })
 }
 
-export function useRules() {
-  const isFormValid = computed(() => <T>(fields: NormalizedFields<T>) => {
+export function useRules<T>(fields?: NormalizedFields<T>) {
+  const isFormValid = computed(() => {
+    if (!fields)
+      throw new Error('You should provide Normalized fields to use isFormValid')
+
     const _fields = Object.entries(fields) as [string, NormalizedFieldStructure][]
 
     const schema = rules.object(getSchema(_fields, 'rules'))

@@ -22,8 +22,8 @@ const defaults = {
     // color: 'text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
     // file: 'block w-full text-sm text-gray-900 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
     // image: 'block w-full text-sm text-gray-900 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
-    // mainButton: 'bg-primary-500 text-white rounded-lg hover:shadow-md',
-    // auxButton: 'border ml-4 rounded-lg bg-transparent text-primary-500 border-primary-500 px-8 hover:bg-primary-50',
+    mainButton: 'bg-primary-500 text-white rounded-lg hover:shadow-md',
+    auxButton: 'border ml-4 rounded-lg bg-transparent text-primary-500 border-primary-500 px-8 hover:bg-primary-50',
   },
 }
 
