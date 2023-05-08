@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang='ts'>
-import { useForm } from '@/forms/composables'
+import { useForm } from '@/forms/integration/composables'
 
 const form = useForm({
   id: 'select-field',

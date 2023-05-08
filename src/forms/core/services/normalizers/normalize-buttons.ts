@@ -47,7 +47,7 @@ export class NormalizeButtons {
       aux: defaultAuxButton,
     }
 
-    const normalizedButtons = Object.assign({}, buttons, defaultButtons)
+    const normalizedButtons: NormalizedButtons<T> = Object.assign({}, buttons, defaultButtons)
     return normalizedButtons
   }
 }

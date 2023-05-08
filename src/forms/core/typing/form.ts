@@ -1,3 +1,7 @@
+import type { NormalizedButtons } from './buttons'
+import type { NormalizedSettings } from './settings'
+import type { NormalizedTitles } from './titles'
+
 export interface RawField {
   clearable?: boolean
   label?: string
@@ -50,3 +54,13 @@ export interface NormalizedField extends RawField {
 }
 
 export type NormalizedFields<T> = { [K in keyof T]: NormalizedField & T[K] }
+
+export interface Form<T, U> {
+  normalizedFields: NormalizedFields<T>
+  normalizedButtons: NormalizedButtons<U>
+  normalizedTitles: NormalizedTitles
+  normalizedSettings: NormalizedSettings
+}
+
+export interface ObjectWithRawField extends Record<string, RawField> {}
+export interface ObjectWithNormalizedField extends Record<string, NormalizedField> {}

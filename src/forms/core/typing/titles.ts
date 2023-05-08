@@ -3,4 +3,4 @@ export interface RawTitle {
   update?: string
 }
 
-export interface NormalizedTitle extends Required<RawTitle> {}
+export interface NormalizedTitles extends Required<RawTitle> {}

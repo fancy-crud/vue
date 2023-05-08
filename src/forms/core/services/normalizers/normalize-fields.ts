@@ -1,4 +1,4 @@
-import type { NormalizedField, NormalizedFields, RawField } from '../../typing'
+import type { NormalizedField, NormalizedFields, ObjectWithRawField, RawField } from '../../typing'
 
 /**
   A utility class that normalizes form fields by merging them with default keys and values.
@@ -50,7 +50,7 @@ export class NormalizeFormFields {
     @param {T} fields - An object containing form fields to be normalized.
     @returns {NormalizedFields<T>} - A new object with the normalized form fields.
   **/
-  execute<T extends Record<string, RawField> = {}>(fields: T): NormalizedFields<T> {
+  execute<T extends ObjectWithRawField = {}>(fields: T): NormalizedFields<T> {
     const normalizedFields = Object.entries(fields).reduce((previousValue, [fieldKey, field]) => {
       return {
         ...previousValue,

@@ -44,7 +44,7 @@ export default defineConfig({
     }),
     Components({
       dirs: [
-        'src/**/components',
+        'src/**/integration/components',
         'node_modules/@oruga-ui/oruga-next/src/components/**',
       ],
 

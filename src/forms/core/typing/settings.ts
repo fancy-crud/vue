@@ -1,13 +1,12 @@
 import type { FormModes } from '../constants'
-import type { RawButton } from './buttons'
-import type { RawTitle } from './titles'
 
-export interface RawSettings {
-  url: string
+export interface RawSetting {
+  url?: string
   lookupField?: string
-  buttons?: Record<string, RawButton>
+  lookupValue?: string
   mode?: FormModes
-  title?: RawTitle
 }
 
-export interface NormalizedSettings extends Required<RawSettings> {}
+export interface NormalizedSettings extends Required<Omit<RawSetting, 'lookupValue'>> {
+  lookupValue?: string
+}

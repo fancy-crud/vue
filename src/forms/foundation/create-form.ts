@@ -1,0 +1,32 @@
+import type { Form, ObjectWithRawField, RawButton, RawSetting, RawTitle } from '../core'
+import { NormalizeButtons, NormalizeFormFields, NormalizeSettings, NormalizeTitles } from '../core'
+
+/**
+ * A class that provides functionality to create a form from raw fields and settings.
+ */
+export class CreateForm {
+  /**
+   * Creates a form from raw fields and settings.
+   *
+   * @typeparam T - A generic type parameter that extends `ObjectWithRawField`.
+   * @param rawFields - A `ObjectWithRawField` object containing the raw fields to be normalized.
+   * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
+   * @returns A `Form` object containing the normalized fields and settings.
+   */
+  execute<T extends ObjectWithRawField, U extends RawSetting, V extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: V, rawSettings?: U): Form<T, V> {
+    const normalizedFields = new NormalizeFormFields().execute(rawFields)
+
+    const normalizedSettings = new NormalizeSettings().execute(rawSettings)
+
+    const normalizedButtons = new NormalizeButtons().execute(rawButtons)
+
+    const normalizedTitles = new NormalizeTitles().execute(rawTitles)
+
+    return {
+      normalizedFields,
+      normalizedSettings,
+      normalizedButtons,
+      normalizedTitles,
+    }
+  }
+}

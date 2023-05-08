@@ -1,6 +1,6 @@
 <template>
   <o-field :label="props.field.label" :variant="variant" :message="message">
-    <o-input v-bind="props.field" v-model="modelValue" />
+    <o-input v-model="modelValue" />
   </o-field>
 </template>
 
@@ -11,14 +11,9 @@ const props = defineProps<{
   field: NormalizedFieldStructure
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: unknown): void
-}>()
+const modelValue = useVModel(props.field, 'modelValue', undefined, { passive: true })
 
-const modelValue = useFieldModelValue(props.field, 'text', emit)
 const { validate, hasFieldErrors } = useRules()
-
-onMounted(() => validate(props.field))
 
 const variant = computed(() => hasFieldErrors(props.field) ? 'danger' : '')
 
@@ -31,5 +26,9 @@ const message = computed(() => {
   return result
 })
 
-watch(modelValue, () => console.log(modelValue.value))
+onMounted(() => validate(props.field))
+
+watch(modelValue, (value) => {
+  Object.assign(props.field, { modelValue: value })
+}, { deep: true })
 </script>

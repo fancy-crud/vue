@@ -7,7 +7,7 @@
 </template>
 
 <script lang='ts' setup>
-import { useForm } from '@/forms/composables'
+import { useForm } from '@/forms/integration/composables'
 
 const form = useForm({
   id: 'file-field',

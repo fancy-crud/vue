@@ -1,5 +1,5 @@
 export type EventHandlers<E = {}> = {
-  [K in keyof E]?: E[K] extends (...args: any) => any ? E[K] : (payload: E[K]) => void
+  [K in keyof E]?: E[K] extends (...args: any) => any ? E[K] : (payload?: E[K]) => void
 }
 
 export interface ButtonEvent {
@@ -28,7 +28,7 @@ export interface RawButton extends EventHandlers<Partial<ButtonEvent>> {
   class?: string
 }
 
-export interface NormalizedButton {
+export interface NormalizedButton extends EventHandlers<Partial<ButtonEvent>> {
   label: { create: string; update: string }
   loading: boolean
   icon: string
@@ -38,3 +38,6 @@ export interface NormalizedButton {
 export type ButtonType = 'main' | 'aux'
 
 export type NormalizedButtons<T> = T & Record<ButtonType, NormalizedButton>
+
+export interface ObjectWithRawButton extends Record<string, RawButton> {}
+export interface ObjectWithNormalizedButton extends Record<string, NormalizedButton> {}

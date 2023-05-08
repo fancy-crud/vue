@@ -9,7 +9,7 @@
 </template>
 
 <script lang='ts' setup>
-import { useForm } from '@/forms/composables'
+import { useForm } from '@/forms/integration/composables'
 
 const options = [
   { id: 6, name: 'vas', gender: 'm', image: null, image2: null, is_active: true, created_at: '2022-03-26T16:53:32.689923-06:00', updated_at: '2022-04-04T22:41:03.560384-06:00' },
