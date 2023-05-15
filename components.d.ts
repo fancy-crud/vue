@@ -41,6 +41,8 @@ declare module '@vue/runtime-core' {
     Radio: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/radio/Radio.vue')['default']
     Select: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/select/Select.vue')['default']
     Sidebar: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/sidebar/Sidebar.vue')['default']
+    SimpleAutocomplete: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/autocomplete/tests/SimpleAutocomplete.vue')['default']
+    SimpleCollapse: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/collapse/tests/SimpleCollapse.vue')['default']
     Skeleton: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/skeleton/Skeleton.vue')['default']
     Slider: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/slider/Slider.vue')['default']
     SliderThumb: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/slider/SliderThumb.vue')['default']

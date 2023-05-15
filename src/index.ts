@@ -1,9 +1,10 @@
 import 'animate.css'
+// import '@oruga-ui/oruga-next/dist/oruga.min.css'
 import type { App, Plugin } from 'vue'
 
 import Oruga from '@oruga-ui/oruga-next'
-import { setHttpConfig } from '@/http/composables/requests'
-import { setControls, setStatusCodesHandlers } from '@/settings/composables'
+import { setHttpConfig } from '@/http'
+import { setButtons, setControls, setStatusCodesHandlers } from '@/settings/composables'
 import './styles/main.sass'
 
 const components: Record<string, any> = {}
@@ -30,6 +31,9 @@ const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
 
   if (options.controls)
     setControls(options.controls)
+
+  if (options.buttons)
+    setButtons(options.buttons)
 }
 
 // Create module definition for Vue.use()

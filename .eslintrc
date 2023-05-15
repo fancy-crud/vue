@@ -14,6 +14,8 @@
     "vue/component-tags-order": ["error", {
       "order": [ [ "template", "script" ], "style" ]
     }],
+    "vue/component-name-in-template-casing": ["error", "kebab-case"],
+    "vue/custom-event-name-casing": ["error", "kebab-case"],
     "vue/attributes-order": ["error", {
       "order": [
         "LIST_RENDERING",

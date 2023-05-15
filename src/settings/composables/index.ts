@@ -10,9 +10,10 @@ import FColor from '@/inputs/components/FColor.vue'
 import FTextarea from '@/inputs/components/FTextarea.vue'
 import FInputFile from '@/inputs/components/FInputFile.vue'
 
-const defaults = {
+const defaults: { classes: Record<string, string> } = {
   classes: {
     // text: 'text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+    // text: 'col-span-12',
     // date: 'text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
     // password: 'text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
     // select: 'text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
@@ -41,6 +42,10 @@ export const controls = {
   image: FInputFile,
 }
 
+export const buttons = {
+  button: {},
+}
+
 const statusCodes: HandleRequestStatusCodes = {}
 
 export function setDefaultClasses(classes: { [k: string]: string }) {
@@ -61,4 +66,8 @@ export function setStatusCodesHandlers(handlers: HandleRequestStatusCodes) {
 
 export function setControls(_controls: unknown) {
   Object.assign(controls, _controls)
+}
+
+export function setButtons(_buttons: unknown) {
+  Object.assign(buttons, _buttons)
 }

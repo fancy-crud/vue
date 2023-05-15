@@ -1,8 +1,10 @@
+import FButton from './components/FButton.vue'
+
 export * from './composables'
 // export * from './typings'
 
 export function exportComponents() {
-  const components = import.meta.globEager('./**/*.vue')
+  const components: Record<string, any> = import.meta.globEager('./**/*.vue')
 
   const exportable: any = {}
 
@@ -11,8 +13,12 @@ export function exportComponents() {
   }
 
   Object.entries(components).forEach(([key, value]) => {
-    exportable[value.name ? value.name : getName(key)] = value.default
+    const keyName: string = value.name ? value.name : getName(key)
+    if (keyName.includes('FButton'))
+      return
+    exportable[keyName] = value.default
   })
 }
 
+export { FButton }
 export default exportComponents()

@@ -14,12 +14,11 @@ export class NormalizeFormFields {
     @param {RawField} field - The form field object containing the properties to be merged with the default keys.
     @returns {NormalizedField & RawField} - A new object combining the default keys and values with the provided field object.
   **/
-  private createDefaultKeys(fieldKey: string, field: RawField): NormalizedField & RawField {
-    const _field: NormalizedField & RawField = Object.assign({}, {
+  private createDefaultKeys(fieldKey: string, field: RawField): NormalizedField {
+    const _field: NormalizedField = Object.assign({}, {
       id: `field-${fieldKey}-control`,
       modelKey: fieldKey,
       name: fieldKey,
-      type: 'text',
       errors: [],
       wasFocused: false,
       modelValue: field.multiple ? [] : null,
@@ -29,18 +28,17 @@ export class NormalizeFormFields {
       ...field,
     })
 
-    if (_field.type === 'autocomplete')
-      _field.valueString = ''
+    // if (_field.type === 'autocomplete')
+    //   _field.valueString = ''
 
     if (_field.url && (!_field.options || !Array.isArray(_field.options)))
       _field.options = []
 
     const defaults = getDefaults()
-    const controlsClasses = defaults.classes
-          type controlClassType = keyof typeof controlsClasses
-          _field.class = `${controlsClasses[_field.type as controlClassType || 'text']} ${_field.class}`.trim()
+    const fieldClasses = defaults.classes[_field.type] || ''
+    _field.class = `${fieldClasses} ${_field.class}`.trim()
 
-          return _field
+    return _field
   }
 
   /**

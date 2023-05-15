@@ -1,5 +1,5 @@
 import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, ObjectWithRawField, RawButton, RawSetting, RawTitle } from '@/forms/core'
-import { FillWithRecordValues } from '@/forms/core/services/fields'
+import { FillWithRecordValues, ResetFields } from '@/forms/core/services/fields'
 import { CreateForm } from '@/forms/foundation'
 
 interface UseForm<T, U> {
@@ -8,6 +8,7 @@ interface UseForm<T, U> {
   titles: NormalizedTitles
   settings: NormalizedSettings
   fillWithRecordValues(record: Record<string, unknown>): void
+  resetFields(): void
 }
 
 /**
@@ -22,9 +23,15 @@ interface UseForm<T, U> {
  * @returns A `UseForm` object containing the reactive fields, titles, buttons, and settings.
  */
 export function useForm<T extends ObjectWithRawField, U extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: U, rawSettings?: RawSetting): UseForm<T, U> {
-  const { normalizedFields, normalizedTitles, normalizedButtons, normalizedSettings } = new CreateForm().execute(rawFields, rawTitles, rawButtons, rawSettings)
+  const {
+    originalNormalizedFields,
+    clonedNormalizedFields,
+    normalizedTitles,
+    normalizedButtons,
+    normalizedSettings,
+  } = new CreateForm().execute(rawFields, rawTitles, rawButtons, rawSettings)
 
-  const fields = reactive(normalizedFields) as NormalizedFields<T>
+  const fields = reactive(clonedNormalizedFields) as NormalizedFields<T>
   const buttons = reactive(normalizedButtons) as NormalizedButtons<U>
   const titles = reactive(normalizedTitles)
   const settings = reactive(normalizedSettings)
@@ -36,11 +43,17 @@ export function useForm<T extends ObjectWithRawField, U extends Record<string, R
     settings.lookupValue = String(record[settings.lookupField] || '')
   }
 
+  function resetFields() {
+    const reset = new ResetFields()
+    reset.execute(fields, originalNormalizedFields)
+  }
+
   return {
     fields,
     titles,
     buttons,
     settings,
     fillWithRecordValues,
+    resetFields,
   }
 }

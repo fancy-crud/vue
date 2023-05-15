@@ -1,30 +1,42 @@
 <template>
-  <f-input :field="form.fields.firstName" />
-
-  <!-- <f-form :form="form" /> -->
-
-  {{ form.fields.firstName.modelValue }}
+  <f-form v-bind="form" />
+  <br>
+  <br>
+  {{ form.fields.lastName.modelValue }}
 </template>
 
 <script lang='ts' setup>
 const { rules } = useRules()
 
+const settings = {
+  url: 'artists/',
+}
+
 const form = useForm({
-  id: 'input-field',
-  fields: {
-    firstName: {
-      label: 'First name',
-      modelValue: 'Hello',
+  firstName: {
+    type: 'select',
+    label: 'First name',
+    wrapper: {
       class: 'col-span-12',
-      rules: rules.string().min(1),
     },
-    lastName: {
-      label: 'Last Name',
+    placeholder: 'Como asi pues?',
+    optionLabel: 'name',
+    optionValue: 'id',
+    options: [
+      { id: '1', name: 'Carro' },
+      { id: '2', name: 'Bicicleta' },
+    ],
+    rules: rules.string().min(1),
+    class: 'w-full',
+  },
+  lastName: {
+    type: 'text',
+    label: 'Last name',
+    wrapper: {
+      class: 'col-span-12',
     },
+    badass: 'badass',
   },
-  settings: {
-    url: 'artists/',
-  },
-})
+}, {}, {}, settings)
 </script>
 

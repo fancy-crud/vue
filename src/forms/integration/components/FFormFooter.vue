@@ -1,15 +1,15 @@
 <template>
   <footer class="px-3">
-    <slot v-bind="{ mainButton, auxButton, getLabel }">
+    <slot v-bind="{ mainButton, auxButton, getLabel, onMainClick, onAuxClick }">
       <f-button
-        @click="emit('main-click')"
+        @click="onMainClick"
         :label="getLabel(mainButton)"
         :icon="!!mainButton.icon"
         :class="mainButton.class"
-        :disabled="!isFormValid"
+        :disabled="!props.isFormValid"
       />
       <f-button
-        @click="emit('aux-click')"
+        @click="onAuxClick"
         :label="getLabel(auxButton)"
         :icon="!!auxButton.icon"
         :class="auxButton.class"
@@ -25,6 +25,7 @@ import { FormModes } from '@/forms/core'
 const props = defineProps<{
   buttons: ObjectWithNormalizedButton
   settings: NormalizedSettings
+  isFormValid?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -32,12 +33,13 @@ const emit = defineEmits<{
   (e: 'aux-click'): void
 }>()
 
-const { isFormValid } = useRules()
-
 const mainButton = computed(() => props.buttons.main)
 const auxButton = computed(() => props.buttons.aux)
 
 const getLabel = computed(() => (button: NormalizedButton) => {
   return props.settings.mode === FormModes.CREATE_MODE ? button.label.create : button.label.update
 })
+
+function onMainClick() { emit('main-click') }
+function onAuxClick() { emit('aux-click') }
 </script>

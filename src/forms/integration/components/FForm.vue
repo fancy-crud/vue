@@ -26,7 +26,7 @@
       </li>
     </ul>
 
-    <f-form-footer @main-click="onMainClick(onSuccess, onFailed)" @aux-click="onAuxClick" :buttons="props.buttons" :settings="props.settings" />
+    <f-form-footer @main-click="onMainClick(onSuccess, onFailed)" @aux-click="onAuxClick" :buttons="props.buttons" :settings="props.settings" :is-form-valid="isFormValid" />
 
     <f-notification-group>
       <f-notification
@@ -60,6 +60,7 @@ const emit = defineEmits<{
   (e: 'error', response?: AxiosError): void
 }>()
 
+const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
 const t = useLocale()
 const { execute: onMainClick } = useCreateOrUpdateRecord(props.fields, props.buttons, props.settings)

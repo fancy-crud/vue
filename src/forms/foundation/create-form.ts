@@ -14,7 +14,8 @@ export class CreateForm {
    * @returns A `Form` object containing the normalized fields and settings.
    */
   execute<T extends ObjectWithRawField, U extends RawSetting, V extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: V, rawSettings?: U): Form<T, V> {
-    const normalizedFields = new NormalizeFormFields().execute(rawFields)
+    const originalNormalizedFields = new NormalizeFormFields().execute(rawFields)
+    const clonedNormalizedFields = new NormalizeFormFields().execute(rawFields)
 
     const normalizedSettings = new NormalizeSettings().execute(rawSettings)
 
@@ -23,7 +24,8 @@ export class CreateForm {
     const normalizedTitles = new NormalizeTitles().execute(rawTitles)
 
     return {
-      normalizedFields,
+      originalNormalizedFields,
+      clonedNormalizedFields,
       normalizedSettings,
       normalizedButtons,
       normalizedTitles,

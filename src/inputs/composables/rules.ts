@@ -1,7 +1,7 @@
 import { z as rules } from 'zod'
-import type { NormalizedFieldStructure, NormalizedFields } from '@/forms'
+import type { NormalizedField, NormalizedFields } from '@/forms/core'
 
-function getSchema(fields: [string, NormalizedFieldStructure][], fieldKey: string) {
+function getSchema(fields: [string, NormalizedField][], fieldKey: string) {
   return fields.reduce((accumulator, previous) => {
     const [fieldName, field] = previous
 
@@ -16,20 +16,24 @@ function getSchema(fields: [string, NormalizedFieldStructure][], fieldKey: strin
   }, {})
 }
 
-function validate(field: NormalizedFieldStructure) {
-  watch(() => field.modelValue, () => {
-    if (!field.rules)
-      return
+function validate(field: NormalizedField) {
+  watchDebounced(
+    () => field.modelValue,
+    () => {
+      if (!field.rules)
+        return
 
-    const result = field.rules.safeParse(field.modelValue)
+      const result = field.rules.safeParse(field.modelValue)
 
-    if (result.success) {
-      field.errors = []
-      return
-    }
+      if (result.success) {
+        field.errors = []
+        return
+      }
 
-    field.errors = result.error.issues.map(issue => issue.message)
-  })
+      field.errors = result.error.issues.map((issue: { message: any }) => issue.message)
+    },
+    { debounce: 300, maxWait: 1000 },
+  )
 }
 
 export function useRules<T>(fields?: NormalizedFields<T>) {
@@ -37,7 +41,7 @@ export function useRules<T>(fields?: NormalizedFields<T>) {
     if (!fields)
       throw new Error('You should provide Normalized fields to use isFormValid')
 
-    const _fields = Object.entries(fields) as [string, NormalizedFieldStructure][]
+    const _fields = Object.entries(fields) as [string, NormalizedField][]
 
     const schema = rules.object(getSchema(_fields, 'rules'))
     const result = schema.safeParse(getSchema(_fields, 'modelValue'))
@@ -45,7 +49,7 @@ export function useRules<T>(fields?: NormalizedFields<T>) {
     return result.success
   })
 
-  function hasFieldErrors(field: NormalizedFieldStructure) {
+  function hasFieldErrors(field: NormalizedField) {
     return !!field.errors.length
   }
 

@@ -1,6 +1,6 @@
 <template>
   <main
-    class="px-4 grid grid-cols-12 gap-x-8"
+    class="px-4 grid grid-cols-12 gap-x-8 gap-y-4"
     v-bind="$attrs"
   >
     <template
@@ -11,7 +11,6 @@
       <component
         :is="getComponent(field)"
         v-bind="{ field }"
-        v-model="field.modelValue"
       />
       <slot :name="`after-${fieldKey}`" />
     </template>

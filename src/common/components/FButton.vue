@@ -1,6 +1,7 @@
 <template>
-  <button
+  <component
     v-bind="$attrs"
+    :is="buttonElement"
     ref="buttonRef"
     :disabled="props.loading"
     type="button"
@@ -27,7 +28,7 @@
       {{ props.label }}
     </slot>
     <slot name="append" />
-  </button>
+  </component>
 
   <teleport to="body">
     <div
@@ -45,6 +46,8 @@
 </template>
 
 <script lang="ts" setup>
+import { buttons } from '@/settings'
+
 const props = defineProps<{
   loading?: boolean
   label?: string
@@ -57,6 +60,8 @@ const props = defineProps<{
 const buttonRef = ref()
 const tooltipRef = ref()
 const tooltipPopper = ref()
+
+const buttonElement = buttons.button
 
 onMounted(() => {
   if (props.tooltip) {

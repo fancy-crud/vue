@@ -1,3 +1,4 @@
+import { FormModes } from '../../constants/form'
 import { DEFAULT_LOOKUP_FIELD } from '../../constants/settings'
 import type { NormalizedSettings, RawSetting } from '../../typing'
 

@@ -2,61 +2,120 @@ import type { NormalizedButtons } from './buttons'
 import type { NormalizedSettings } from './settings'
 import type { NormalizedTitles } from './titles'
 
-export interface RawField {
-  clearable?: boolean
-  label?: string
-  multiple?: boolean
-  valueString?: string | null
-  url?: string
-  showPassword?: boolean
-  optionLabel?: string
-  optionValue?: string
-  modelKey?: string
-  modelValue?: unknown
-  chips?: boolean
-  fileUrl?: string
-  wrapClass?: string
+export interface BaseRawField extends Record<string, any> {
+  type: string
+  wrapper?: Record<string, unknown>
   class?: string
-  wrapCols?: string
-  type?: string
+  label?: string
   errors?: string[]
-  filterParams?: unknown
-  options?: any[]
-  ref?: unknown
   createOnly?: boolean
   updateOnly?: boolean
   hidden?: boolean
   hintText?: string
-  // Define a better type for this property
-  rules?: any[]
+  rules?: any
   bounceTime?: number
-  table?: {
-    label?: string
-    value?: string
-    field?: (row: unknown, index: number) => unknown
-    format?: (value: unknown) => unknown
-    exclude?: boolean
-    allowCheckbox?: boolean
-    allowImagePreview?: boolean
-  }
-  xlsx?: Record<string, unknown>
+  modelKey?: string
+  modelValue?: unknown
 }
 
-export interface NormalizedField extends RawField {
+export interface RawTextField extends BaseRawField {
+  type: 'text'
+}
+
+export interface RawPasswordField extends BaseRawField {
+  showPassword?: boolean
+  type: 'password'
+}
+
+export interface RawColorField extends BaseRawField {
+  type: 'color'
+}
+
+export interface RawTextareaField extends BaseRawField {
+  type: 'textarea'
+}
+
+export interface RawRadioField extends BaseRawField {
+  type: 'radio'
+}
+
+export interface RawCheckboxField extends BaseRawField {
+  type: 'checkbox'
+}
+
+export interface RawSelectField extends BaseRawField {
+  type: 'select'
+  clearable?: boolean
+  multiple?: boolean
+  optionLabel?: string
+  optionValue?: string
+  options?: any[]
+  url?: string
+  filterParams?: Record<string, unknown>
+}
+
+export interface RawFileField extends BaseRawField {
+  type: 'file'
+  fileUrl?: string
+}
+
+// export interface RawField extends Record<string, any> {
+// chips?: boolean
+// valueString?: string | null
+// Define a better type for this property
+// table?: {
+//   label?: string
+//   value?: string
+//   field?: (row: unknown, index: number) => unknown
+//   format?: (value: unknown) => unknown
+//   exclude?: boolean
+//   allowCheckbox?: boolean
+//   allowImagePreview?: boolean
+// }
+// xlsx?: Record<string, unknown>
+// }
+
+export type RawField =
+  | RawTextField
+  | RawPasswordField
+  | RawColorField
+  | RawTextareaField
+  | RawRadioField
+  | RawCheckboxField
+  | RawSelectField
+
+export interface DefaultAttributes {
   name: string
-  type: string
   class: string
   modelKey: string
   modelValue: unknown
   ref: any
   errors: string[]
-  onInput?: (e: Event) => void
 }
+
+export type FieldNormalizer<T> = T & DefaultAttributes
+
+export type NormalizedField = FieldNormalizer<RawField>
+
+export type NormalizedTextField = FieldNormalizer<RawTextField>
+
+export type NormalizedColorField = FieldNormalizer<RawColorField>
+
+export type NormalizedPasswordField = FieldNormalizer<RawPasswordField>
+
+export type NormalizedTextareaField = FieldNormalizer<RawTextareaField>
+
+export type NormalizedRadioField = FieldNormalizer<RawRadioField>
+
+export type NormalizedCheckboxField = FieldNormalizer<RawCheckboxField>
+
+export type NormalizedSelectField = FieldNormalizer<RawSelectField>
 
 export type NormalizedFields<T> = { [K in keyof T]: NormalizedField & T[K] }
 
 export interface Form<T, U> {
-  normalizedFields: NormalizedFields<T>
+  originalNormalizedFields: NormalizedFields<T>
+  clonedNormalizedFields: NormalizedFields<T>
   normalizedButtons: NormalizedButtons<U>
   normalizedTitles: NormalizedTitles
   normalizedSettings: NormalizedSettings

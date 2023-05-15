@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 
 const props = defineProps<{
-  field: NormalizedFieldStructure
+  field: NormalizedField
 }>()
 
 const modelValue = useVModel(props.field, 'modelValue', undefined, { passive: true })
