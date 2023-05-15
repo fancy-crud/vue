@@ -1,5 +1,4 @@
 import 'animate.css'
-// import '@oruga-ui/oruga-next/dist/oruga.min.css'
 import type { App, Plugin } from 'vue'
 
 import Oruga from '@oruga-ui/oruga-next'
@@ -11,7 +10,9 @@ const components: Record<string, any> = {}
 // install function executed by Vue.use()
 const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
   app.use(Oruga)
-  Object.entries(import.meta.globEager('@/**/components/*.vue')).forEach(([key, value]) => {
+
+  const componentsList: [string, any][] = Object.entries(import.meta.globEager('@/**/components/*.vue'))
+  componentsList.forEach(([key, value]) => {
     if (key.includes('/viewer/'))
       return
 
