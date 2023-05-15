@@ -15,10 +15,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedFieldStructure } from '@/forms'
+import type { Ref } from 'vue'
+import type { NormalizedField } from '@/forms/core'
 
 const props = defineProps<{
-  field: NormalizedFieldStructure
+  field: NormalizedField
 }>()
 
 const emit = defineEmits<{
@@ -28,7 +29,7 @@ const emit = defineEmits<{
 provide('field', props.field)
 
 const errorStyles = useErrorStyles(props.field)
-const modelValue = useFieldModelValue(props.field, 'text', emit)
+const modelValue: Ref<any> = useFieldModelValue(props.field, 'text', emit)
 const { validate } = useRules()
 
 onMounted(() => validate(props.field))

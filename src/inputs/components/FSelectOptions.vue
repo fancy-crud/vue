@@ -54,7 +54,7 @@
 
 <script lang='ts' setup>
 import _ from 'lodash'
-import type { NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 
 interface Option {
   _isSelected?: boolean
@@ -70,8 +70,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: unknown | unknown[]): void
-  (e: 'clickOutside'): void
-  (e: 'scrollBottom'): void
+  (e: 'click-outside'): void
+  (e: 'scroll-bottom'): void
 }>()
 
 const vClickOutside = {
@@ -95,7 +95,7 @@ const state = reactive({
   showOptions: false,
 })
 
-const field = computed(() => inject('field') as NormalizedFieldStructure)
+const field = computed(() => inject('field') as NormalizedField)
 const optionLabel = computed(() => field.value.optionLabel || 'label')
 const getOptionLabel = computed(() => (option: Option) => {
   if (option.value !== null && typeof option.value === 'object') {
@@ -147,7 +147,7 @@ watch(() => props.modelValue, () => {
 })
 
 function normalizeOptions() {
-  const options = field.value.options?.map((option) => {
+  const options = field.value.options?.map((option: any) => {
     const normalizedOption: Option = { _isSelected: false, value: option }
 
     if (field.value.multiple) {
@@ -170,7 +170,7 @@ function watchOptionsListScroll() {
 
   optionsList.value.addEventListener('scroll', () => {
     if (optionsList.value && optionsList.value.scrollTop + optionsList.value.clientHeight >= optionsList.value.scrollHeight)
-      emit('scrollBottom')
+      emit('scroll-bottom')
   })
 }
 
@@ -202,7 +202,7 @@ function triggerClickOutside() {
     return
   }
 
-  emit('clickOutside')
+  emit('click-outside')
   state.showOptions = false
 }
 

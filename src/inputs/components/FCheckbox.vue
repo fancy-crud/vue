@@ -22,10 +22,10 @@
 
 <script lang="ts" setup>
 import { computed, provide } from 'vue'
-import type { NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 
 const props = defineProps<{
-  field: NormalizedFieldStructure
+  field: NormalizedField
 }>()
 
 provide('field', props.field)

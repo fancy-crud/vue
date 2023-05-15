@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 
-const field = computed(() => inject('field') as NormalizedFieldStructure)
+const field = computed(() => inject('field') as NormalizedField)
 
 const messages = computed(() => {
   let result: string[] = field.value.hintText ? [field.value.hintText] : []

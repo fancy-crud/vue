@@ -88,7 +88,7 @@
 import _ from 'lodash'
 import { createPopper } from '@popperjs/core'
 import type { Instance as PopperInstance } from '@popperjs/core'
-import type { NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 import type { RecordManager } from '@/http'
 
 interface State {
@@ -102,12 +102,12 @@ interface State {
 }
 
 const props = defineProps<{
-  field: NormalizedFieldStructure
+  field: NormalizedField
 }>()
 
 provide('field', props.field)
 
-let recordsManager: RecordManager<unknown, { search: string }> | null = null
+const recordsManager: RecordManager<unknown, { search: string }> | null = null
 
 const errorStyles = useErrorStyles(props.field)
 const triggerElement = ref<HTMLElement>()
@@ -212,10 +212,10 @@ watch(() => state.modelValue, (modelValue) => {
 })
 
 watch(() => recordsManager?.list.value, () => {
-  if (!props.field.options || !recordsManager)
-    return
+  // if (!props.field.options || !recordsManager)
+  //   return
 
-  addOptionsToField(props.field, recordsManager?.list.value)
+  // addOptionsToField(props.field, recordsManager?.list.value)
 })
 
 function displayComma(optionIndex: number) {
@@ -223,8 +223,8 @@ function displayComma(optionIndex: number) {
 }
 
 function setupRecordsManager() {
-  if (props.field.url)
-    recordsManager = useListRequest<unknown, any>(props.field.url, props.field.filterParams)
+  // if (props.field.url)
+  //   recordsManager = useListRequest<unknown, any>(props.field.url, props.field.filterParams)
 }
 
 function loadMoreOptions() {

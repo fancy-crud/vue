@@ -1,10 +1,10 @@
 import type { AxiosResponse } from 'axios'
-import type { Form, NormalizedFieldStructure } from '@/forms'
+import type { NormalizedField } from '@/forms/core'
 import type { HandleRequestStatusCodes } from '@/http'
 
 const t = useLocale()
 
-function handleBadRequest(form: Form, data?: any) {
+function handleBadRequest(form: any, data?: any) {
   pushNotification(errorNotification({
     message: t.value('server-bad-request'),
   }))
@@ -30,7 +30,7 @@ function handleBadRequest(form: Form, data?: any) {
         form.generalErrors = [`${fieldKey} - ${messageError}`]
     }
     else {
-      (form.fields[fieldKey as FieldKey] as NormalizedFieldStructure).errors = [messageError]
+      (form.fields[fieldKey as FieldKey] as NormalizedField).errors = [messageError]
     }
   })
 }
@@ -41,7 +41,7 @@ export function handleUnauthorizedUser() {
   }))
 }
 
-function handleUnknownError(_form: Form, _data?: any) {
+function handleUnknownError(_form: any, _data?: any) {
   pushNotification(errorNotification({
     message: t.value('server-error'),
   }))

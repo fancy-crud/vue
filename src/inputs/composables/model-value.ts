@@ -1,17 +1,17 @@
 import _ from 'lodash'
-import type { Form, FormModes, NormalizedFieldStructure } from '@/forms'
+import type { FormModes, NormalizedField } from '@/forms/core'
 
-export const setInputTextModelValue = (field: NormalizedFieldStructure, value: any) => {
+export const setInputTextModelValue = (field: NormalizedField, value: any) => {
   field.modelValue = value
 }
 
-export const setInputSelectModelValue = (field: NormalizedFieldStructure, value: any) => {
+export const setInputSelectModelValue = (field: NormalizedField, value: any) => {
   field.modelValue = field.options?.find(
     (item: any) => item[field.optionValue || ''] === value,
   )
 }
 
-export const setInputCheckboxModelValue = (field: NormalizedFieldStructure, value: any) => {
+export const setInputCheckboxModelValue = (field: NormalizedField, value: any) => {
   const singleValue = () => {
     field.modelValue = value
   }
@@ -38,7 +38,7 @@ export const setInputCheckboxModelValue = (field: NormalizedFieldStructure, valu
   singleValue()
 }
 
-export const setInputFileModelValue = (field: NormalizedFieldStructure, value: any) => {
+export const setInputFileModelValue = (field: NormalizedField, value: any) => {
   const _files = []
 
   if (!value)
@@ -50,15 +50,15 @@ export const setInputFileModelValue = (field: NormalizedFieldStructure, value: a
   field.modelValue = _files
 }
 
-export const setInputRadioModelValue = (field: NormalizedFieldStructure, value: any) => {
+export const setInputRadioModelValue = (field: NormalizedField, value: any) => {
   field.modelValue = value
 }
 
-export const togglePasswordVisibility = (field: NormalizedFieldStructure) => {
+export const togglePasswordVisibility = (field: NormalizedField) => {
   field.showPassword = !field.showPassword
 }
 
-export const modelValueTypes: Record<string, (field: NormalizedFieldStructure, value: any) => void> = {
+export const modelValueTypes: Record<string, (field: NormalizedField, value: any) => void> = {
   text: setInputTextModelValue,
   textarea: setInputTextModelValue,
   color: setInputTextModelValue,
@@ -70,15 +70,15 @@ export const modelValueTypes: Record<string, (field: NormalizedFieldStructure, v
   image: setInputFileModelValue,
 }
 
-export function setFormMode(form: Form, mode: FormModes) {
+export function setFormMode(form: any, mode: FormModes) {
   form.settings.mode = mode
 }
 
-export function setFormRecord(form: Form, record: unknown) {
+export function setFormRecord(form: any, record: unknown) {
   Object.assign(form, { record })
 }
 
-export function useFieldModelValue(field: NormalizedFieldStructure, type: string, emit: (name: 'update:modelValue', ...args: any[]) => void) {
+export function useFieldModelValue(field: NormalizedField, type: string, emit: (name: 'update:modelValue', ...args: any[]) => void) {
   const modelValue = ref<unknown>(field.modelValue)
   const timeout = ref<NodeJS.Timeout | null>(null)
 

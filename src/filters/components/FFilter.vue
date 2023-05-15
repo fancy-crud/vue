@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
-import type { NormalizedFieldStructure, NormalizedFields } from '@/forms'
+import type { NormalizedField, NormalizedFields } from '@/forms/core'
 
 import FInput from '@/inputs/components/FInput.vue'
 import FInputDate from '@/inputs/components/FInputDate.vue'
@@ -32,7 +32,7 @@ import FTextarea from '@/inputs/components/FTextarea.vue'
 import FInputFile from '@/inputs/components/FInputFile.vue'
 
 const props = defineProps<{
-  filters: NormalizedFields<object>
+  filters: NormalizedFields<Record<string, unknown>>
 }>()
 
 const controls = {
@@ -49,7 +49,7 @@ const controls = {
   image: FInputFile,
 }
 
-const getComponent = (field: NormalizedFieldStructure) => {
+const getComponent = (field: NormalizedField) => {
   type ControlType = keyof typeof controls
   return controls[field.type as ControlType] || controls.text
 }
@@ -66,6 +66,6 @@ const filters = computed(() => {
 })
 
 onMounted(() => {
-  getForeignKeys(props.filters)
+  // TODO: Fetch Foreign keys values
 })
 </script>
