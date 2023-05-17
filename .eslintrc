@@ -3,7 +3,7 @@
     "@antfu"
   ],
   "rules": {
-    "no-console": "off",
+    "no-console": "warn",
     "vue/attribute-hyphenation": ["error", "always", {
       "ignore": ["modelValue"]
     }],

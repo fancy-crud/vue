@@ -70,7 +70,7 @@ export class GetForeignKeyValues {
           fields[fieldKey].options = this.addOptionsToField(fields[fieldKey], response.data)
         })
       })
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
     })
   }
 }
