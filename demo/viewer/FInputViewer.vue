@@ -6,6 +6,8 @@
 </template>
 
 <script lang='ts' setup>
+import { FieldType } from '@/forms/core'
+
 const { rules } = useRules()
 
 const settings = {
@@ -14,18 +16,12 @@ const settings = {
 
 const form = useForm({
   firstName: {
-    type: 'select',
+    type: FieldType.select,
     label: 'First name',
     wrapper: {
       class: 'col-span-12',
     },
     placeholder: 'Como asi pues?',
-    optionLabel: 'name',
-    optionValue: 'id',
-    options: [
-      { id: '1', name: 'Carro' },
-      { id: '2', name: 'Bicicleta' },
-    ],
     rules: rules.string().min(1),
     class: 'w-full',
   },

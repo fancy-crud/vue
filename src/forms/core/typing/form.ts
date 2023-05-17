@@ -2,8 +2,19 @@ import type { NormalizedButtons } from './buttons'
 import type { NormalizedSettings } from './settings'
 import type { NormalizedTitles } from './titles'
 
+export enum FieldType {
+  text = 'text',
+  password = 'password',
+  color = 'color',
+  textarea = 'textarea',
+  radio = 'radio',
+  checkbox = 'checkbox',
+  select = 'select',
+  file = 'file',
+}
+
 export interface BaseRawField extends Record<string, any> {
-  type: string
+  type: string | FieldType
   wrapper?: Record<string, unknown>
   class?: string
   label?: string
@@ -19,32 +30,32 @@ export interface BaseRawField extends Record<string, any> {
 }
 
 export interface RawTextField extends BaseRawField {
-  type: 'text'
+  type: FieldType.text
 }
 
 export interface RawPasswordField extends BaseRawField {
   showPassword?: boolean
-  type: 'password'
+  type: FieldType.password
 }
 
 export interface RawColorField extends BaseRawField {
-  type: 'color'
+  type: FieldType.color
 }
 
 export interface RawTextareaField extends BaseRawField {
-  type: 'textarea'
+  type: FieldType.textarea
 }
 
 export interface RawRadioField extends BaseRawField {
-  type: 'radio'
+  type: FieldType.radio
 }
 
 export interface RawCheckboxField extends BaseRawField {
-  type: 'checkbox'
+  type: FieldType.checkbox
 }
 
 export interface RawSelectField extends BaseRawField {
-  type: 'select'
+  type: FieldType.select
   clearable?: boolean
   multiple?: boolean
   optionLabel?: string
@@ -55,27 +66,12 @@ export interface RawSelectField extends BaseRawField {
 }
 
 export interface RawFileField extends BaseRawField {
-  type: 'file'
+  type: FieldType.file
   fileUrl?: string
 }
 
-// export interface RawField extends Record<string, any> {
-// chips?: boolean
-// valueString?: string | null
-// Define a better type for this property
-// table?: {
-//   label?: string
-//   value?: string
-//   field?: (row: unknown, index: number) => unknown
-//   format?: (value: unknown) => unknown
-//   exclude?: boolean
-//   allowCheckbox?: boolean
-//   allowImagePreview?: boolean
-// }
-// xlsx?: Record<string, unknown>
-// }
-
 export type RawField =
+  | BaseRawField
   | RawTextField
   | RawPasswordField
   | RawColorField
@@ -123,3 +119,19 @@ export interface Form<T, U> {
 
 export interface ObjectWithRawField extends Record<string, RawField> {}
 export interface ObjectWithNormalizedField extends Record<string, NormalizedField> {}
+
+// export interface RawField extends Record<string, any> {
+// chips?: boolean
+// valueString?: string | null
+// Define a better type for this property
+// table?: {
+//   label?: string
+//   value?: string
+//   field?: (row: unknown, index: number) => unknown
+//   format?: (value: unknown) => unknown
+//   exclude?: boolean
+//   allowCheckbox?: boolean
+//   allowImagePreview?: boolean
+// }
+// xlsx?: Record<string, unknown>
+// }
