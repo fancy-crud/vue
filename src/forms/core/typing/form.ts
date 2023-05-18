@@ -34,8 +34,8 @@ export interface RawTextField extends BaseRawField {
 }
 
 export interface RawPasswordField extends BaseRawField {
-  showPassword?: boolean
   type: FieldType.password
+  showPassword?: boolean
 }
 
 export interface RawColorField extends BaseRawField {
@@ -48,10 +48,19 @@ export interface RawTextareaField extends BaseRawField {
 
 export interface RawRadioField extends BaseRawField {
   type: FieldType.radio
+  inRow?: boolean
+  optionLabel?: string
+  optionValue?: string
+  options?: any[]
 }
 
 export interface RawCheckboxField extends BaseRawField {
   type: FieldType.checkbox
+  inRow?: boolean
+  optionLabel?: string
+  optionValue?: string
+  options?: any[]
+  multiple?: boolean
 }
 
 export interface RawSelectField extends BaseRawField {

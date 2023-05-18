@@ -42,8 +42,6 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: unknown): void
 }>()
 
-provide('field', props.field)
-
 const inRowDisplay = computed(() => {
   return props.field.class.includes('in-row') ? 'in-row' : ''
 })

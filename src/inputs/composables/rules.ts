@@ -49,7 +49,7 @@ export function useRules<T>(fields?: NormalizedFields<T>) {
     return result.success
   })
 
-  function hasFieldErrors(field: NormalizedField) {
+  function hasFieldErrors(field: { errors: string[] }) {
     return !!field.errors.length
   }
 

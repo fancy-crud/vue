@@ -1,12 +1,20 @@
 import { OButton } from '@oruga-ui/oruga-next'
-import Input from './Input.vue'
+import Text from './Text.vue'
+import Color from './Color.vue'
+import Password from './Password.vue'
 import Select from './Select.vue'
+import Radio from './Radio.vue'
+import Checkbox from './Checkbox.vue'
 
-export const orugaInputs: Record<string, any> = {
-  text: Input,
+export const fields: Record<string, any> = {
+  text: Text,
+  password: Password,
+  color: Color,
   select: Select,
+  radio: Radio,
+  checkbox: Checkbox,
 }
 
-export const orugaButtons: Record<string, any> = {
+export const buttons: Record<string, any> = {
   button: OButton,
 }

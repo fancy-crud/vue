@@ -1,7 +1,7 @@
 <template>
-  <o-field v-bind="props.field.wrapper" :label="props.field.label" :variant="variant" :message="message">
+  <o-field v-bind="props.field.wrapper" :label="props.field.label" :variant="variant" :message="hintText">
     <o-select v-bind="fieldAttrs" v-model="modelValue" expanded>
-      <option v-for="([label, value], index) in computedOptions" :key="index" :value="value">
+      <option v-for="([label, value], index) in options" :key="index" :value="value">
         {{ label }}
       </option>
     </o-select>
@@ -10,10 +10,11 @@
 
 <script lang="ts" setup>
 import { OSelect } from '@oruga-ui/oruga-next'
-import type { NormalizedField } from '@/forms/core'
+import type { NormalizedSelectField } from '@/forms/core'
+import { useHintText, useOptions } from '@/forms/integration/composables/fields/utils'
 
 const props = defineProps<{
-  field: NormalizedField
+  field: NormalizedSelectField
 }>()
 
 const modelValue = useVModel(props.field, 'modelValue', undefined, { passive: true })
@@ -32,28 +33,9 @@ const fieldAttrs = computed(() => {
 
 const variant = computed(() => hasFieldErrors(props.field) ? 'danger' : '')
 
-const message = computed(() => {
-  let result: string = props.field.hintText ? props.field.hintText : ''
+const { hintText } = useHintText(props)
 
-  if (props.field.errors.length)
-    result = props.field.errors[0]
-
-  return result
-})
-
-const computedOptions = computed(() => {
-  const options = props.field.options || []
-
-  const optionValue = props.field.optionValue || ''
-  const optionLabel = props.field.optionLabel || ''
-
-  return options.reduce((previousValue: any, currentValue: any) => {
-    const value = currentValue[optionValue] || currentValue
-    const label = currentValue[optionLabel] || currentValue
-
-    return [...previousValue, [label, value]]
-  }, [] as Array<Array<any>>)
-})
+const { options } = useOptions(props)
 
 onMounted(() => validate(props.field))
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 import '@oruga-ui/oruga-next/dist/oruga-full.css'
 // import Oruga from '@oruga-ui/oruga-next'
 import FancyCrud from '../src/index'
-import { orugaButtons, orugaInputs } from '../src/wrappers/config'
+import { buttons, fields } from '../src/wrappers/config'
 import App from './App.vue'
 
 import '@mdi/font/css/materialdesignicons.css'
@@ -18,10 +18,10 @@ const app = createApp(App)
 app.use(FancyCrud, {
   http: { axios },
   controls: {
-    ...orugaInputs,
+    ...fields,
   },
   buttons: {
-    ...orugaButtons,
+    ...buttons,
   },
 })
 

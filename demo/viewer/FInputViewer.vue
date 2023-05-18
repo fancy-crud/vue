@@ -16,7 +16,7 @@ const settings = {
 
 const form = useForm({
   firstName: {
-    type: FieldType.select,
+    type: FieldType.password,
     label: 'First name',
     wrapper: {
       class: 'col-span-12',
@@ -24,13 +24,15 @@ const form = useForm({
     placeholder: 'Como asi pues?',
     rules: rules.string().min(1),
     class: 'w-full',
+    passwordReveal: true,
   },
   lastName: {
-    type: 'text',
+    type: FieldType.textarea,
     label: 'Last name',
     wrapper: {
       class: 'col-span-12',
     },
+    class: 'w-full',
     badass: 'badass',
   },
 }, {}, {}, settings)

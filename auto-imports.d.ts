@@ -11,6 +11,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const buttons: typeof import('./src/settings/composables/index')['buttons']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -93,6 +94,7 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const setButtons: typeof import('./src/settings/composables/index')['setButtons']
   const setControls: typeof import('./src/settings/composables/index')['setControls']
   const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
   const setFormMode: typeof import('./src/inputs/composables/model-value')['setFormMode']
@@ -324,6 +326,7 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly buttons: UnwrapRef<typeof import('./src/settings/composables/index')['buttons']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -406,6 +409,7 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setButtons: UnwrapRef<typeof import('./src/settings/composables/index')['setButtons']>
     readonly setControls: UnwrapRef<typeof import('./src/settings/composables/index')['setControls']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
     readonly setFormMode: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setFormMode']>

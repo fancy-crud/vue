@@ -1,1 +1,6 @@
-export * from './input'
+export * from './text'
+export * from './radio'
+export * from './password'
+export * from './checkbox'
+export * from './color'
+export * from './textarea'
