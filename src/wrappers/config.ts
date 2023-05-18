@@ -5,6 +5,7 @@ import Password from './Password.vue'
 import Select from './Select.vue'
 import Radio from './Radio.vue'
 import Checkbox from './Checkbox.vue'
+import File from './File.vue'
 
 export const fields: Record<string, any> = {
   text: Text,
@@ -13,6 +14,7 @@ export const fields: Record<string, any> = {
   select: Select,
   radio: Radio,
   checkbox: Checkbox,
+  file: File,
 }
 
 export const buttons: Record<string, any> = {

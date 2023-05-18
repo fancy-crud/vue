@@ -74,9 +74,14 @@ export interface RawSelectField extends BaseRawField {
   filterParams?: Record<string, unknown>
 }
 
+export interface File {
+  name: string
+}
+
 export interface RawFileField extends BaseRawField {
   type: FieldType.file
   fileUrl?: string
+  modelValue: File | File[] | null
 }
 
 export type RawField =
@@ -88,6 +93,7 @@ export type RawField =
   | RawRadioField
   | RawCheckboxField
   | RawSelectField
+  | RawFileField
 
 export interface DefaultAttributes {
   name: string
@@ -115,6 +121,8 @@ export type NormalizedRadioField = FieldNormalizer<RawRadioField>
 export type NormalizedCheckboxField = FieldNormalizer<RawCheckboxField>
 
 export type NormalizedSelectField = FieldNormalizer<RawSelectField>
+
+export type NormalizedFileField = FieldNormalizer<RawFileField>
 
 export type NormalizedFields<T> = { [K in keyof T]: NormalizedField & T[K] }
 

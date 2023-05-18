@@ -27,13 +27,14 @@ const form = useForm({
     passwordReveal: true,
   },
   lastName: {
-    type: FieldType.textarea,
+    type: FieldType.file,
     label: 'Last name',
     wrapper: {
       class: 'col-span-12',
     },
     class: 'w-full',
     badass: 'badass',
+    multiple: true,
   },
 }, {}, {}, settings)
 </script>

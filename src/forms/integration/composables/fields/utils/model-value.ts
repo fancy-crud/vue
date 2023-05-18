@@ -1,10 +1,10 @@
-interface Props {
+interface Props<T = unknown> {
   field: {
-    modelValue: unknown
+    modelValue: T
   }
 }
 
-export function useModelValue(props: Props) {
+export function useModelValue<T = unknown>(props: Props<T>) {
   const modelValue = useVModel(props.field, 'modelValue', undefined, { passive: true })
 
   watch(modelValue, (value) => {
