@@ -1,5 +1,5 @@
 <template>
-  <f-form :form="form" />
+  <f-form v-bind="form" />
 
   <!-- <f-select :field="form.fields.select" /> -->
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <f-form :form="form" />
+    <f-form v-bind="form" />
   </div>
 </template>
 
