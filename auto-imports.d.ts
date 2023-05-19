@@ -54,7 +54,6 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
-  const modelValueTypes: typeof import('./src/inputs/composables/model-value')['modelValueTypes']
   const nextTick: typeof import('vue')['nextTick']
   const notificationStore: typeof import('./src/notifications/composables/index')['notificationStore']
   const onActivated: typeof import('vue')['onActivated']
@@ -97,14 +96,7 @@ declare global {
   const setButtons: typeof import('./src/settings/composables/index')['setButtons']
   const setControls: typeof import('./src/settings/composables/index')['setControls']
   const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
-  const setFormMode: typeof import('./src/inputs/composables/model-value')['setFormMode']
-  const setFormRecord: typeof import('./src/inputs/composables/model-value')['setFormRecord']
   const setHttpConfig: typeof import('./src/http/integration/composables/config')['setHttpConfig']
-  const setInputCheckboxModelValue: typeof import('./src/inputs/composables/model-value')['setInputCheckboxModelValue']
-  const setInputFileModelValue: typeof import('./src/inputs/composables/model-value')['setInputFileModelValue']
-  const setInputRadioModelValue: typeof import('./src/inputs/composables/model-value')['setInputRadioModelValue']
-  const setInputSelectModelValue: typeof import('./src/inputs/composables/model-value')['setInputSelectModelValue']
-  const setInputTextModelValue: typeof import('./src/inputs/composables/model-value')['setInputTextModelValue']
   const setLocale: typeof import('./src/locales/composables/locale')['setLocale']
   const setStatusCodesHandlers: typeof import('./src/settings/composables/index')['setStatusCodesHandlers']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -121,7 +113,6 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const togglePasswordVisibility: typeof import('./src/inputs/composables/model-value')['togglePasswordVisibility']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -187,7 +178,6 @@ declare global {
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
   const useFetch: typeof import('@vueuse/core')['useFetch']
-  const useFieldModelValue: typeof import('./src/inputs/composables/model-value')['useFieldModelValue']
   const useFileDialog: typeof import('@vueuse/core')['useFileDialog']
   const useFileSystemAccess: typeof import('@vueuse/core')['useFileSystemAccess']
   const useFilters: typeof import('./src/filters/composables/index')['useFilters']
@@ -245,7 +235,7 @@ declare global {
   const useRequestUpdate: typeof import('./src/http/integration/composables/request-update')['useRequestUpdate']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRetrieveRequest: typeof import('./src/http/integration/composables/request-retrieve')['useRetrieveRequest']
-  const useRules: typeof import('./src/inputs/composables/rules')['useRules']
+  const useRules: typeof import('./src/forms/integration/composables/rules')['useRules']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
   const useScriptTag: typeof import('@vueuse/core')['useScriptTag']
@@ -369,7 +359,6 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
-    readonly modelValueTypes: UnwrapRef<typeof import('./src/inputs/composables/model-value')['modelValueTypes']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly notificationStore: UnwrapRef<typeof import('./src/notifications/composables/index')['notificationStore']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
@@ -412,14 +401,7 @@ declare module 'vue' {
     readonly setButtons: UnwrapRef<typeof import('./src/settings/composables/index')['setButtons']>
     readonly setControls: UnwrapRef<typeof import('./src/settings/composables/index')['setControls']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
-    readonly setFormMode: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setFormMode']>
-    readonly setFormRecord: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setFormRecord']>
     readonly setHttpConfig: UnwrapRef<typeof import('./src/http/integration/composables/config')['setHttpConfig']>
-    readonly setInputCheckboxModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setInputCheckboxModelValue']>
-    readonly setInputFileModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setInputFileModelValue']>
-    readonly setInputRadioModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setInputRadioModelValue']>
-    readonly setInputSelectModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setInputSelectModelValue']>
-    readonly setInputTextModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['setInputTextModelValue']>
     readonly setLocale: UnwrapRef<typeof import('./src/locales/composables/locale')['setLocale']>
     readonly setStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['setStatusCodesHandlers']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
@@ -436,7 +418,6 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly togglePasswordVisibility: UnwrapRef<typeof import('./src/inputs/composables/model-value')['togglePasswordVisibility']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -502,7 +483,6 @@ declare module 'vue' {
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>
-    readonly useFieldModelValue: UnwrapRef<typeof import('./src/inputs/composables/model-value')['useFieldModelValue']>
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
     readonly useFilters: UnwrapRef<typeof import('./src/filters/composables/index')['useFilters']>
@@ -560,7 +540,7 @@ declare module 'vue' {
     readonly useRequestUpdate: UnwrapRef<typeof import('./src/http/integration/composables/request-update')['useRequestUpdate']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRetrieveRequest: UnwrapRef<typeof import('./src/http/integration/composables/request-retrieve')['useRetrieveRequest']>
-    readonly useRules: UnwrapRef<typeof import('./src/inputs/composables/rules')['useRules']>
+    readonly useRules: UnwrapRef<typeof import('./src/forms/integration/composables/rules')['useRules']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
