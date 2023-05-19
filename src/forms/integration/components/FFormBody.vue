@@ -18,14 +18,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedField } from '@/forms/core'
+import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
 import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
 import { controls } from '@/settings'
 
 const props = defineProps<{
-  fields: ObjectWithNormalizedField
+  fields: ObjectWithNormalizedFields
   settings: NormalizedSettings
 }>()
 
@@ -54,6 +54,7 @@ const fields = computed(() => {
 onMounted(() => {
   const requestService = new RequestService(httpConfig)
   const getForeignKeyValues = new GetForeignKeyValues(requestService, httpConfig.pagination)
-  getForeignKeyValues.execute(props.fields)
+
+  getForeignKeyValues.execute({ ...props.fields })
 })
 </script>

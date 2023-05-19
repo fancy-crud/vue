@@ -45,12 +45,12 @@
 import _ from 'lodash'
 import type { AxiosError, AxiosResponse } from 'axios'
 import { useCreateOrUpdateRecord } from '../composables'
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButton, ObjectWithNormalizedField } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButton, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
 
 const props = defineProps<{
   id: symbol
-  fields: ObjectWithNormalizedField
+  fields: ObjectWithNormalizedFields
   titles: NormalizedTitles
   buttons: ObjectWithNormalizedButton
   settings: NormalizedSettings

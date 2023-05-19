@@ -1,9 +1,9 @@
-import type { NormalizedSettings, ObjectWithNormalizedButton, ObjectWithNormalizedField } from '@/forms/core'
+import type { NormalizedSettings, ObjectWithNormalizedButton, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
 import type { OnFailed, OnFinally, OnSuccess } from '@/http'
 import { GenerateFormData } from '@/forms/core/services/fields'
 
-export function useCreateOrUpdateRecord(fields: ObjectWithNormalizedField, buttons: ObjectWithNormalizedButton, settings: NormalizedSettings) {
+export function useCreateOrUpdateRecord(fields: ObjectWithNormalizedFields, buttons: ObjectWithNormalizedButton, settings: NormalizedSettings) {
   const isLoading = ref(false)
 
   function execute(onSuccess?: OnSuccess, onFailed?: OnFailed, onFinally?: OnFinally) {

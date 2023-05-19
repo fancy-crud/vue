@@ -61,7 +61,7 @@ export class GetForeignKeyValues {
     return options
   }
 
-  execute(fields: Record<string, { options?: any[]; url?: string; filterParams?: Record<string, unknown> }>) {
+  execute(fields: Record<string, { type: string; options?: any[]; url?: string; filterParams?: Record<string, unknown> }>) {
     const sameAPIEndpoint: SameAPIEndpoint = this.getSameAPIEndpoint(fields)
 
     Object.entries(sameAPIEndpoint).forEach(([url, fieldKeys]) => {

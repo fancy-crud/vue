@@ -1,5 +1,5 @@
 import { useFormManager } from './manager'
-import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, ObjectWithRawField, RawButton, RawSetting, RawTitle } from '@/forms/core'
+import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, ObjectWithRawFields, RawButton, RawSetting, RawTitle } from '@/forms/core'
 import { CreateForm } from '@/forms/foundation'
 
 interface UseForm<T, U> {
@@ -29,7 +29,7 @@ interface Args<T, U> {
  * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
  * @returns A `UseForm` object containing the reactive fields, titles, buttons, and settings.
  */
-export function useForm<T extends ObjectWithRawField, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
+export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
   const {
     id: _id,
     fields: rawFields,

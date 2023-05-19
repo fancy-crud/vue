@@ -1,4 +1,4 @@
-import type { Form, ObjectWithRawField, RawButton, RawSetting, RawTitle } from '../core'
+import type { Form, ObjectWithRawFields, RawButton, RawSetting, RawTitle } from '../core'
 import { NormalizeButtons, NormalizeFormFields, NormalizeSettings, NormalizeTitles } from '../core'
 
 /**
@@ -13,7 +13,7 @@ export class CreateForm {
    * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
    * @returns A `Form` object containing the normalized fields and settings.
    */
-  execute<T extends ObjectWithRawField, U extends RawSetting, V extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: V, rawSettings?: U): Form<T, V> {
+  execute<T extends ObjectWithRawFields, U extends RawSetting, V extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: V, rawSettings?: U): Form<T, V> {
     const originalNormalizedFields = new NormalizeFormFields().execute(rawFields)
     const clonedNormalizedFields = new NormalizeFormFields().execute(rawFields)
 
