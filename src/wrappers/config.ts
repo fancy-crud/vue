@@ -6,6 +6,7 @@ import Select from './Select.vue'
 import Radio from './Radio.vue'
 import Checkbox from './Checkbox.vue'
 import File from './File.vue'
+import Datepicker from './Datepicker.vue'
 
 export const fields: Record<string, any> = {
   text: Text,
@@ -15,6 +16,7 @@ export const fields: Record<string, any> = {
   radio: Radio,
   checkbox: Checkbox,
   file: File,
+  datepicker: Datepicker,
 }
 
 export const buttons: Record<string, any> = {

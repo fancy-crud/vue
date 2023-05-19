@@ -27,14 +27,13 @@ const form = useForm({
     passwordReveal: true,
   },
   lastName: {
-    type: FieldType.file,
+    type: FieldType.datepicker,
     label: 'Last name',
     wrapper: {
       class: 'col-span-12',
     },
     class: 'w-full',
     badass: 'badass',
-    multiple: true,
   },
 }, {}, {}, settings)
 </script>

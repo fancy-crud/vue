@@ -11,6 +11,7 @@ export enum FieldType {
   checkbox = 'checkbox',
   select = 'select',
   file = 'file',
+  datepicker = 'datepicker',
 }
 
 export interface BaseRawField extends Record<string, any> {
@@ -84,6 +85,10 @@ export interface RawFileField extends BaseRawField {
   modelValue: File | File[] | null
 }
 
+export interface RawDatepickerField extends BaseRawField {
+  type: FieldType.datepicker
+}
+
 export type RawField =
   | BaseRawField
   | RawTextField
@@ -94,6 +99,7 @@ export type RawField =
   | RawCheckboxField
   | RawSelectField
   | RawFileField
+  | RawDatepickerField
 
 export interface DefaultAttributes {
   name: string
@@ -123,6 +129,8 @@ export type NormalizedCheckboxField = FieldNormalizer<RawCheckboxField>
 export type NormalizedSelectField = FieldNormalizer<RawSelectField>
 
 export type NormalizedFileField = FieldNormalizer<RawFileField>
+
+export type NormalizedDatepickerField = FieldNormalizer<RawDatepickerField>
 
 export type NormalizedFields<T> = { [K in keyof T]: NormalizedField & T[K] }
 

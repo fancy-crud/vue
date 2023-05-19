@@ -6,7 +6,8 @@
       <slot name="form-header" v-bind="{ title }" />
     </f-form-header>
 
-    <f-form-body :fields="props.fields" :settings="props.settings" :style="insetScrollStyles">
+    <!-- <f-form-body :fields="props.fields" :settings="props.settings" :style="insetScrollStyles"> -->
+    <f-form-body :fields="props.fields" :settings="props.settings">
       <template
         v-for="([slotName]) in beforeAndAfterFieldSlots"
         #[`${slotName}`]
