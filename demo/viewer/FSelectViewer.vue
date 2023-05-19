@@ -9,6 +9,7 @@
 </template>
 
 <script lang='ts' setup>
+import { FieldType } from '@/forms/core'
 import { useForm } from '@/forms/integration/composables'
 
 const options = [
@@ -30,14 +31,16 @@ const form = useForm({
   fields: {
     select: {
       label: 'Select',
-      type: 'autocomplete',
+      type: FieldType.select,
+      url: 'artists/',
       placeholder: 'Select',
       optionLabel: 'name',
-      multiple: true,
-      optionValue: 'id',
       chips: true,
       filterParams: {
         limit: 10,
+      },
+      wrapper: {
+        class: 'col-span-12',
       },
       clearable: true,
       modelValue: null,

@@ -1,9 +1,11 @@
-import type { NormalizedField, NormalizedSettings, NormalizedTitles } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedFields } from '@/forms/core'
 import { FillWithRecordValues, ResetFields } from '@/forms/core/services/fields'
+import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
+import { RequestService } from '@/http/integration/services'
 
 interface FormManager {
-  originalNormalizedFields: Record<string, NormalizedField>
-  fields: Record<string, NormalizedField>
+  originalNormalizedFields: ObjectWithNormalizedFields
+  fields: ObjectWithNormalizedFields
   titles: NormalizedTitles
   settings: NormalizedSettings
 }
@@ -14,6 +16,7 @@ export function useFormManager(id: symbol) {
   function getForm() {
     return forms[id]
   }
+
   function addForm(form: FormManager) {
     forms[id] = form
   }
@@ -35,8 +38,17 @@ export function useFormManager(id: symbol) {
     })
   }
 
+  function getForeignKeyValues(fields?: ObjectWithNormalizedFields) {
+    const form = fields ? { fields } : getForm()
+    const requestService = new RequestService(httpConfig)
+    const getForeignKeyValues = new GetForeignKeyValues(requestService, httpConfig.pagination)
+
+    getForeignKeyValues.execute({ ...form.fields })
+  }
+
   return {
     fillWithRecordValues,
+    getForeignKeyValues,
     resetFields,
     addForm,
   }

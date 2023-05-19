@@ -18,21 +18,18 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormManager } from '../composables'
 import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
-import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
-import { RequestService } from '@/http/integration/services'
 import { controls } from '@/settings'
 
 const props = defineProps<{
+  formId: symbol
   fields: ObjectWithNormalizedFields
   settings: NormalizedSettings
 }>()
 
-const getComponent = (field: NormalizedField) => {
-  type ControlType = keyof typeof controls
-  return controls[field.type as ControlType] || controls.text
-}
+const { getForeignKeyValues } = useFormManager(props.formId)
 
 const fields = computed(() => {
   const _fields = Object.entries(props.fields).filter(([_, field]) => {
@@ -52,9 +49,11 @@ const fields = computed(() => {
 })
 
 onMounted(() => {
-  const requestService = new RequestService(httpConfig)
-  const getForeignKeyValues = new GetForeignKeyValues(requestService, httpConfig.pagination)
-
-  getForeignKeyValues.execute({ ...props.fields })
+  getForeignKeyValues(Object.fromEntries(fields.value))
 })
+
+function getComponent(field: NormalizedField) {
+  type ControlType = keyof typeof controls
+  return controls[field.type as ControlType] || controls.text
+}
 </script>

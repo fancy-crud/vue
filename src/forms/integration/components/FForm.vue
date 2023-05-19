@@ -7,7 +7,7 @@
     </f-form-header>
 
     <!-- <f-form-body :fields="props.fields" :settings="props.settings" :style="insetScrollStyles"> -->
-    <f-form-body :fields="props.fields" :settings="props.settings">
+    <f-form-body :fields="props.fields" :settings="props.settings" :form-id="props.id">
       <template
         v-for="([slotName]) in beforeAndAfterFieldSlots"
         #[`${slotName}`]
