@@ -1,14 +1,21 @@
+import { useFormManager } from './manager'
 import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, ObjectWithRawField, RawButton, RawSetting, RawTitle } from '@/forms/core'
-import { FillWithRecordValues, ResetFields } from '@/forms/core/services/fields'
 import { CreateForm } from '@/forms/foundation'
 
 interface UseForm<T, U> {
+  id: symbol
   fields: NormalizedFields<T>
   buttons: NormalizedButtons<U>
   titles: NormalizedTitles
   settings: NormalizedSettings
-  fillWithRecordValues(record: Record<string, unknown>): void
-  resetFields(): void
+}
+
+interface Args<T, U> {
+  fields: T
+  id?: string
+  titles?: RawTitle
+  buttons?: U
+  settings?: RawSetting
 }
 
 /**
@@ -22,7 +29,17 @@ interface UseForm<T, U> {
  * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
  * @returns A `UseForm` object containing the reactive fields, titles, buttons, and settings.
  */
-export function useForm<T extends ObjectWithRawField, U extends Record<string, RawButton>>(rawFields: T, rawTitles?: RawTitle, rawButtons?: U, rawSettings?: RawSetting): UseForm<T, U> {
+export function useForm<T extends ObjectWithRawField, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
+  const {
+    id: _id,
+    fields: rawFields,
+    titles: rawTitles,
+    buttons: rawButtons,
+    settings: rawSettings,
+  } = args
+
+  const id = Symbol(_id)
+
   const {
     originalNormalizedFields,
     clonedNormalizedFields,
@@ -36,24 +53,18 @@ export function useForm<T extends ObjectWithRawField, U extends Record<string, R
   const titles = reactive(normalizedTitles)
   const settings = reactive(normalizedSettings)
 
-  function fillWithRecordValues(record: Record<string, unknown>) {
-    const _fillWithRecordValues = new FillWithRecordValues()
-    _fillWithRecordValues.execute(fields, record)
-
-    settings.lookupValue = String(record[settings.lookupField] || '')
-  }
-
-  function resetFields() {
-    const reset = new ResetFields()
-    reset.execute(fields, originalNormalizedFields)
-  }
+  useFormManager(id).addForm({
+    originalNormalizedFields,
+    fields,
+    titles,
+    settings,
+  })
 
   return {
+    id,
     fields,
     titles,
     buttons,
     settings,
-    fillWithRecordValues,
-    resetFields,
   }
 }

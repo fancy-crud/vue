@@ -12,8 +12,6 @@ export class ResetFields {
    * @param originalFields - A `NormalizedFields` object containing the original fields whose model values need to be used for resetting.
    */
   execute(clonedField: NormalizedField, originalField: NormalizedField) {
-    // type FieldKey = keyof typeof clonedFields
-
     Object.assign(clonedField, originalField)
   }
 }

@@ -49,6 +49,7 @@ import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButton, 
 import { FormModes } from '@/forms/core'
 
 const props = defineProps<{
+  id: symbol
   fields: ObjectWithNormalizedField
   titles: NormalizedTitles
   buttons: ObjectWithNormalizedButton
@@ -83,9 +84,9 @@ const successNotificationMessage = computed(() => {
   return messages[props.settings.mode]
 })
 
-const insetScrollStyles = computed(() => {
-  return !props.noInsetScroll ? { maxHeight: '70vh', overflow: 'hidden auto' } : {}
-})
+// const insetScrollStyles = computed(() => {
+//   return !props.noInsetScroll ? { maxHeight: '70vh', overflow: 'hidden auto' } : {}
+// })
 
 const generarErrors = computed(() => {
   return []
