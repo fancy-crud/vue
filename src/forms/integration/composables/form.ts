@@ -61,6 +61,7 @@ export function useForm<T extends ObjectWithRawFields, U extends Record<string, 
     fields,
     titles,
     settings,
+    buttons,
   })
 
   onUnmounted(() => manager.removeForm())

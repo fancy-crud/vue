@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButton } from '@/forms/core'
+import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/core'
 import { FormModes } from '@/forms/core'
 
 const props = defineProps<{
-  buttons: ObjectWithNormalizedButton
+  buttons: ObjectWithNormalizedButtons
   settings: NormalizedSettings
   isFormValid?: boolean
 }>()

@@ -1,4 +1,4 @@
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedFields } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
 import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
@@ -8,6 +8,7 @@ interface FormManager {
   fields: ObjectWithNormalizedFields
   titles: NormalizedTitles
   settings: NormalizedSettings
+  buttons: ObjectWithNormalizedButtons
 }
 
 const forms: Record<symbol, FormManager> = reactive({})
@@ -62,5 +63,6 @@ export function useFormManager(id: symbol) {
     removeForm,
     addForm,
     getFormData,
+    getForm,
   }
 }

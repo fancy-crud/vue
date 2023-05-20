@@ -1,9 +1,12 @@
-import type { NormalizedSettings, ObjectWithNormalizedButton, ObjectWithNormalizedFields } from '@/forms/core'
+import { useFormManager } from './manager'
 import { FormModes } from '@/forms/core'
 import type { OnFailed, OnFinally, OnSuccess } from '@/http'
 import { GenerateFormData } from '@/forms/core/services/fields'
 
-export function useCreateOrUpdateRecord(fields: ObjectWithNormalizedFields, buttons: ObjectWithNormalizedButton, settings: NormalizedSettings) {
+export function useCreateOrUpdateRecord(formId: symbol) {
+  const manager = useFormManager(formId)
+  const { fields, settings, buttons } = manager.getForm()
+
   const isLoading = ref(false)
 
   function execute(onSuccess?: OnSuccess, onFailed?: OnFailed, onFinally?: OnFinally) {
@@ -20,7 +23,7 @@ export function useCreateOrUpdateRecord(fields: ObjectWithNormalizedFields, butt
 
   function createRecord(onSuccess?: OnSuccess, onFailed?: OnFailed, onFinally?: OnFinally) {
     isLoading.value = true
-    const { jsonForm, formData } = new GenerateFormData().execute(fields)
+    const { jsonForm, formData } = manager.getFormData()
     const _formData = formData || jsonForm
 
     useRequestCreate(settings.url, _formData, {

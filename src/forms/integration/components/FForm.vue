@@ -41,14 +41,14 @@
 import _ from 'lodash'
 import type { AxiosError, AxiosResponse } from 'axios'
 import { useCreateOrUpdateRecord } from '../composables'
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButton, ObjectWithNormalizedFields } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
 
 const props = defineProps<{
   id: symbol
   fields: ObjectWithNormalizedFields
   titles: NormalizedTitles
-  buttons: ObjectWithNormalizedButton
+  buttons: ObjectWithNormalizedButtons
   settings: NormalizedSettings
   noInsetScroll?: boolean
 }>()
@@ -61,7 +61,7 @@ const emit = defineEmits<{
 const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
 const t = useLocale()
-const { execute: onMainClick } = useCreateOrUpdateRecord(props.fields, props.buttons, props.settings)
+const { execute: onMainClick } = useCreateOrUpdateRecord(props.id)
 // const { getHandler } = useHandleRequestStatusCodes(props.form.settings.statusCodesHandlers)
 
 const notifications = computed(() => notificationStore.value)

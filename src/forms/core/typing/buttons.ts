@@ -39,5 +39,5 @@ export type ButtonType = 'main' | 'aux'
 
 export type NormalizedButtons<T> = T & Record<string, NormalizedButton>
 
-export interface ObjectWithRawButton extends Record<string, RawButton> {}
-export interface ObjectWithNormalizedButton extends Record<string, NormalizedButton> {}
+export interface ObjectWithRawButtons extends Record<string, RawButton> {}
+export interface ObjectWithNormalizedButtons extends Record<string, NormalizedButton> {}
