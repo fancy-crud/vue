@@ -49,6 +49,7 @@ const props = defineProps<{
   buttons: ObjectWithNormalizedButtons
   settings: NormalizedSettings
   noInsetScroll?: boolean
+  disableNotifications?: boolean
 }>()
 
 const emit = defineEmits<{
