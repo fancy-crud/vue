@@ -1,1 +1,1 @@
-export * from './form-manager'
+export * from './manager'
