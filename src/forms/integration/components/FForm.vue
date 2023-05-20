@@ -38,8 +38,6 @@
 </template>
 
 <script lang="ts" setup>
-import _ from 'lodash'
-import type { AxiosError, AxiosResponse } from 'axios'
 import { useCreateOrUpdateRecord } from '../composables'
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
 import { FormModes } from '@/forms/core'
@@ -54,8 +52,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'success', response: AxiosResponse): void
-  (e: 'error', response?: AxiosError): void
+  (e: 'success', response: unknown): void
+  (e: 'error', response?: unknown): void
 }>()
 
 const { isFormValid } = useRules(props.fields)
@@ -84,11 +82,13 @@ const successNotificationMessage = computed(() => {
 //   return !props.noInsetScroll ? { maxHeight: '70vh', overflow: 'hidden auto' } : {}
 // })
 
-function onSuccess(response: AxiosResponse) {
-  pushNotification({
-    ...successNotification(),
-    message: successNotificationMessage.value,
-  })
+function onSuccess(response: unknown) {
+  if (!props.disableNotifications) {
+    pushNotification({
+      ...successNotification(),
+      message: successNotificationMessage.value,
+    })
+  }
 
   // const handler = getHandler(response)
 
@@ -98,11 +98,13 @@ function onSuccess(response: AxiosResponse) {
   emit('success', response)
 }
 
-function onFailed(error?: AxiosError) {
-  pushNotification({
-    ...errorNotification(),
-    message: 'errorNotificationMessage.value',
-  })
+function onFailed(error?: unknown) {
+  if (!props.disableNotifications) {
+    pushNotification({
+      ...errorNotification(),
+      message: 'errorNotificationMessage.value',
+    })
+  }
   // const handler = getHandler(error?.response)
 
   // if (handler)

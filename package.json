@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite --port 9090 --host 0.0.0.0 --open",
+    "dev": "vite --port 9090 --host 0.0.0.0",
     "build": "node build/exports.js && vite build && tsc --emitDeclarationOnly",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint .",

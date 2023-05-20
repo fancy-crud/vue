@@ -1,5 +1,5 @@
 <template>
-  <f-form v-bind="form" />
+  <f-form @error="handleBadRequest" v-bind="form" disable-notifications />
 
   <p class="py-8">
     {{ form.fields.lastName.modelValue }}
@@ -9,12 +9,13 @@
     Reset
   </button>
 
-  <button @click="fillValues" class="px-8 py-4 bg-primary-500 text-white font-bold ml-4">
+  <!-- <button @click="form.fillValues" class="px-8 py-4 bg-primary-500 text-white font-bold ml-4">
     Fill
-  </button>
+  </button> -->
 </template>
 
 <script lang='ts' setup>
+import type { AxiosError } from 'axios'
 import { FieldType } from '@/forms/core'
 import { useForm } from '@/forms/integration'
 
@@ -48,24 +49,10 @@ const form = useForm({
     },
   },
   settings,
-  buttons: {
-    aux: {
-      onClick() {
-        reset()
-      },
-    },
-  },
 })
 
-function fillValues() {
-  form.manager.fillWithRecordValues({
-    firstName: 'Christopher',
-    lastName: 'Flores',
-  })
-}
-
-function reset() {
-  form.manager.resetFields()
+function handleBadRequest(error?: AxiosError) {
+  console.log(error)
 }
 </script>
 
