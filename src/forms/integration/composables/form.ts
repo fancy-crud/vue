@@ -8,6 +8,7 @@ interface UseForm<T, U> {
   buttons: NormalizedButtons<U>
   titles: NormalizedTitles
   settings: NormalizedSettings
+  manager: ReturnType<typeof useFormManager>
 }
 
 interface Args<T, U> {
@@ -53,7 +54,9 @@ export function useForm<T extends ObjectWithRawFields, U extends Record<string, 
   const titles = reactive(normalizedTitles)
   const settings = reactive(normalizedSettings)
 
-  useFormManager(id).addForm({
+  const manager = useFormManager(id)
+
+  manager.addForm({
     originalNormalizedFields,
     fields,
     titles,
@@ -66,5 +69,6 @@ export function useForm<T extends ObjectWithRawFields, U extends Record<string, 
     titles,
     buttons,
     settings,
+    manager,
   }
 }

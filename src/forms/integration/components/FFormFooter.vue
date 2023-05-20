@@ -1,5 +1,5 @@
 <template>
-  <footer class="px-3">
+  <footer class="form-footer">
     <slot v-bind="{ mainButton, auxButton, getLabel, onMainClick, onAuxClick }">
       <f-button
         @click="onMainClick"
@@ -43,3 +43,8 @@ const getLabel = computed(() => (button: NormalizedButton) => {
 function onMainClick() { emit('main-click') }
 function onAuxClick() { emit('aux-click') }
 </script>
+
+<style lang="sass">
+.form-footer
+  @apply py-8
+</style>

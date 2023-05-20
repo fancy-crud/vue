@@ -1,6 +1,6 @@
 <template>
   <main
-    class="px-4 grid grid-cols-12 gap-x-8 gap-y-4"
+    class="f-form-body"
     v-bind="$attrs"
   >
     <template
@@ -57,3 +57,8 @@ function getComponent(field: NormalizedField) {
   return controls[field.type as ControlType] || controls.text
 }
 </script>
+
+<style lang="sass">
+.f-form-body
+  @apply grid grid-cols-12 gap-x-8 gap-y-4
+</style>

@@ -17,17 +17,13 @@
       </template>
     </f-form-body>
 
-    <ul class="pl-4 pb-4">
-      <li
-        v-for="(error, i) in generarErrors"
-        :key="i"
-        class="text-red-500 font-medium"
-      >
-        {{ error }}
-      </li>
-    </ul>
-
-    <f-form-footer @main-click="onMainClick(onSuccess, onFailed)" @aux-click="onAuxClick" :buttons="props.buttons" :settings="props.settings" :is-form-valid="isFormValid" />
+    <f-form-footer
+      @main-click="onMainClick(onSuccess, onFailed)"
+      @aux-click="onAuxClick"
+      :buttons="props.buttons"
+      :settings="props.settings"
+      :is-form-valid="isFormValid"
+    />
 
     <f-notification-group>
       <f-notification
@@ -88,10 +84,6 @@ const successNotificationMessage = computed(() => {
 //   return !props.noInsetScroll ? { maxHeight: '70vh', overflow: 'hidden auto' } : {}
 // })
 
-const generarErrors = computed(() => {
-  return []
-})
-
 function onSuccess(response: AxiosResponse) {
   pushNotification({
     ...successNotification(),
@@ -107,6 +99,10 @@ function onSuccess(response: AxiosResponse) {
 }
 
 function onFailed(error?: AxiosError) {
+  pushNotification({
+    ...errorNotification(),
+    message: 'errorNotificationMessage.value',
+  })
   // const handler = getHandler(error?.response)
 
   // if (handler)

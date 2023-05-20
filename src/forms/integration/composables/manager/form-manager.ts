@@ -1,5 +1,5 @@
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedFields } from '@/forms/core'
-import { FillWithRecordValues, ResetFields } from '@/forms/core/services/fields'
+import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
 import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
 
@@ -13,12 +13,18 @@ interface FormManager {
 const forms: Record<symbol, FormManager> = reactive({})
 
 export function useFormManager(id: symbol) {
+  onUnmounted(() => removeForm())
+
   function getForm() {
     return forms[id]
   }
 
   function addForm(form: FormManager) {
     forms[id] = form
+  }
+
+  function removeForm() {
+    delete forms[id]
   }
 
   function fillWithRecordValues(record: Record<string, unknown>) {
@@ -44,10 +50,18 @@ export function useFormManager(id: symbol) {
     getForeignKeyValues.execute({ ...form.fields })
   }
 
+  function getFormData() {
+    const form = getForm()
+    const formData = new GenerateFormData()
+    return formData.execute(form.fields)
+  }
+
   return {
     fillWithRecordValues,
     getForeignKeyValues,
     resetFields,
+    removeForm,
     addForm,
+    getFormData,
   }
 }

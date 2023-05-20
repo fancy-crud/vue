@@ -1,7 +1,7 @@
 <template>
-  <header class="f-form-header p-3">
+  <header class="f-form-header">
     <slot v-bind="{ title }">
-      <h3 class="text-2xl">
+      <h3 class="f-form-header__title">
         {{ title }}
       </h3>
     </slot>
@@ -24,3 +24,11 @@ const title = computed(() => {
     : props.titles.update
 })
 </script>
+
+<style lang="sass">
+.f-form-header
+  @apply pb-8
+
+  &__title
+    @apply text-2xl
+</style>

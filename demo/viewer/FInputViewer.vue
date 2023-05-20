@@ -5,7 +5,7 @@
     {{ form.fields.lastName.modelValue }}
   </p>
 
-  <button @click="manager.resetFields" class="px-8 py-4 bg-primary-500 text-white font-bold">
+  <button @click="form.manager.resetFields" class="px-8 py-4 bg-primary-500 text-white font-bold">
     Reset
   </button>
 
@@ -16,7 +16,7 @@
 
 <script lang='ts' setup>
 import { FieldType } from '@/forms/core'
-import { useForm, useFormManager } from '@/forms/integration'
+import { useForm } from '@/forms/integration'
 
 const { rules } = useRules()
 
@@ -57,17 +57,15 @@ const form = useForm({
   },
 })
 
-const manager = useFormManager(form.id)
-
 function fillValues() {
-  manager.fillWithRecordValues({
+  form.manager.fillWithRecordValues({
     firstName: 'Christopher',
     lastName: 'Flores',
   })
 }
 
 function reset() {
-  manager.resetFields()
+  form.manager.resetFields()
 }
 </script>
 
