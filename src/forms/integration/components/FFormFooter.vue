@@ -1,18 +1,23 @@
 <template>
   <footer class="form-footer">
     <slot v-bind="{ mainButton, auxButton, getLabel, onMainClick, onAuxClick }">
-      <f-button
+      <component
+        :is="buttonElement"
+        v-bind="mainButton"
+
         @click="onMainClick"
         :label="getLabel(mainButton)"
-        :icon="!!mainButton.icon"
-        :class="mainButton.class"
-        :disabled="!props.isFormValid"
+        :disabled="mainButton?.isDisabled || !props.isFormValid"
+        type="button"
       />
-      <f-button
+
+      <component
+        :is="buttonElement"
+        v-bind="auxButton"
+
         @click="onAuxClick"
         :label="getLabel(auxButton)"
-        :icon="!!auxButton.icon"
-        :class="auxButton.class"
+        type="button"
       />
     </slot>
   </footer>
@@ -21,6 +26,7 @@
 <script lang="ts" setup>
 import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/core'
 import { FormModes } from '@/forms/core'
+import { buttons } from '@/settings'
 
 const props = defineProps<{
   buttons: ObjectWithNormalizedButtons
@@ -33,6 +39,7 @@ const emit = defineEmits<{
   (e: 'aux-click'): void
 }>()
 
+const buttonElement = buttons.button
 const mainButton = computed(() => props.buttons.main)
 const auxButton = computed(() => props.buttons.aux)
 

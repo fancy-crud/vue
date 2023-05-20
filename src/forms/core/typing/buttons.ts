@@ -23,14 +23,15 @@ export interface ButtonEvent {
 
 export interface RawButton extends EventHandlers<Partial<ButtonEvent>> {
   label?: { create?: string; update?: string }
-  loading?: boolean
+  isLoading?: boolean
   icon?: string
   class?: string
+  isDisabled?: boolean
 }
 
-export interface NormalizedButton extends EventHandlers<Partial<ButtonEvent>> {
+export interface NormalizedButton extends RawButton, EventHandlers<Partial<ButtonEvent>> {
   label: { create: string; update: string }
-  loading: boolean
+  isLoading: boolean
   icon: string
   class: string
 }

@@ -1,5 +1,3 @@
-import FButton from './components/FButton.vue'
-
 export * from './composables'
 // export * from './typings'
 
@@ -14,11 +12,8 @@ export function exportComponents() {
 
   Object.entries(components).forEach(([key, value]) => {
     const keyName: string = value.name ? value.name : getName(key)
-    if (keyName.includes('FButton'))
-      return
     exportable[keyName] = value.default
   })
 }
 
-export { FButton }
 export default exportComponents()

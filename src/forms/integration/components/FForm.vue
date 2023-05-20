@@ -18,12 +18,14 @@
     </f-form-body>
 
     <f-form-footer
-      @main-click="onMainClick(onSuccess, onFailed)"
+      @main-click="onMainClick"
       @aux-click="onAuxClick"
       :buttons="props.buttons"
       :settings="props.settings"
       :is-form-valid="isFormValid"
-    />
+    >
+      <slot name="form-footer" v-bind="{ onMainClick, onAuxClick, isFormValid }" />
+    </f-form-footer>
 
     <f-notification-group>
       <f-notification
@@ -54,13 +56,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'success', response: unknown): void
-  (e: 'error', response?: unknown): void
+  (e: 'error', error?: unknown): void
 }>()
 
 const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
 const t = useLocale()
-const { execute: onMainClick } = useCreateOrUpdateRecord(props.id)
+const { execute: createOrUpdate } = useCreateOrUpdateRecord(props.id)
 // const { getHandler } = useHandleRequestStatusCodes(props.form.settings.statusCodesHandlers)
 
 const notifications = computed(() => notificationStore.value)
@@ -106,12 +108,17 @@ function onFailed(error?: unknown) {
       message: 'errorNotificationMessage.value',
     })
   }
+
   // const handler = getHandler(error?.response)
 
   // if (handler)
   //   handler(props.form, error?.response?.data)
 
   emit('error', error)
+}
+
+function onMainClick() {
+  createOrUpdate(onSuccess, onFailed)
 }
 
 function onAuxClick() {

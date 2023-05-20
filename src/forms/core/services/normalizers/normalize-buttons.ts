@@ -1,4 +1,4 @@
-import type { ButtonType, NormalizedButton, NormalizedButtons, RawButton } from '../../typing'
+import type { NormalizedButton, NormalizedButtons, RawButton } from '../../typing'
 
 const t = useLocale()
 
@@ -16,14 +16,14 @@ export class NormalizeButtons {
    * @param {T} buttons - An optional object containing button configurations to be normalized.
    * @returns {NormalizedButtons<T>} - A new object with the normalized button properties.
   **/
-  execute<T extends Record<ButtonType, RawButton>>(buttons?: T): NormalizedButtons<T> {
+  execute<T extends Record<'main' | 'aux', RawButton>>(buttons?: T): NormalizedButtons<T> {
     const { main = {}, aux = {} } = buttons || {}
     const defaults = getDefaults()
 
     const defaultMainButton: NormalizedButton = {
       ...main,
       class: main?.class || defaults.classes.mainButton,
-      loading: main?.loading || false,
+      isLoading: main?.isLoading || false,
       icon: main?.icon || '',
       label: {
         create: main?.label?.create || t.value('create-new'),
@@ -33,7 +33,7 @@ export class NormalizeButtons {
 
     const defaultAuxButton: NormalizedButton = {
       ...aux,
-      loading: aux.loading || false,
+      isLoading: aux.isLoading || false,
       icon: aux.icon || '',
       class: aux.class || defaults.classes.auxButton,
       label: {

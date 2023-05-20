@@ -51,7 +51,8 @@ const form = useForm({
   settings,
 })
 
-function handleBadRequest(error?: AxiosError) {
+function handleBadRequest(_error?: unknown) {
+  const error = _error as AxiosError
   console.log(error)
 }
 </script>
