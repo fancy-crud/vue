@@ -33,9 +33,7 @@ export function useFormManager(id: symbol) {
     const form = getForm()
     const reset = new ResetFields()
 
-    Object.entries(form.originalNormalizedFields).forEach(([fieldKey, field]) => {
-      reset.execute(form.fields[fieldKey], field)
-    })
+    reset.execute(form.fields, form.originalNormalizedFields)
   }
 
   function getForeignKeyValues(fields?: ObjectWithNormalizedFields) {

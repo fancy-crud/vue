@@ -1,8 +1,6 @@
 <template>
   <f-form v-bind="form" />
 
-  <!-- <f-select :field="form.fields.select" /> -->
-
   <div class="p-10 mt-52 border">
     {{ form.fields.select.modelValue }}
   </div>
@@ -27,7 +25,6 @@ const options = [
 ]
 
 const form = useForm({
-  id: 'select-field',
   fields: {
     select: {
       label: 'Select',
@@ -35,6 +32,7 @@ const form = useForm({
       url: 'artists/',
       placeholder: 'Select',
       optionLabel: 'name',
+      optionValue: 'id',
       chips: true,
       filterParams: {
         limit: 10,
