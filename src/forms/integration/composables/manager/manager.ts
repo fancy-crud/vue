@@ -13,8 +13,6 @@ interface FormManager {
 const forms: Record<symbol, FormManager> = reactive({})
 
 export function useFormManager(id: symbol) {
-  onUnmounted(() => removeForm())
-
   function getForm() {
     return forms[id]
   }
@@ -50,8 +48,9 @@ export function useFormManager(id: symbol) {
     getForeignKeyValues.execute({ ...form.fields })
   }
 
-  function getFormData() {
-    const form = getForm()
+  function getFormData(fields?: ObjectWithNormalizedFields) {
+    const form = fields ? { fields } : getForm()
+
     const formData = new GenerateFormData()
     return formData.execute(form.fields)
   }
