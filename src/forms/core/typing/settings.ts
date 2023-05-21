@@ -5,6 +5,8 @@ export interface RawSetting {
   lookupField?: string
   lookupValue?: string
   mode?: FormModes
+  disableResponseHandlers?: boolean
+  disableNotifications?: boolean
 }
 
 export interface NormalizedSettings extends Required<Omit<RawSetting, 'lookupValue'>> {

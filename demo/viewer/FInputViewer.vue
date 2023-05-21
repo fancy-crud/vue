@@ -1,8 +1,8 @@
 <template>
-  <f-form @error="handleBadRequest" v-bind="form" disable-notifications />
+  <f-form v-bind="form" disable-notifications />
 
   <p class="py-8">
-    {{ form.fields.lastName.modelValue }}
+    {{ form.fields.gender.modelValue }}
   </p>
 
   <button @click="form.manager.resetFields" class="px-8 py-4 bg-primary-500 text-white font-bold">
@@ -27,33 +27,37 @@ const settings = {
 
 const form = useForm({
   fields: {
-    firstName: {
+    name: {
       type: FieldType.text,
-      label: '',
-      wrapper: {
-        class: 'col-span-12',
-      },
+      label: 'First name',
       placeholder: 'Como asi pues?',
-      rules: rules.string().min(1),
       class: 'w-full',
-      passwordReveal: true,
-    },
-    lastName: {
-      type: FieldType.text,
-      label: 'Last name',
       wrapper: {
         class: 'col-span-12',
       },
+    },
+    gender: {
+      type: FieldType.select,
+      label: 'Last name',
       class: 'w-full',
-      badass: 'badass',
+      optionLabel: 'label',
+      optionValue: 'value',
+      options: [
+        { label: 'Male', value: 'm' },
+        { label: 'Female', value: 'f' },
+      ],
+      wrapper: {
+        class: 'col-span-12',
+      },
     },
   },
   settings,
 })
 
-function handleBadRequest(_error?: unknown) {
-  const error = _error as AxiosError
-  console.log(error)
-}
+// form.manager.setResponseHandler({ 400: handleBadRequest })
+
+// function handleBadRequest(errors: any) {
+//   console.log(errors)
+// }
 </script>
 

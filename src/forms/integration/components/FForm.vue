@@ -40,9 +40,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useCreateOrUpdateRecord } from '../composables'
+import { useCreateOrUpdateRecord, useFormManager } from '../composables'
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
-import { FormModes } from '@/forms/core'
+
+interface StandardResponseStructure { data: any; status: number }
+interface StandardErrorResponseStructure { response: StandardResponseStructure }
 
 const props = defineProps<{
   id: symbol
@@ -56,14 +58,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'success', response: unknown): void
-  (e: 'error', error?: unknown): void
+  (e: 'error', error?: any): void
 }>()
 
+const formManager = useFormManager(props.id)
 const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
-const t = useLocale()
 const { execute: createOrUpdate } = useCreateOrUpdateRecord(props.id)
-// const { getHandler } = useHandleRequestStatusCodes(props.form.settings.statusCodesHandlers)
 
 const notifications = computed(() => notificationStore.value)
 
@@ -73,48 +74,28 @@ const beforeAndAfterFieldSlots = computed(() => {
   )
 })
 
-const successNotificationMessage = computed(() => {
-  const messages = {
-    [FormModes.CREATE_MODE]: t.value('element-created'),
-    [FormModes.UPDATE_MODE]: t.value('element-updated'),
-  }
-  return messages[props.settings.mode]
-})
-
-// const insetScrollStyles = computed(() => {
-//   return !props.noInsetScroll ? { maxHeight: '70vh', overflow: 'hidden auto' } : {}
-// })
-
-function onSuccess(response: unknown) {
-  if (!props.disableNotifications) {
-    pushNotification({
-      ...successNotification(),
-      message: successNotificationMessage.value,
-    })
-  }
-
-  // const handler = getHandler(response)
-
-  // if (handler)
-  //   handler(props.form, response.data)
-
+function onSuccess(response?: StandardResponseStructure) {
   emit('success', response)
+
+  if (props.settings.disableResponseHandlers || !response)
+    return
+
+  const handler = formManager.getResponseHandler(response.status)
+
+  if (handler)
+    handler(response.data)
 }
 
-function onFailed(error?: unknown) {
-  if (!props.disableNotifications) {
-    pushNotification({
-      ...errorNotification(),
-      message: 'errorNotificationMessage.value',
-    })
-  }
-
-  // const handler = getHandler(error?.response)
-
-  // if (handler)
-  //   handler(props.form, error?.response?.data)
-
+function onFailed(error?: StandardErrorResponseStructure) {
   emit('error', error)
+
+  if (props.settings.disableResponseHandlers || !error)
+    return
+
+  const handler = formManager.getResponseHandler(error.response.status)
+
+  if (handler)
+    handler(error.response.data)
 }
 
 function onMainClick() {

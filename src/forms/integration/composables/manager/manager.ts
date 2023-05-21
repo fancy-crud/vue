@@ -1,5 +1,7 @@
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
+import { useResponseHandler } from './response-handlers'
+import type { FieldErrors, NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
+import { HandleErrors } from '@/forms/core/services/fields/handle-errors'
 import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
 
@@ -14,12 +16,18 @@ interface FormManager {
 const forms: Record<symbol, FormManager> = reactive({})
 
 export function useFormManager(id: symbol) {
+  const { setResponseHandler, getResponseHandler } = useResponseHandler(id)
+
   function getForm() {
     return forms[id]
   }
 
   function addForm(form: FormManager) {
     forms[id] = form
+
+    setResponseHandler({
+      400: (errors: any) => setErrors(errors),
+    })
   }
 
   function removeForm() {
@@ -56,6 +64,13 @@ export function useFormManager(id: symbol) {
     return formData.execute(form.fields)
   }
 
+  function setErrors(errors: FieldErrors) {
+    const form = getForm()
+
+    const handleErrors = new HandleErrors()
+    handleErrors.execute(form.fields, errors)
+  }
+
   return {
     fillWithRecordValues,
     getForeignKeyValues,
@@ -64,5 +79,8 @@ export function useFormManager(id: symbol) {
     addForm,
     getFormData,
     getForm,
+    setErrors,
+    setResponseHandler,
+    getResponseHandler,
   }
 }

@@ -144,6 +144,7 @@ export interface Form<T, U> {
 
 export interface ObjectWithRawFields extends Record<string, RawField> {}
 export interface ObjectWithNormalizedFields extends Record<string, NormalizedField> {}
+export interface FieldErrors extends Record<string, string[]> {}
 
 // export interface RawField extends Record<string, any> {
 // chips?: boolean
