@@ -1,5 +1,4 @@
-export type Handler = (response: any) => void
-export interface StatusCodeHandler extends Record<number, Handler> {}
+import type { Handler, StatusCodeHandler } from '@/forms/integration'
 
 const responseHandlers = new Map<symbol, StatusCodeHandler>()
 

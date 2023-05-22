@@ -1,23 +1,7 @@
 import { useFormManager } from './manager'
-import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, ObjectWithRawFields, RawButton, RawSetting, RawTitle } from '@/forms/core'
+import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/core'
 import { CreateForm } from '@/forms/foundation'
-
-interface UseForm<T, U> {
-  id: symbol
-  fields: NormalizedFields<T>
-  buttons: NormalizedButtons<U>
-  titles: NormalizedTitles
-  settings: NormalizedSettings
-  manager: ReturnType<typeof useFormManager>
-}
-
-interface Args<T, U> {
-  fields: T
-  id?: string
-  titles?: RawTitle
-  buttons?: U
-  settings?: RawSetting
-}
+import type { Args, UseForm } from '@/forms/integration'
 
 /**
  * A function that provides functionality to create a reactive form object from raw fields, titles, buttons, and settings.
@@ -30,7 +14,7 @@ interface Args<T, U> {
  * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
  * @returns A `UseForm` object containing the reactive fields, titles, buttons, and settings.
  */
-export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
+export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> & { manager: ReturnType<typeof useFormManager> } {
   const {
     id: _id,
     fields: rawFields,

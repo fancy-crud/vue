@@ -35,14 +35,12 @@ declare global {
   const defineComponent: typeof import('vue')['defineComponent']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
-  const errorNotification: typeof import('./src/notifications/composables/index')['errorNotification']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getDefaults: typeof import('./src/settings/composables/index')['getDefaults']
   const getStatusCodesHandlers: typeof import('./src/settings/composables/index')['getStatusCodesHandlers']
   const h: typeof import('vue')['h']
-  const handleUnauthorizedUser: typeof import('./src/http/integration/composables/response-handlers')['handleUnauthorizedUser']
   const httpConfig: typeof import('./src/http/integration/composables/config')['httpConfig']
   const i18n: typeof import('./src/locales/composables/locale')['i18n']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -55,7 +53,6 @@ declare global {
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const nextTick: typeof import('vue')['nextTick']
-  const notificationStore: typeof import('./src/notifications/composables/index')['notificationStore']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
   const onBeforeUnmount: typeof import('vue')['onBeforeUnmount']
@@ -75,7 +72,6 @@ declare global {
   const onUpdated: typeof import('vue')['onUpdated']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const provide: typeof import('vue')['provide']
-  const pushNotification: typeof import('./src/notifications/composables/index')['pushNotification']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
   const reactive: typeof import('vue')['reactive']
@@ -102,8 +98,6 @@ declare global {
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
-  const shiftNotification: typeof import('./src/notifications/composables/index')['shiftNotification']
-  const successNotification: typeof import('./src/notifications/composables/index')['successNotification']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -188,7 +182,6 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
-  const useHandleRequestStatusCodes: typeof import('./src/http/integration/composables/response-handlers')['useHandleRequestStatusCodes']
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
   const useInfiniteScroll: typeof import('@vueuse/core')['useInfiniteScroll']
@@ -285,7 +278,6 @@ declare global {
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
   const useXLSX: typeof import('./src/tables/composables/index')['useXLSX']
-  const warningNotification: typeof import('./src/notifications/composables/index')['warningNotification']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -339,14 +331,12 @@ declare module 'vue' {
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
-    readonly errorNotification: UnwrapRef<typeof import('./src/notifications/composables/index')['errorNotification']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getDefaults: UnwrapRef<typeof import('./src/settings/composables/index')['getDefaults']>
     readonly getStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['getStatusCodesHandlers']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
-    readonly handleUnauthorizedUser: UnwrapRef<typeof import('./src/http/integration/composables/response-handlers')['handleUnauthorizedUser']>
     readonly httpConfig: UnwrapRef<typeof import('./src/http/integration/composables/config')['httpConfig']>
     readonly i18n: UnwrapRef<typeof import('./src/locales/composables/locale')['i18n']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
@@ -359,7 +349,6 @@ declare module 'vue' {
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
-    readonly notificationStore: UnwrapRef<typeof import('./src/notifications/composables/index')['notificationStore']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
     readonly onBeforeUnmount: UnwrapRef<typeof import('vue')['onBeforeUnmount']>
@@ -379,7 +368,6 @@ declare module 'vue' {
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
-    readonly pushNotification: UnwrapRef<typeof import('./src/notifications/composables/index')['pushNotification']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
@@ -406,8 +394,6 @@ declare module 'vue' {
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
-    readonly shiftNotification: UnwrapRef<typeof import('./src/notifications/composables/index')['shiftNotification']>
-    readonly successNotification: UnwrapRef<typeof import('./src/notifications/composables/index')['successNotification']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
@@ -492,7 +478,6 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useHandleRequestStatusCodes: UnwrapRef<typeof import('./src/http/integration/composables/response-handlers')['useHandleRequestStatusCodes']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
@@ -589,7 +574,6 @@ declare module 'vue' {
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
     readonly useXLSX: UnwrapRef<typeof import('./src/tables/composables/index')['useXLSX']>
-    readonly warningNotification: UnwrapRef<typeof import('./src/notifications/composables/index')['warningNotification']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

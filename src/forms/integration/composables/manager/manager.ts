@@ -1,18 +1,13 @@
 import { useResponseHandler } from './response-handlers'
-import { NotificationType, useNotification } from './notifications'
-import type { FieldErrors, NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
+import { useNotification } from './notifications'
+
+import type { FormManager } from '@/forms/integration'
+import { NotificationType } from '@/forms/integration'
+import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/core'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
 import { HandleErrors } from '@/forms/core/services/fields/handle-errors'
 import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
-
-interface FormManager {
-  originalNormalizedFields: ObjectWithNormalizedFields
-  fields: ObjectWithNormalizedFields
-  titles: NormalizedTitles
-  settings: NormalizedSettings
-  buttons: ObjectWithNormalizedButtons
-}
 
 const forms = new Map<symbol, FormManager>()
 
@@ -34,7 +29,6 @@ export function useFormManager(id: symbol) {
 
     // TODO: Create default handlers
     setResponseHandler({
-      201: response => pushNotification({ type: NotificationType.success, message: 'Successful', data: response }),
       400: (errors: any) => setErrors(errors),
     })
   }
