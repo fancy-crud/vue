@@ -32,20 +32,19 @@ const props = defineProps<{
 const { getForeignKeyValues } = useFormManager(props.formId)
 
 const fields = computed(() => {
-  const _fields = Object.entries(props.fields).filter(([_, field]) => {
-    if (field.hidden)
-      return false
+  const mode = props.settings.mode
+  const filteredFields = Object.entries(props.fields).filter(([_, field]) => {
+    const isHidden = field.hidden
+    const isCreateOnly = field.createOnly && mode !== FormModes.CREATE_MODE
+    const isUpdateOnly = field.updateOnly && mode === FormModes.CREATE_MODE
 
-    if (field.createOnly && props.settings.mode !== FormModes.CREATE_MODE)
-      return false
-
-    if (field.updateOnly && props.settings.mode === FormModes.CREATE_MODE)
+    if (isHidden || isCreateOnly || isUpdateOnly)
       return false
 
     return true
   })
 
-  return _fields
+  return filteredFields
 })
 
 onMounted(() => {
