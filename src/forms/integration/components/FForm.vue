@@ -26,16 +26,6 @@
     >
       <slot name="form-footer" v-bind="{ onMainClick, onAuxClick, isFormValid }" />
     </f-form-footer>
-
-    <f-notification-group>
-      <f-notification
-        v-for="(notification, i) in notifications"
-        @dismiss="shiftNotification"
-        v-bind="notification"
-        :key="i"
-        class="mb-4"
-      />
-    </f-notification-group>
   </form>
 </template>
 
@@ -65,8 +55,6 @@ const formManager = useFormManager(props.id)
 const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
 const { execute: createOrUpdate } = useCreateOrUpdateRecord(props.id)
-
-const notifications = computed(() => notificationStore.value)
 
 const beforeAndAfterFieldSlots = computed(() => {
   return Object.entries(slots).filter(

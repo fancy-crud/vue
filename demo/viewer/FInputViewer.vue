@@ -53,14 +53,5 @@ const form = useForm({
   },
   settings,
 })
-
-form.manager.setNotificationHandler({
-  [NotificationType.error]: (obj) => {
-    pushNotification(errorNotification({ message: obj?.message }))
-  },
-  [NotificationType.success]: (obj) => {
-    pushNotification(successNotification({ message: obj?.message }))
-  },
-})
 </script>
 
