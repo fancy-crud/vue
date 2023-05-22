@@ -3,10 +3,10 @@ import { useNotification } from './notifications'
 
 import type { FormManager } from '@/forms/integration'
 import { NotificationType } from '@/forms/integration'
-import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/core'
-import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
-import { HandleErrors } from '@/forms/core/services/fields/handle-errors'
-import { GetForeignKeyValues } from '@/http/core/services/get-foreign-key-values'
+import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/axioma'
+import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/axioma/services/fields'
+import { HandleErrors } from '@/forms/axioma/services/fields/handle-errors'
+import { GetForeignKeyValues } from '@/http/axioma/services/get-foreign-key-values'
 import { RequestService } from '@/http/integration/services'
 
 const forms = new Map<symbol, FormManager>()

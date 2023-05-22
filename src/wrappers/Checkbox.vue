@@ -14,7 +14,7 @@
 import _ from 'lodash'
 import { OCheckbox } from '@oruga-ui/oruga-next'
 import { useCheckboxField } from '@/forms/integration'
-import type { NormalizedCheckboxField } from '@/forms/core'
+import type { NormalizedCheckboxField } from '@/forms/axioma'
 
 const props = defineProps<{
   field: NormalizedCheckboxField

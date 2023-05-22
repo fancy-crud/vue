@@ -19,8 +19,8 @@
 
 <script lang="ts" setup>
 import { useFormManager } from '../composables'
-import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/core'
-import { FormModes } from '@/forms/core'
+import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/axioma'
+import { FormModes } from '@/forms/axioma'
 import { controls } from '@/settings'
 
 const props = defineProps<{

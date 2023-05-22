@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/core'
-import { FormModes } from '@/forms/core'
+import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/axioma'
+import { FormModes } from '@/forms/axioma'
 import { buttons } from '@/settings'
 
 const props = defineProps<{

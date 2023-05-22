@@ -9,6 +9,8 @@ export interface RawSetting {
   disableNotifications?: boolean
 }
 
-export interface NormalizedSettings extends Required<Omit<RawSetting, 'lookupValue'>> {
-  lookupValue?: string
+export interface NormalizedSettings extends RawSetting {
+  mode: FormModes
+  url: string
+  lookupField: string
 }

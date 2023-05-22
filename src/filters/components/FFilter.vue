@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
-import type { NormalizedField, NormalizedFields } from '@/forms/core'
+import type { NormalizedField, NormalizedFields } from '@/forms/axioma'
 
 import { controls } from '@/settings'
 

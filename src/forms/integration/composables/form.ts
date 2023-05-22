@@ -1,5 +1,5 @@
 import { useFormManager } from './manager'
-import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/core'
+import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/axioma'
 import { CreateForm } from '@/forms/foundation'
 import type { Args, UseForm } from '@/forms/integration'
 

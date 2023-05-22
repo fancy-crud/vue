@@ -1,4 +1,4 @@
-import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@/forms/core'
+import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@/forms/axioma'
 
 export interface UseForm<T, U> {
   id: symbol

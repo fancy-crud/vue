@@ -1,5 +1,5 @@
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedFileField } from '@/forms/core'
+import type { NormalizedFileField } from '@/forms/axioma'
 
 export function useFileField(props: { field: NormalizedFileField }) {
   const { modelValue } = useModelValue(props)

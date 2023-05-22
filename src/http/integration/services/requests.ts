@@ -1,6 +1,6 @@
 import type { AxiosInstance, AxiosResponse } from 'axios'
-import type { RequestRepository } from '@/http/core/repositories'
-import type { JSONForm } from '@/http/core/typings'
+import type { RequestRepository } from '@/http/axioma/repositories'
+import type { JSONForm } from '@/http/axioma/typings'
 
 export class RequestService implements RequestRepository {
   constructor(private http: { axios: AxiosInstance }) {}

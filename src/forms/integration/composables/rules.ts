@@ -1,5 +1,5 @@
 import { z as rules } from 'zod'
-import type { NormalizedField, NormalizedFields } from '@/forms/core'
+import type { NormalizedField, NormalizedFields } from '@/forms/axioma'
 
 function getSchema(fields: [string, NormalizedField][], fieldKey: string) {
   return fields.reduce((accumulator, previous) => {

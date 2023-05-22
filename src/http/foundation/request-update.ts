@@ -1,6 +1,6 @@
-import type { RequestRepository } from '../core/repositories'
-import type { JSONForm, UpdateRequestOptions } from '../core/typings'
-import { Url } from '../core/value-objects'
+import type { RequestRepository } from '../axioma/repositories'
+import type { JSONForm, UpdateRequestOptions } from '../axioma/typings'
+import { Url } from '../axioma/value-objects'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestUpdate {

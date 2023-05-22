@@ -1,5 +1,5 @@
-import type { Form, ObjectWithRawFields, RawButton, RawSetting, RawTitle } from '../core'
-import { NormalizeButtons, NormalizeFormFields, NormalizeSettings, NormalizeTitles } from '../core'
+import type { Form, ObjectWithRawFields, RawButton, RawSetting, RawTitle } from '../axioma'
+import { NormalizeButtons, NormalizeFormFields, NormalizeSettings, NormalizeTitles } from '../axioma'
 
 /**
  * A class that provides functionality to create a form from raw fields and settings.

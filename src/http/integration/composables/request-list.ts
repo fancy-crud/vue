@@ -2,8 +2,8 @@ import type { AxiosResponse } from 'axios'
 import type { Ref } from 'vue'
 import { RequestService } from '../services'
 import { httpConfig } from './config'
-import type { ListRequestOptions, Pagination, RecordManager } from '@/http/core/typings'
-import { PaginateResult } from '@/http/core/value-objects/pagination'
+import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma/typings'
+import { PaginateResult } from '@/http/axioma/value-objects/pagination'
 import { RequestList } from '@/http/foundation/request-list'
 
 /**

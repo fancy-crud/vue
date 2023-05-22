@@ -1,5 +1,5 @@
 import { httpConfig } from './config'
-import type { DeleteRequestOptions } from '@/http/core/typings'
+import type { DeleteRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
 import { RequestDelete } from '@/http/foundation/request-delete'
 

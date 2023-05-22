@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { OSelect } from '@oruga-ui/oruga-next'
-import type { NormalizedSelectField } from '@/forms/core'
+import type { NormalizedSelectField } from '@/forms/axioma'
 import { useHintText, useOptions } from '@/forms/integration/composables/fields/utils'
 
 const props = defineProps<{

@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { OInput } from '@oruga-ui/oruga-next'
 import { usePasswordField } from '@/forms/integration'
-import type { NormalizedPasswordField } from '@/forms/core'
+import type { NormalizedPasswordField } from '@/forms/axioma'
 
 const props = defineProps<{
   field: NormalizedPasswordField

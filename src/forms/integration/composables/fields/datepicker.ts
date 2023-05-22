@@ -1,5 +1,5 @@
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedDatepickerField } from '@/forms/core'
+import type { NormalizedDatepickerField } from '@/forms/axioma'
 
 export function useDatepickerField(props: { field: NormalizedDatepickerField }) {
   const { modelValue } = useModelValue(props)

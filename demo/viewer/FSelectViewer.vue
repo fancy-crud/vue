@@ -7,7 +7,7 @@
 </template>
 
 <script lang='ts' setup>
-import { FieldType } from '@/forms/core'
+import { FieldType } from '@/forms/axioma'
 import { useForm } from '@/forms/integration/composables'
 
 const options = [

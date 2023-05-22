@@ -1,5 +1,5 @@
 import { useHintText, useModelValue, useOptions } from './utils'
-import type { NormalizedRadioField } from '@/forms/core'
+import type { NormalizedRadioField } from '@/forms/axioma'
 
 export function useRadioField(props: { field: NormalizedRadioField }) {
   const { modelValue } = useModelValue(props)

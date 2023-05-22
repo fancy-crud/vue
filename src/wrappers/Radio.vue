@@ -14,7 +14,7 @@
 import _ from 'lodash'
 import { ORadio } from '@oruga-ui/oruga-next'
 import { useRadioField } from '@/forms/integration'
-import type { NormalizedRadioField } from '@/forms/core'
+import type { NormalizedRadioField } from '@/forms/axioma'
 
 const props = defineProps<{
   field: NormalizedRadioField

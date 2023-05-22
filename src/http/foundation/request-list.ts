@@ -1,5 +1,5 @@
-import type { RequestRepository } from '../core/repositories'
-import type { ListRequestOptions } from '../core/typings'
+import type { RequestRepository } from '../axioma/repositories'
+import type { ListRequestOptions } from '../axioma/typings'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestList {

@@ -1,6 +1,6 @@
 import { exportComponents } from '@/common'
 
 export * from './integration/composables'
-export * from './core/typings'
+export * from './axioma/typings'
 
 export default exportComponents()

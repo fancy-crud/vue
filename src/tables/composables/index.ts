@@ -1,5 +1,5 @@
 import { utils as xUtils, writeFile as xWriteFile } from 'xlsx'
-import type { NormalizedFields } from '@/forms/core'
+import type { NormalizedFields } from '@/forms/axioma'
 import type { Table, TableHeader } from '@/tables'
 
 type FieldFn = (row: unknown, index: number) => unknown

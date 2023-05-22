@@ -16,7 +16,7 @@
 
 <script lang='ts' setup>
 import type { AxiosError } from 'axios'
-import { FieldType } from '@/forms/core'
+import { FieldType } from '@/forms/axioma'
 import { NotificationType, useForm } from '@/forms/integration'
 
 const { rules } = useRules()

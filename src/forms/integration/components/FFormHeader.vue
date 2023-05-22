@@ -10,8 +10,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { NormalizedSettings, NormalizedTitles } from '@/forms/core'
-import { FormModes } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles } from '@/forms/axioma'
+import { FormModes } from '@/forms/axioma'
 
 const props = defineProps<{
   titles: NormalizedTitles

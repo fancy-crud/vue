@@ -1,5 +1,5 @@
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedTextField } from '@/forms/core'
+import type { NormalizedTextField } from '@/forms/axioma'
 
 export function useTextField(props: { field: NormalizedTextField }) {
   const { modelValue } = useModelValue(props)

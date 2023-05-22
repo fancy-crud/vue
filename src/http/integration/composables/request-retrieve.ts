@@ -1,5 +1,5 @@
 import { httpConfig } from './config'
-import type { RetrieveRequestOptions } from '@/http/core/typings'
+import type { RetrieveRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
 import { RequestRetrieve } from '@/http/foundation'
 

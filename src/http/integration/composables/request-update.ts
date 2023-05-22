@@ -1,5 +1,5 @@
 import { httpConfig } from './config'
-import type { JSONForm, UpdateRequestOptions } from '@/http/core/typings'
+import type { JSONForm, UpdateRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
 import { RequestUpdate } from '@/http/foundation/request-update'
 

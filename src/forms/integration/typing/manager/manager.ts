@@ -1,4 +1,4 @@
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/axioma'
 
 export interface FormManager {
   originalNormalizedFields: ObjectWithNormalizedFields

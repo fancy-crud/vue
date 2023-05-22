@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { useCreateOrUpdateRecord, useFormManager } from '../composables'
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/axioma'
 
 interface StandardResponseStructure { data: any; status: number }
 interface StandardErrorResponseStructure { response: StandardResponseStructure }
