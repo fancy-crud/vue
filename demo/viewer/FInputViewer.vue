@@ -17,7 +17,7 @@
 <script lang='ts' setup>
 import type { AxiosError } from 'axios'
 import { FieldType } from '@/forms/core'
-import { useForm } from '@/forms/integration'
+import { NotificationType, useForm } from '@/forms/integration'
 
 const { rules } = useRules()
 
@@ -54,10 +54,13 @@ const form = useForm({
   settings,
 })
 
-// form.manager.setResponseHandler({ 400: handleBadRequest })
-
-// function handleBadRequest(errors: any) {
-//   console.log(errors)
-// }
+form.manager.setNotificationHandler({
+  [NotificationType.error]: (obj) => {
+    pushNotification(errorNotification({ message: obj?.message }))
+  },
+  [NotificationType.success]: (obj) => {
+    pushNotification(successNotification({ message: obj?.message }))
+  },
+})
 </script>
 

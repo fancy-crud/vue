@@ -1,4 +1,5 @@
 import { useResponseHandler } from './response-handlers'
+import { NotificationType, useNotification } from './notifications'
 import type { FieldErrors, NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/core'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/core/services/fields'
 import { HandleErrors } from '@/forms/core/services/fields/handle-errors'
@@ -13,25 +14,34 @@ interface FormManager {
   buttons: ObjectWithNormalizedButtons
 }
 
-const forms: Record<symbol, FormManager> = reactive({})
+const forms = new Map<symbol, FormManager>()
 
 export function useFormManager(id: symbol) {
   const { setResponseHandler, getResponseHandler } = useResponseHandler(id)
+  const { pushNotification, setNotificationHandler, removeNotificationHandlers } = useNotification(id)
 
   function getForm() {
-    return forms[id]
+    const form = forms.get(id)
+
+    if (!form)
+      throw new Error(`Unable to found form id(${String(id)})`)
+
+    return form
   }
 
   function addForm(form: FormManager) {
-    forms[id] = form
+    forms.set(id, form)
 
+    // TODO: Create default handlers
     setResponseHandler({
+      201: response => pushNotification({ type: NotificationType.success, message: 'Successful', data: response }),
       400: (errors: any) => setErrors(errors),
     })
   }
 
   function removeForm() {
-    delete forms[id]
+    forms.delete(id)
+    removeNotificationHandlers()
   }
 
   function fillWithRecordValues(record: Record<string, unknown>) {
@@ -69,6 +79,9 @@ export function useFormManager(id: symbol) {
 
     const handleErrors = new HandleErrors()
     handleErrors.execute(form.fields, errors)
+
+    if (!form.settings.disableNotifications)
+      pushNotification({ type: NotificationType.error, data: errors })
   }
 
   return {
@@ -81,6 +94,8 @@ export function useFormManager(id: symbol) {
     getForm,
     setErrors,
     setResponseHandler,
+    setNotificationHandler,
     getResponseHandler,
+    pushNotification,
   }
 }
