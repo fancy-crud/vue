@@ -17,7 +17,7 @@ interface FormManager {
 const forms = new Map<symbol, FormManager>()
 
 export function useFormManager(id: symbol) {
-  const { setResponseHandler, getResponseHandler } = useResponseHandler(id)
+  const { setResponseHandler, getResponseHandler, removeResponseHandlers } = useResponseHandler(id)
   const { pushNotification, setNotificationHandler, removeNotificationHandlers } = useNotification(id)
 
   function getForm() {
@@ -42,6 +42,7 @@ export function useFormManager(id: symbol) {
   function removeForm() {
     forms.delete(id)
     removeNotificationHandlers()
+    removeResponseHandlers()
   }
 
   function fillWithRecordValues(record: Record<string, unknown>) {

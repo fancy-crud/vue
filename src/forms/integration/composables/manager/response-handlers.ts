@@ -1,22 +1,31 @@
 export type Handler = (response: any) => void
 export interface StatusCodeHandler extends Record<number, Handler> {}
 
-const handlers: Record<symbol, StatusCodeHandler> = reactive({})
+const responseHandlers = new Map<symbol, StatusCodeHandler>()
 
 export function useResponseHandler(id: symbol) {
-  if (!handlers[id])
-    handlers[id] = {}
+  function getHandler() {
+    if (!responseHandlers.get(id))
+      responseHandlers.set(id, {})
+
+    return responseHandlers.get(id)!
+  }
 
   function setResponseHandler(codes: StatusCodeHandler) {
-    Object.assign(handlers[id], codes)
+    Object.assign(getHandler(), codes)
   }
 
   function getResponseHandler(code: number): Handler | null {
-    return handlers[id][code] || null
+    return getHandler()[code] || null
+  }
+
+  function removeResponseHandlers() {
+    responseHandlers.delete(id)
   }
 
   return {
     setResponseHandler,
     getResponseHandler,
+    removeResponseHandlers,
   }
 }
