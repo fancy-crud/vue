@@ -1,7 +1,7 @@
 import { httpConfig } from './config'
 import type { CreateRequestOptions, JSONForm } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
-import { RequestCreate } from '@/http/foundation'
+import { RequestCreate } from '@/http/capabilities'
 
 /**
  * Hook for sending an HTTP POST request to create a resource on the server.

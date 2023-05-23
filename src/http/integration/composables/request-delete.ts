@@ -1,7 +1,7 @@
 import { httpConfig } from './config'
 import type { DeleteRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
-import { RequestDelete } from '@/http/foundation/request-delete'
+import { RequestDelete } from '@/http/capabilities/request-delete'
 
 /**
  * Hook that provides an update request functionality to update an existing resource.

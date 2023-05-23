@@ -1,7 +1,7 @@
 import { httpConfig } from './config'
 import type { JSONForm, UpdateRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
-import { RequestUpdate } from '@/http/foundation/request-update'
+import { RequestUpdate } from '@/http/capabilities/request-update'
 
 /**
  * Hook that provides an update request functionality to update an existing resource.

@@ -1,7 +1,7 @@
 import { httpConfig } from './config'
 import type { RetrieveRequestOptions } from '@/http/axioma/typings'
 import { RequestService } from '@/http/integration/services'
-import { RequestRetrieve } from '@/http/foundation'
+import { RequestRetrieve } from '@/http/capabilities'
 
 /**
  * Hook to retrieve data from an API using the HTTP GET method with a lookup value.

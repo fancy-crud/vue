@@ -4,7 +4,7 @@ import { RequestService } from '../services'
 import { httpConfig } from './config'
 import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma/typings'
 import { PaginateResult } from '@/http/axioma/value-objects/pagination'
-import { RequestList } from '@/http/foundation/request-list'
+import { RequestList } from '@/http/capabilities/request-list'
 
 /**
  * Creates a record manager for a list of records from a given API endpoint.
