@@ -1,6 +1,3 @@
-import type { AxiosResponse } from 'axios'
-import type { Form } from '../../forms/typings'
-
 export interface TableHeader {
   label: string
   value: string
@@ -11,7 +8,6 @@ export interface TableHeader {
 }
 
 export interface Table {
-  form: Form
   settings: {
     url: string
     filterParams?: object
@@ -23,6 +19,6 @@ export interface Table {
       count?: number
     }
   }
-  onCreate?: (response: AxiosResponse<unknown>) => void
-  onUpdate?: (response: AxiosResponse<unknown>) => void
+  onCreate?: (response: unknown) => void
+  onUpdate?: (response: unknown) => void
 }

@@ -149,15 +149,5 @@ export interface FieldErrors extends Record<string, string[]> {}
 // export interface RawField extends Record<string, any> {
 // chips?: boolean
 // valueString?: string | null
-// Define a better type for this property
-// table?: {
-//   label?: string
-//   value?: string
-//   field?: (row: unknown, index: number) => unknown
-//   format?: (value: unknown) => unknown
-//   exclude?: boolean
-//   allowCheckbox?: boolean
-//   allowImagePreview?: boolean
-// }
 // xlsx?: Record<string, unknown>
 // }
