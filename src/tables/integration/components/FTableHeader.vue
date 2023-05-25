@@ -18,17 +18,17 @@
       />
     </tr>
     <tr
-      v-if="props.loading"
+      v-if="props.isLoading"
       class="relative w-full left-0 top-0 h-1 rounded preloader"
     />
   </thead>
 </template>
 
 <script lang="ts" setup>
-import type { TableHeader } from '@/tables'
+import type { NormalizedColumn } from '@/tables/axioma'
 
 const props = defineProps<{
-  headers: TableHeader[]
-  loading?: boolean
+  headers: NormalizedColumn[]
+  isLoading?: boolean
 }>()
 </script>

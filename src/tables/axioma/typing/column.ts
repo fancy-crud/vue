@@ -27,7 +27,8 @@ export interface BaseFormField extends Record<string, {
   name?: string
 }> {}
 
-export interface BaseFormFieldAsColumn {
+export interface BaseTableForm {
+  id: symbol
   fields: BaseFormField
 }
 

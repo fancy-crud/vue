@@ -1,60 +1,64 @@
 <template>
   <div class="pb-5">
-    <f-table :table="table">
-      <template #table-header-prepend>
-        <f-filter :filters="filters" />
-      </template>
-    </f-table>
+    <f-table v-bind="table" />
   </div>
 </template>
 
 <script lang='ts' setup>
+import { FieldType } from '@/forms/axioma'
+
 const formats = useFormats()
-
-const createdAtTable = {
-  format: (value: unknown) => formats.dateTimeFormat(value as string),
-  exclude: false,
-}
-
-const { filters, filterParams } = useFilters({
-  search: {
-    placeholder: 'Filtrar artista',
-    wrapCols: 'col-span-3',
-    bounceTime: 700,
-  },
-})
 
 const form = useForm({
   id: 'formulario',
   fields: {
     name: {
+      type: FieldType.text,
       label: 'First name',
+      wrapper: {
+        class: 'col-span-12',
+      },
     },
     gender: {
+      type: FieldType.text,
       label: 'Gender',
+      wrapper: {
+        class: 'col-span-12',
+      },
     },
     created_at: {
+      type: FieldType.text,
       label: 'Created at',
-      table: { ...createdAtTable },
       updateOnly: true,
+      readonly: true,
+      disabled: true,
+      wrapper: {
+        class: 'col-span-12',
+      },
     },
   },
   settings: {
     url: 'artists/',
-    title: {
-      create: 'Crear artista',
-    },
+  },
+  titles: {
+    create: 'Crear artista',
   },
 })
 
 const table = useTable({
   form,
+  columns: {
+    created_at: {
+      format: (value: unknown) => formats.dateTimeFormat(value as string),
+      exclude: false,
+    },
+  },
   settings: {
     url: form.settings.url,
-    filterParams,
-    pagination: {
-      rowsPerPage: 10,
-    },
+    lookupField: 'id',
+  },
+  pagination: {
+    rowsPerPage: 10,
   },
 })
 </script>

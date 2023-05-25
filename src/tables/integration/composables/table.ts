@@ -1,8 +1,8 @@
 import type { TableArgs, UseTable } from '../typing'
-import type { BaseFormFieldAsColumn, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
+import type { BaseTableForm, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
 import { NormalizeColumns, NormalizePagination } from '@/tables/capabilities'
 
-export function useTable<T extends BaseFormFieldAsColumn, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
+export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
   args: TableArgs<T, U, S, F>,
 ): UseTable<T, U, S, F> {
   const {

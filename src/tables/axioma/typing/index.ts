@@ -1,2 +1,4 @@
 export * from './column'
-export * from './table'
+export * from './pagination'
+export * from './filters'
+export * from './settings'

@@ -4,6 +4,7 @@ import { useNotification } from './notifications'
 import type { FormManager } from '@/forms/integration'
 import { NotificationType } from '@/forms/integration'
 import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/axioma'
+import { FormModes } from '@/forms/axioma'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/axioma/services/fields'
 import { HandleErrors } from '@/forms/axioma/services/fields/handle-errors'
 import { GetForeignKeyValues } from '@/http/axioma/services/get-foreign-key-values'
@@ -79,6 +80,18 @@ export function useFormManager(id: symbol) {
       pushNotification({ type: NotificationType.error, data: errors })
   }
 
+  function switchToCreateMode() {
+    const form = getForm()
+
+    form.settings.mode = FormModes.CREATE_MODE
+  }
+
+  function switchToUpdateMode() {
+    const form = getForm()
+
+    form.settings.mode = FormModes.UPDATE_MODE
+  }
+
   return {
     fillWithRecordValues,
     getForeignKeyValues,
@@ -92,5 +105,7 @@ export function useFormManager(id: symbol) {
     setNotificationHandler,
     getResponseHandler,
     pushNotification,
+    switchToCreateMode,
+    switchToUpdateMode,
   }
 }

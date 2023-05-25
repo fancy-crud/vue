@@ -21,8 +21,10 @@
           >
             <f-form
               @success="fetchItems()"
+              v-bind="form"
               :key="formModalKey"
-              :form="props.table.form"
+              :form="form"
+              :id="props.form.id"
             >
               <template #form-header="{ title }">
                 <div class="flex justify-between items-center pb-4">
@@ -92,10 +94,14 @@
 <script lang="ts" setup>
 import _ from 'lodash'
 import type { AxiosResponse } from 'axios'
-import type { Table } from '@/tables/typings'
+import type { BaseTableForm, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns } from '@/tables/axioma'
+import { useFormManager } from '@/forms/integration'
 
 const props = defineProps<{
-  table: Table
+  columns: ObjectWithNormalizedColumns
+  form: BaseTableForm
+  settings: NormalizedTableSetting
+  pagination: NormalizedTablePagination
   formModal?: boolean
   skipDeleteConfirmation?: boolean
 }>()
@@ -105,18 +111,20 @@ const emit = defineEmits<{
 }>()
 
 const t = useLocale()
-const cloneForm = _.cloneDeep(props.table.form)
-const headers = createHeaders(props.table.form.fields)
+const formManager = useFormManager(props.form.id)
+const form = formManager.getForm()
+
+const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 const formModal = ref(Boolean(props.formModal))
 const formModalKey = ref(0)
 
 const rowToDelete = ref<any>(null)
 const deleteModal = ref(false)
 
-const { list, loading, pagination, triggerRequest: fetchItems } = useListRequest(
-  props.table.settings.url,
-  props.table.settings.filterParams,
-  props.table.settings.pagination,
+const { list, loading, pagination, triggerRequest: fetchItems } = useRequestList(
+  props.settings.url,
+  props.settings.filterParams,
+  props.pagination,
 )
 
 const ItemsCount = computed(() => {
@@ -142,8 +150,8 @@ watch(formModal, () => {
 fetchItems()
 
 function exportXlsx() {
-  const xlsx = useXLSX(props.table)
-  xlsx.triggerRequest()
+  // const xlsx = useXLSX(props.table)
+  // xlsx.triggerRequest()
 }
 
 function closeModal() {
@@ -151,38 +159,31 @@ function closeModal() {
 }
 
 function openCreateModal() {
-  if (typeof props.table.form.settings.buttons.aux.onClick !== 'function')
-    Object.assign(props.table.form.settings.buttons.aux, { onClick: closeModal })
+  if (typeof form.buttons.aux.onClick !== 'function')
+    Object.assign(form.buttons.aux, { onClick: closeModal })
 
-  Object.assign(props.table.form.settings, { mode: FormModes.CREATE_MODE })
-  resetModelValue(props.table.form, cloneForm)
+  formManager.switchToCreateMode()
+  formManager.resetFields()
   formModal.value = true
 }
 
 function openEditModal(row: any) {
-  resetModelValue(props.table.form, cloneForm)
+  formManager.resetFields()
 
   type rowKey = keyof typeof row
-  const lookupField = (props.table.settings.lookupField || props.table.form.settings.lookupField) as rowKey
+  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
   let lookupValue = ''
 
   if (Object.prototype.hasOwnProperty.call(row, lookupField))
     lookupValue = String(row[lookupField])
 
-  if (typeof props.table.form.settings.buttons.aux.onClick !== 'function')
-    Object.assign(props.table.form.settings.buttons.aux, { onClick: closeModal })
+  if (typeof form.buttons.aux.onClick !== 'function')
+    Object.assign(form.buttons.aux, { onClick: closeModal })
 
-  useRetrieveRequest(props.table.settings.url, lookupValue, {
+  useRetrieveRequest(props.settings.url, lookupValue, {
     onSuccess(response: AxiosResponse) {
-      Object.assign(props.table.form, {
-        record: response.data,
-      })
-
-      Object.assign(props.table.form.settings, {
-        mode: FormModes.UPDATE_MODE,
-      })
-
-      fillFieldsWithRecordValues(props.table.form, props.table.form.record || {})
+      formManager.fillWithRecordValues(response.data || {})
+      formManager.switchToUpdateMode()
 
       formModalKey.value++
       formModal.value = true
@@ -198,28 +199,24 @@ function openDeleteModal(row: any, requestDeleteConfirmation = true) {
   }
 
   type rowKey = keyof typeof row
-  const lookupField = (props.table.settings.lookupField || props.table.form.settings.lookupField) as rowKey
+  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
   let lookupValue = ''
 
   if (Object.prototype.hasOwnProperty.call(row, lookupField))
     lookupValue = String(row[lookupField])
 
-  useDeleteRequest(props.table.settings.url, lookupValue, 'is_active', false, {
-    onSuccess() {
-      fetchItems()
-    },
-  })
+  useRequestDelete(props.settings.url, lookupValue)
 }
 
 function updateCheckbox(value: { field: string; row: any }) {
   type rowKey = keyof typeof value.row
-  const lookupField = (props.table.settings.lookupField || props.table.form.settings.lookupField) as rowKey
+  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
   let lookupValue = ''
 
   if (Object.prototype.hasOwnProperty.call(value.row, lookupField))
     lookupValue = String(value.row[lookupField])
 
-  useUpdateRequest(props.table.settings.url, lookupValue, {
+  useRequestUpdate(props.settings.url, lookupValue, {
     [value.field]: !value.row[value.field],
   })
 }

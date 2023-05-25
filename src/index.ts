@@ -44,9 +44,9 @@ export default install
 // each can be registered via Vue.component()
 export * from './common'
 export * from './filters'
-export * from './forms'
+export * from './forms/integration'
 export * from './http'
 // export * from './inputs'
 export * from './locales'
 export * from './settings'
-export * from './tables'
+export * from './tables/integration'

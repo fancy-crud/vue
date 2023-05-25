@@ -41,10 +41,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { TableHeader } from '@/tables'
+import type { NormalizedColumn } from '@/tables/axioma'
 
 const props = defineProps<{
-  headers: TableHeader[]
+  headers: NormalizedColumn[]
   items: any[]
 }>()
 
@@ -58,7 +58,7 @@ const hotUpdate = (field: string, row: any) => {
   emit('hot-update', { field, row })
 }
 
-const getValue = computed(() => (row: any, header: TableHeader, rowIndex: number) => {
+const getValue = computed(() => (row: any, header: NormalizedColumn, rowIndex: number) => {
   let value: any
   if (typeof row === 'object')
     value = row[header.value]
