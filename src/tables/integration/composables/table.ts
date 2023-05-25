@@ -1,56 +1,34 @@
-export interface Table extends Record<string, unknown> {
-  label?: string
-  value?: string
-  field?: (row: unknown, index: number) => unknown
-  format?: (value: unknown) => unknown
-  allowCheckbox?: boolean
-  allowImagePreview?: boolean
-}
+import type { TableArgs, UseTable } from '../typing'
+import type { BaseFormFieldAsColumn, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
+import { NormalizeColumns, NormalizePagination } from '@/tables/capabilities'
 
-type RawTable<F, T> = { [K in keyof (Extract<F, T> & T)]: (Extract<F, T> & T)[K] } & Record<string, Table>
+export function useTable<T extends BaseFormFieldAsColumn, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
+  args: TableArgs<T, U, S, F>,
+): UseTable<T, U, S, F> {
+  const {
+    form,
+    columns: rawColumns = {},
+    settings: rawSettings = {},
+    pagination: rawPagination = {},
+    filterParams: rawFilterParams = {},
+  } = args
 
-// export interface Table {
-//   settings: {
-//     url: string
-//     filterParams?: object
-//     search?: string
-//     lookupField?: string
-//     pagination?: {
-//       page?: number
-//       rowsPerPage?: number
-//       count?: number
-//     }
-//   }
-//   onCreate?: (response: unknown) => void
-//   onUpdate?: (response: unknown) => void
-// }
+  const mapColumns = new NormalizeColumns()
+  const mappedColumns = mapColumns.execute(form.fields, rawColumns)
 
-export function useTable<T, U extends Record<string, Table>>(form: T, args: RawTable<T, U>): { columns: U; form: T } {
-  const columns = reactive(args) as U
+  const normalizePagination = new NormalizePagination()
+  const normalizedPagination = normalizePagination.execute(rawPagination)
+
+  const columns = reactive(mappedColumns) as FieldAsColumn<T['fields'], NormalizedColumn> & U
+  const settings = reactive(rawSettings) as S
+  const pagination = reactive(normalizedPagination)
+  const filterParams = reactive(rawFilterParams) as F
 
   return {
     columns,
     form,
+    settings,
+    pagination,
+    filterParams,
   }
 }
-
-const form = {
-  firstName: {
-    label: 'Primer Nombre',
-    cancel: false,
-  },
-}
-
-const table = useTable(form, {
-  firstName: {
-    label: '',
-    calor: false,
-
-  },
-  actions: {
-    label: '',
-  },
-})
-
-console.log(table.columns.firstName.label)
-
