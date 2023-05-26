@@ -18,7 +18,7 @@ import { RequestList } from '@/http/capabilities/request-list'
  * @returns {RecordManager<T, F>} - The record manager object.
  */
 export function useRequestList<T, F = any>(url: string, filterParams?: F, pagination?: Pagination, options?: ListRequestOptions): RecordManager<T, F> {
-  const loading = ref(false)
+  const isFetching = ref(false)
   const mutableList: Ref<T[]> = ref([])
 
   const _filterParams = reactive(Object.assign({}, filterParams))
@@ -77,7 +77,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
    * @returns {void}
    */
   function triggerRequest(page = 1) {
-    loading.value = true
+    isFetching.value = true
     const params = {
       limit: 10,
       offset: 0,
@@ -103,7 +103,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
       },
 
       onFinally() {
-        loading.value = false
+        isFetching.value = false
         if (typeof options?.onFinally === 'function')
           options.onFinally()
       },
@@ -114,7 +114,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
     triggerRequest,
     filterParams: _filterParams,
     pagination: _pagination,
-    loading,
+    isFetching,
     list,
   }
 }

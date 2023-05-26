@@ -7,6 +7,7 @@ import Radio from './Radio.vue'
 import Checkbox from './Checkbox.vue'
 import File from './File.vue'
 import Datepicker from './Datepicker.vue'
+import TableBody from './TableBody.vue'
 
 export const fields: Record<string, any> = {
   text: Text,
@@ -21,4 +22,8 @@ export const fields: Record<string, any> = {
 
 export const buttons: Record<string, any> = {
   button: OButton,
+}
+
+export const table: Record<string, any> = {
+  body: TableBody,
 }

@@ -4,20 +4,23 @@ export class NormalizeColumns {
   execute(fields: BaseFormField, columns: ObjectWithRawColumns): ObjectWithNormalizedColumns {
     const mappedColumns: ObjectWithNormalizedColumns = {}
 
-    Object.keys(fields).forEach((fieldKey) => {
-      const column = columns[fieldKey]
+    const mergeColumns = Object.assign({}, fields, columns)
 
-      const field = fields[fieldKey]
+    Object.keys(mergeColumns).forEach((columnName) => {
+      const column = {
+        ...(fields[columnName] || {}),
+        ...(columns[columnName] || {}),
+      }
 
-      const label = field.label || ''
-      const value = field.name || fieldKey
+      const label = column.label || ''
+      const value = column.name || columnName
 
-      const allowCheckbox = field.type === 'checkbox' && column?.allowCheckbox !== false
-      const allowImagePreview = field.type === 'image' && column?.allowImagePreview !== false
+      const allowCheckbox = column.type === 'checkbox' && column?.allowCheckbox !== false
+      const allowImagePreview = column.type === 'image' && column?.allowImagePreview !== false
 
-      const rawColumn = columns[fieldKey] ? columns[fieldKey] : {}
+      const rawColumn = columns[columnName] ? columns[columnName] : {}
 
-      mappedColumns[fieldKey] = {
+      mappedColumns[columnName] = {
         label,
         value,
         allowCheckbox,

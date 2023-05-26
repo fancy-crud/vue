@@ -1,4 +1,4 @@
-import { exportComponents } from '@/common'
+import { exportComponents } from '@/common/integration'
 
 export * from './composables'
 export * from './typing'

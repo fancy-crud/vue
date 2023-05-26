@@ -32,7 +32,7 @@ export interface RecordManager<T, F> {
   filterParams: UnwrapNestedRefs<F>
   pagination: Required<Pagination>
   triggerRequest: (page?: number) => void
-  loading: Ref<boolean>
+  isFetching: Ref<boolean>
   list: ComputedRef<T[]>
 }
 

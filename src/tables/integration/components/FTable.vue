@@ -1,86 +1,78 @@
 <template>
-  <div class="card bg-base-100 border rounded-md">
-    <div class="flex flex-nowrap p-4 items-center justify-between">
-      <div>
-        <slot name="table-header-prepend" />
-      </div>
-      <div class="flex items-center relative">
-        <f-modal
-          v-model="formModal"
+  <div class="flex flex-nowrap p-4 items-center justify-between">
+    <div>
+      <slot name="table-header-prepend" />
+    </div>
+    <div class="flex items-center relative">
+      <f-modal
+        v-model="formModal"
+      >
+        <template #activator>
+          <f-button
+            @click="openCreateModal"
+            :tooltip="t('create')"
+            icon="mdi-plus"
+          />
+        </template>
+        <f-modal-card
+          class="p-5"
+          max-width="max-w-3xl"
         >
-          <template #activator>
-            <f-button-icon
-              @click="openCreateModal"
-              :tooltip="t('create')"
-              icon="mdi-plus"
-            />
-          </template>
-          <f-modal-card
-            class="p-5"
-            max-width="max-w-3xl"
+          <f-form
+            @success="fetchItems()"
+            v-bind="form"
+            :form="form"
+            :id="props.form.id"
           >
-            <f-form
-              @success="fetchItems()"
-              v-bind="form"
-              :key="formModalKey"
-              :form="form"
-              :id="props.form.id"
-            >
-              <template #form-header="{ title }">
-                <div class="flex justify-between items-center pb-4">
-                  <h3 class="text-2xl">
-                    {{ title }}
-                  </h3>
-                  <f-button-icon
-                    @click="closeModal"
-                    text-color="text-gray-400"
-                    icon="mdi-close"
-                  />
-                </div>
-              </template>
-            </f-form>
-          </f-modal-card>
-        </f-modal>
-        <f-button-icon
-          @click="exportXlsx"
-          icon="mdi-microsoft-excel"
-          :tooltip="t('export')"
-        />
-      </div>
-    </div>
-    <div class="overflow-x-auto p-4">
-      <table class="table table-compact w-full divide-y divide-slate-100">
-        <f-table-header
-          :headers="headers"
-          :loading="loading"
-        />
-
-        <f-table-body
-          @edit="openEditModal"
-          @delete="openDeleteModal"
-          @hot-update="updateCheckbox"
-          :headers="headers"
-          :items="list"
-        />
-      </table>
-      <f-progress-bar v-if="loading" />
-    </div>
-
-    <f-table-footer>
-      <span />
-      <f-pagination
-        v-model="pagination.page"
-        :pagination="pagination"
+            <template #form-header="{ title }">
+              <div class="flex justify-between items-center pb-4">
+                <h3 class="text-2xl">
+                  {{ title }}
+                </h3>
+                <f-button
+                  @click="closeModal"
+                  text-color="text-gray-400"
+                  icon="mdi-close"
+                />
+              </div>
+            </template>
+          </f-form>
+        </f-modal-card>
+      </f-modal>
+      <f-button
+        @click="exportXlsx"
+        icon="mdi-microsoft-excel"
+        :tooltip="t('export')"
       />
-      <p class="text-right text-sm font-bold">
-        {{ ItemsCount }} / {{ pagination.count }}
-      </p>
-    </f-table-footer>
+    </div>
+  </div>
+  <div class="overflow-x-auto p-4">
+    <table class="table table-compact w-full divide-y divide-slate-100">
+      <f-table-body
+        @edit="openEditModal"
+        @delete="deleteRecord"
+        @hot-update="updateCheckbox"
+        :headers="headers"
+        :items="list"
+      />
+    </table>
+    <f-progress-bar v-if="isFetching" />
   </div>
 
+  <f-table-footer>
+    <span />
+    <f-pagination
+      v-model="pagination.page"
+      :pagination="pagination"
+    />
+    <p class="text-right text-sm font-bold">
+      <!-- {{ itemsCount }} / {{ pagination.count }} -->
+    </p>
+  </f-table-footer>
+
   <f-delete-confirmation-modal
-    v-model="deleteModal"
-    @accept="openDeleteModal(rowToDelete, false)"
+    v-model="confirmationModal"
+    @accept="deleteRecord(rowToDelete, false)"
   >
     <template #default="{ closeModal: closeDeleteConfirmationModal }">
       <slot
@@ -93,131 +85,50 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
-import type { AxiosResponse } from 'axios'
-import type { BaseTableForm, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns } from '@/tables/axioma'
-import { useFormManager } from '@/forms/integration'
+import type { TableProps } from '@/tables/integration'
+import { useTableCrud } from '@/tables/integration'
 
-const props = defineProps<{
-  columns: ObjectWithNormalizedColumns
-  form: BaseTableForm
-  settings: NormalizedTableSetting
-  pagination: NormalizedTablePagination
-  formModal?: boolean
-  skipDeleteConfirmation?: boolean
-}>()
+const props = defineProps<TableProps>()
 
 const emit = defineEmits<{
   (e: 'update:formModal', value: boolean): void
 }>()
 
 const t = useLocale()
-const formManager = useFormManager(props.form.id)
+const {
+  openCreateModal,
+  openEditModal,
+  deleteRecord,
+  updateCheckbox,
+  closeModal,
+  fetchItems,
+  list,
+  isFetching,
+  confirmationModal,
+  formManager,
+  formModal,
+  rowToDelete,
+} = useTableCrud(props, emit)
+
 const form = formManager.getForm()
-
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
-const formModal = ref(Boolean(props.formModal))
-const formModalKey = ref(0)
 
-const rowToDelete = ref<any>(null)
-const deleteModal = ref(false)
+// const itemsCount = computed(() => {
+//   let count = (pagination.rowsPerPage) - list.value.length
 
-const { list, loading, pagination, triggerRequest: fetchItems } = useRequestList(
-  props.settings.url,
-  props.settings.filterParams,
-  props.pagination,
-)
+//   if (count === 0)
+//     count = pagination.page * pagination.rowsPerPage
 
-const ItemsCount = computed(() => {
-  let count = (pagination.rowsPerPage) - list.value.length
+//   else
+//     count = pagination.count
 
-  if (count === 0)
-    count = pagination.page * pagination.rowsPerPage
-
-  else
-    count = pagination.count
-
-  return count
-})
-
-watch(() => props.formModal, () => {
-  formModal.value = Boolean(props.formModal)
-})
-
-watch(formModal, () => {
-  emit('update:formModal', formModal.value)
-})
+//   return count
+// })
 
 fetchItems()
 
 function exportXlsx() {
   // const xlsx = useXLSX(props.table)
   // xlsx.triggerRequest()
-}
-
-function closeModal() {
-  formModal.value = false
-}
-
-function openCreateModal() {
-  if (typeof form.buttons.aux.onClick !== 'function')
-    Object.assign(form.buttons.aux, { onClick: closeModal })
-
-  formManager.switchToCreateMode()
-  formManager.resetFields()
-  formModal.value = true
-}
-
-function openEditModal(row: any) {
-  formManager.resetFields()
-
-  type rowKey = keyof typeof row
-  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
-  let lookupValue = ''
-
-  if (Object.prototype.hasOwnProperty.call(row, lookupField))
-    lookupValue = String(row[lookupField])
-
-  if (typeof form.buttons.aux.onClick !== 'function')
-    Object.assign(form.buttons.aux, { onClick: closeModal })
-
-  useRetrieveRequest(props.settings.url, lookupValue, {
-    onSuccess(response: AxiosResponse) {
-      formManager.fillWithRecordValues(response.data || {})
-      formManager.switchToUpdateMode()
-
-      formModalKey.value++
-      formModal.value = true
-    },
-  })
-}
-
-function openDeleteModal(row: any, requestDeleteConfirmation = true) {
-  if (requestDeleteConfirmation && !props.skipDeleteConfirmation) {
-    rowToDelete.value = row
-    deleteModal.value = true
-    return
-  }
-
-  type rowKey = keyof typeof row
-  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
-  let lookupValue = ''
-
-  if (Object.prototype.hasOwnProperty.call(row, lookupField))
-    lookupValue = String(row[lookupField])
-
-  useRequestDelete(props.settings.url, lookupValue)
-}
-
-function updateCheckbox(value: { field: string; row: any }) {
-  type rowKey = keyof typeof value.row
-  const lookupField = (props.settings.lookupField || form.settings.lookupField) as rowKey
-  let lookupValue = ''
-
-  if (Object.prototype.hasOwnProperty.call(value.row, lookupField))
-    lookupValue = String(value.row[lookupField])
-
-  useRequestUpdate(props.settings.url, lookupValue, {
-    [value.field]: !value.row[value.field],
-  })
 }
 </script>

@@ -1,21 +1,17 @@
 <template>
   <footer class="form-footer">
     <slot v-bind="{ mainButton, auxButton, getLabel, onMainClick, onAuxClick }">
-      <component
-        :is="buttonElement"
-        v-bind="mainButton"
-
+      <f-button
         @click="onMainClick"
+        v-bind="mainButton"
         :label="getLabel(mainButton)"
         :disabled="mainButton?.isDisabled || !props.isFormValid"
         type="button"
       />
 
-      <component
-        :is="buttonElement"
-        v-bind="auxButton"
-
+      <f-button
         @click="onAuxClick"
+        v-bind="auxButton"
         :label="getLabel(auxButton)"
         type="button"
       />
@@ -26,7 +22,6 @@
 <script lang="ts" setup>
 import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/axioma'
 import { FormModes } from '@/forms/axioma'
-import { buttons } from '@/settings'
 
 const props = defineProps<{
   buttons: ObjectWithNormalizedButtons
@@ -39,7 +34,6 @@ const emit = defineEmits<{
   (e: 'aux-click'): void
 }>()
 
-const buttonElement = buttons.button
 const mainButton = computed(() => props.buttons.main)
 const auxButton = computed(() => props.buttons.aux)
 

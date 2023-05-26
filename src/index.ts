@@ -42,7 +42,7 @@ export default install
 
 // To allow individual component use, export components
 // each can be registered via Vue.component()
-export * from './common'
+export * from './common/integration'
 export * from './filters'
 export * from './forms/integration'
 export * from './http'

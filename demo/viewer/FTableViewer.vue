@@ -48,10 +48,13 @@ const form = useForm({
 const table = useTable({
   form,
   columns: {
+    gender: {
+      format: (value: unknown) => value === 'm' ? 'Male' : 'Female',
+    },
     created_at: {
       format: (value: unknown) => formats.dateTimeFormat(value as string),
-      exclude: false,
     },
+    actions: { value: 'actions', label: '' },
   },
   settings: {
     url: form.settings.url,
