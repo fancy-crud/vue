@@ -1,20 +1,20 @@
 <template>
-  <f-button-icon
+  <f-button
     v-if="!props.hideEdit"
     @click="emit('edit')"
     :tooltip="t('edit')"
-    icon="mdi-pencil"
-    size="text-lg"
-    text-color="text-gray-400"
+    icon="pencil"
+    class="text-primary"
+    borderless
   />
 
-  <f-button-icon
+  <f-button
     v-if="!props.hideDelete"
     @click="emit('delete')"
     :tooltip="t('delete')"
-    icon="mdi-delete"
-    size="text-lg"
-    text-color="text-red-500"
+    icon="delete"
+    class="text-danger"
+    borderless
   />
 </template>
 

@@ -3,7 +3,7 @@
     <slot v-bind="{ closeModal }">
       <f-button-icon
         @click="closeModal()"
-        icon="mdi-close"
+        icon="close"
         class="absolute top-3 right-2.5"
         text-color="text-gray-500"
       />

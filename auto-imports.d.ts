@@ -137,6 +137,7 @@ declare global {
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
+  const useColumnValue: typeof import('./src/tables/integration/composables/column-value')['useColumnValue']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCreateOrUpdateRecord: typeof import('./src/forms/integration/composables/create-or-update-record')['useCreateOrUpdateRecord']
@@ -432,6 +433,7 @@ declare module 'vue' {
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
+    readonly useColumnValue: UnwrapRef<typeof import('./src/tables/integration/composables/column-value')['useColumnValue']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCreateOrUpdateRecord: UnwrapRef<typeof import('./src/forms/integration/composables/create-or-update-record')['useCreateOrUpdateRecord']>

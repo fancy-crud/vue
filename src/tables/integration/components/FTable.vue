@@ -1,74 +1,40 @@
 <template>
-  <div class="flex flex-nowrap p-4 items-center justify-between">
-    <div>
-      <slot name="table-header-prepend" />
-    </div>
-    <div class="flex items-center relative">
-      <f-modal
-        v-model="formModal"
-      >
-        <template #activator>
-          <f-button
-            @click="openCreateModal"
-            :tooltip="t('create')"
-            icon="mdi-plus"
-          />
-        </template>
-        <f-modal-card
-          class="p-5"
-          max-width="max-w-3xl"
-        >
-          <f-form
-            @success="fetchItems()"
-            v-bind="form"
-            :form="form"
-            :id="props.form.id"
-          >
-            <template #form-header="{ title }">
-              <div class="flex justify-between items-center pb-4">
-                <h3 class="text-2xl">
-                  {{ title }}
-                </h3>
-                <f-button
-                  @click="closeModal"
-                  text-color="text-gray-400"
-                  icon="mdi-close"
-                />
-              </div>
-            </template>
-          </f-form>
-        </f-modal-card>
-      </f-modal>
-      <f-button
-        @click="exportXlsx"
-        icon="mdi-microsoft-excel"
-        :tooltip="t('export')"
-      />
-    </div>
-  </div>
-  <div class="overflow-x-auto p-4">
-    <table class="table table-compact w-full divide-y divide-slate-100">
-      <f-table-body
-        @edit="openEditModal"
-        @delete="deleteRecord"
-        @hot-update="updateCheckbox"
-        :headers="headers"
-        :items="list"
-      />
-    </table>
-    <f-progress-bar v-if="isFetching" />
-  </div>
+  <slot name="table-header" v-bind="{ openCreateModal, exportData }">
+    <f-table-header-actions @create="openCreateModal" @export="exportData" />
+  </slot>
 
-  <f-table-footer>
-    <span />
-    <f-pagination
-      v-model="pagination.page"
-      :pagination="pagination"
-    />
-    <p class="text-right text-sm font-bold">
-      <!-- {{ itemsCount }} / {{ pagination.count }} -->
-    </p>
-  </f-table-footer>
+  <slot name="table-form" v-bind="{ onSuccess, form, id: props.form.id, formModal }">
+    <f-modal v-model="formModal">
+      <div
+        class="p-5 bg-white"
+        max-width="max-w-3xl"
+      >
+        <f-form
+          @success="onSuccess"
+          v-bind="form"
+          :id="props.form.id"
+        />
+      </div>
+    </f-modal>
+  </slot>
+
+  <f-table-body
+    @edit="openEditModal"
+    @delete="deleteRecord"
+    @hot-update="updateCheckbox"
+    @page-change="page => pagination.page = page"
+    v-bind="$attrs"
+    :headers="headers"
+    :items="list"
+    :loading="isFetching"
+    :per-page="pagination.rowsPerPage"
+    :total="pagination.count"
+    pagination-position="bottom"
+    backend-pagination
+    paginated
+  />
+
+  <slot name="table-footer" />
 
   <f-delete-confirmation-modal
     v-model="confirmationModal"
@@ -94,7 +60,6 @@ const emit = defineEmits<{
   (e: 'update:formModal', value: boolean): void
 }>()
 
-const t = useLocale()
 const {
   openCreateModal,
   openEditModal,
@@ -108,27 +73,21 @@ const {
   formManager,
   formModal,
   rowToDelete,
+  pagination,
 } = useTableCrud(props, emit)
 
 const form = formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
-// const itemsCount = computed(() => {
-//   let count = (pagination.rowsPerPage) - list.value.length
-
-//   if (count === 0)
-//     count = pagination.page * pagination.rowsPerPage
-
-//   else
-//     count = pagination.count
-
-//   return count
-// })
-
 fetchItems()
 
-function exportXlsx() {
+function exportData() {
   // const xlsx = useXLSX(props.table)
   // xlsx.triggerRequest()
+}
+
+function onSuccess() {
+  fetchItems()
+  closeModal()
 }
 </script>

@@ -1,4 +1,4 @@
-import { OButton } from '@oruga-ui/oruga-next'
+import Button from './Button.vue'
 import Text from './Text.vue'
 import Color from './Color.vue'
 import Password from './Password.vue'
@@ -8,6 +8,7 @@ import Checkbox from './Checkbox.vue'
 import File from './File.vue'
 import Datepicker from './Datepicker.vue'
 import TableBody from './TableBody.vue'
+import Modal from './Modal.vue'
 
 export const fields: Record<string, any> = {
   text: Text,
@@ -20,10 +21,8 @@ export const fields: Record<string, any> = {
   datepicker: Datepicker,
 }
 
-export const buttons: Record<string, any> = {
-  button: OButton,
-}
-
-export const table: Record<string, any> = {
-  body: TableBody,
+export const utils: Record<string, any> = {
+  button: Button,
+  table: TableBody,
+  modal: Modal,
 }

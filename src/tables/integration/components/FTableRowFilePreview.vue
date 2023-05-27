@@ -46,7 +46,7 @@ const display = ref(false)
 const isImageType = computed(() => props.type === 'image')
 
 const iconClass = computed(() => {
-  return props.type === 'image' ? 'mdi-image' : 'mdi-file'
+  return props.type === 'image' ? 'image' : 'file'
 })
 
 const openPreview = () => {

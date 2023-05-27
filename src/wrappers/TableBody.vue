@@ -1,5 +1,5 @@
 <template>
-  <o-table :data="props.items">
+  <o-table v-bind="$attrs" :data="props.items">
     <template v-for="(column, _columnIndex) in headers" :key="_columnIndex">
       <o-table-column v-if="column.value === 'actions'" v-slot="{ row }">
         <f-table-row-actions
