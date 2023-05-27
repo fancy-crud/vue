@@ -11,7 +11,6 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const buttons: typeof import('./src/settings/composables/index')['buttons']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -19,7 +18,6 @@ declare global {
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
-  const controls: typeof import('./src/settings/composables/index')['controls']
   const createApp: typeof import('vue')['createApp']
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
   const createGlobalState: typeof import('@vueuse/core')['createGlobalState']
@@ -35,6 +33,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const fields: typeof import('./src/settings/composables/index')['fields']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getDefaults: typeof import('./src/settings/composables/index')['getDefaults']
@@ -88,12 +87,12 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const setButtons: typeof import('./src/settings/composables/index')['setButtons']
-  const setControls: typeof import('./src/settings/composables/index')['setControls']
   const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
+  const setFields: typeof import('./src/settings/composables/index')['setFields']
   const setHttpConfig: typeof import('./src/http/integration/composables/config')['setHttpConfig']
   const setLocale: typeof import('./src/locales/composables/locale')['setLocale']
   const setStatusCodesHandlers: typeof import('./src/settings/composables/index')['setStatusCodesHandlers']
+  const setUtils: typeof import('./src/settings/composables/index')['setUtils']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
@@ -278,6 +277,7 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
+  const utils: typeof import('./src/settings/composables/index')['utils']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -307,7 +307,6 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly buttons: UnwrapRef<typeof import('./src/settings/composables/index')['buttons']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -315,7 +314,6 @@ declare module 'vue' {
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
-    readonly controls: UnwrapRef<typeof import('./src/settings/composables/index')['controls']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
     readonly createGlobalState: UnwrapRef<typeof import('@vueuse/core')['createGlobalState']>
@@ -331,6 +329,7 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fields: UnwrapRef<typeof import('./src/settings/composables/index')['fields']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getDefaults: UnwrapRef<typeof import('./src/settings/composables/index')['getDefaults']>
@@ -384,12 +383,12 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly setButtons: UnwrapRef<typeof import('./src/settings/composables/index')['setButtons']>
-    readonly setControls: UnwrapRef<typeof import('./src/settings/composables/index')['setControls']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
+    readonly setFields: UnwrapRef<typeof import('./src/settings/composables/index')['setFields']>
     readonly setHttpConfig: UnwrapRef<typeof import('./src/http/integration/composables/config')['setHttpConfig']>
     readonly setLocale: UnwrapRef<typeof import('./src/locales/composables/locale')['setLocale']>
     readonly setStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['setStatusCodesHandlers']>
+    readonly setUtils: UnwrapRef<typeof import('./src/settings/composables/index')['setUtils']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
@@ -574,6 +573,7 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
+    readonly utils: UnwrapRef<typeof import('./src/settings/composables/index')['utils']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

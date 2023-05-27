@@ -1,17 +1,14 @@
 import 'animate.css'
 import type { App, Plugin } from 'vue'
 
-import Oruga from '@oruga-ui/oruga-next'
 import { setHttpConfig } from '@/http'
-import { setButtons, setControls, setStatusCodesHandlers } from '@/settings/composables'
+import { setFields, setStatusCodesHandlers, setUtils } from '@/settings/composables'
 import './styles/main.sass'
 
 const components: Record<string, any> = {}
 // install function executed by Vue.use()
 const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
-  app.use(Oruga)
-
-  const componentsList: [string, any][] = Object.entries(import.meta.globEager('@/**/components/*.vue'))
+  const componentsList: [string, any][] = Object.entries(import.meta.glob('@/**/components/*.vue'))
   componentsList.forEach(([key, value]) => {
     if (key.includes('/viewer/'))
       return
@@ -30,11 +27,11 @@ const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
   if (options.statusCodesHandlers)
     setStatusCodesHandlers(options.statusCodesHandlers)
 
-  if (options.controls)
-    setControls(options.controls)
+  if (options.fields)
+    setFields(options.fields)
 
-  if (options.buttons)
-    setButtons(options.buttons)
+  if (options.utils)
+    setUtils(options.utils)
 }
 
 // Create module definition for Vue.use()
@@ -46,7 +43,6 @@ export * from './common/integration'
 export * from './filters'
 export * from './forms/integration'
 export * from './http'
-// export * from './inputs'
 export * from './locales'
 export * from './settings'
 export * from './tables/integration'

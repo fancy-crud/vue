@@ -21,15 +21,15 @@
 import { computed, onMounted } from 'vue'
 import type { NormalizedField, NormalizedFields } from '@/forms/axioma'
 
-import { controls } from '@/settings'
+import { fields } from '@/settings'
 
 const props = defineProps<{
   filters: NormalizedFields<Record<string, unknown>>
 }>()
 
 const getComponent = (field: NormalizedField) => {
-  type ControlType = keyof typeof controls
-  return controls[field.type as ControlType] || controls.text
+  type ControlType = keyof typeof fields
+  return fields[field.type as ControlType] || fields.text
 }
 
 const filters = computed(() => {

@@ -10,7 +10,7 @@ import Datepicker from './Datepicker.vue'
 import TableBody from './TableBody.vue'
 import Modal from './Modal.vue'
 
-export const fields: Record<string, any> = {
+export const fields = ReturnObject({
   text: Text,
   password: Password,
   color: Color,
@@ -19,10 +19,14 @@ export const fields: Record<string, any> = {
   checkbox: Checkbox,
   file: File,
   datepicker: Datepicker,
-}
+})
 
-export const utils: Record<string, any> = {
+export const utils = ReturnObject({
   button: Button,
   table: TableBody,
   modal: Modal,
+})
+
+function ReturnObject<T extends Record<string, any>>(obj: T): Record<keyof T, any> {
+  return { ...obj }
 }

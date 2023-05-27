@@ -1,10 +1,9 @@
-<template>
-  <component
-    :is="buttons.button"
-    v-bind="$attrs"
-  />
-</template>
+<script lang="ts">
+import { utils } from '@/settings'
 
-<script lang="ts" setup>
-import { buttons } from '@/settings'
+export default defineComponent({
+  setup(_, { attrs, slots }) {
+    return () => h(utils.button, attrs, slots)
+  },
+})
 </script>

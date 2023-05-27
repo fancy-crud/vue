@@ -21,7 +21,7 @@
 import { useFormManager } from '../composables'
 import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/axioma'
 import { FormModes } from '@/forms/axioma'
-import { controls } from '@/settings'
+import { fields as controls } from '@/settings'
 
 const props = defineProps<{
   formId: symbol

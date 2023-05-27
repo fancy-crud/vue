@@ -18,25 +18,27 @@
     </f-modal>
   </slot>
 
-  <f-table-body
-    @edit="openEditModal"
-    @delete="deleteRecord"
-    @hot-update="updateCheckbox"
-    @page-change="page => pagination.page = page"
-    v-bind="$attrs"
-    :headers="headers"
-    :items="list"
-    :loading="isFetching"
-    :per-page="pagination.rowsPerPage"
-    :total="pagination.count"
-    pagination-position="bottom"
-    backend-pagination
-    paginated
-  />
+  <slot name="table-body" v-bind="{ openEditModal, deleteRecord, updateCheckbox, setPage }">
+    <f-table-body
+      @edit="openEditModal"
+      @delete="deleteRecord"
+      @hot-update="updateCheckbox"
+      @page-change="setPage"
+      v-bind="$attrs"
+      :headers="headers"
+      :items="list"
+      :loading="isFetching"
+      :per-page="pagination.rowsPerPage"
+      :total="pagination.count"
+      pagination-position="bottom"
+      backend-pagination
+      paginated
+    />
+  </slot>
 
   <slot name="table-footer" />
 
-  <f-delete-confirmation-modal
+  <!-- <f-delete-confirmation-modal
     v-model="confirmationModal"
     @accept="deleteRecord(rowToDelete, false)"
   >
@@ -46,7 +48,7 @@
         v-bind="{ closeDeleteConfirmationModal }"
       />
     </template>
-  </f-delete-confirmation-modal>
+  </f-delete-confirmation-modal> -->
 </template>
 
 <script lang="ts" setup>
@@ -69,10 +71,8 @@ const {
   fetchItems,
   list,
   isFetching,
-  confirmationModal,
   formManager,
   formModal,
-  rowToDelete,
   pagination,
 } = useTableCrud(props, emit)
 
@@ -89,5 +89,9 @@ function exportData() {
 function onSuccess() {
   fetchItems()
   closeModal()
+}
+
+function setPage(page: number) {
+  pagination.page = page
 }
 </script>

@@ -18,11 +18,12 @@ const defaults: { classes: Record<string, string> } = {
   },
 }
 
-export const controls: Record<string, any> = {
+export const fields: Record<string, any> = {
 }
 
-export const buttons = {
+export const utils = {
   button: {},
+  modal: {},
 }
 
 const statusCodes: HandleRequestStatusCodes = {}
@@ -43,10 +44,10 @@ export function setStatusCodesHandlers(handlers: HandleRequestStatusCodes) {
   Object.assign(statusCodes, handlers)
 }
 
-export function setControls(_controls: unknown) {
-  Object.assign(controls, _controls)
+export function setFields(newFields: unknown) {
+  Object.assign(fields, newFields)
 }
 
-export function setButtons(_buttons: unknown) {
-  Object.assign(buttons, _buttons)
+export function setUtils(newUtils: unknown) {
+  Object.assign(utils, newUtils)
 }
