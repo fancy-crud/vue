@@ -1,10 +1,10 @@
-import { useFormManager } from './manager'
 import type { OnFailed, OnFinally, OnSuccess } from '@/http'
 import { FormModes } from '@/forms/axioma'
 import { GenerateFormData } from '@/forms/capabilities'
+import { FormManagerHandler } from '@/forms/capabilities/manager'
 
 export function useCreateOrUpdateRecord(formId: symbol) {
-  const manager = useFormManager(formId)
+  const manager = new FormManagerHandler(formId)
   const { fields, settings, buttons } = manager.getForm()
 
   const isLoading = ref(false)

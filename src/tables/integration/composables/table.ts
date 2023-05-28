@@ -3,7 +3,7 @@ import { useTableManager } from './manager'
 import type { BaseTableForm, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
 import { NormalizeColumns, NormalizePagination } from '@/tables/capabilities'
 import type { NormalizedSettings } from '@/forms/axioma'
-import { useFormManager } from '@/forms/integration'
+import { FormManagerHandler } from '@/forms/capabilities/manager'
 
 export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
   args: TableArgs<T, U, S, F>,
@@ -30,7 +30,7 @@ export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns
   const pagination = reactive(normalizedPagination)
   const filterParams = reactive(rawFilterParams) as F
 
-  const formManager = useFormManager(form.id)
+  const formManager = new FormManagerHandler(form.id)
   const manager = useTableManager(id)
 
   manager.addTable({

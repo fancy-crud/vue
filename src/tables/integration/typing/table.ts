@@ -1,4 +1,4 @@
-import type { useFormManager } from '@/forms/integration'
+import type { FormManager } from '@/forms/axioma'
 import type { DeleteRequestOptions } from '@/http'
 import type { BaseTableForm, FieldAsColumn, MappedRawColumn, NormalizedColumn, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, RawTablePagination } from '@/tables/axioma'
 
@@ -13,7 +13,7 @@ export interface TableArgs<T extends BaseTableForm, U, S, F> {
 
 export interface TableManager {
   columns: ObjectWithNormalizedColumns
-  formManager: ReturnType<typeof useFormManager>
+  formManager: FormManager
   settings: NormalizedTableSetting
   pagination: NormalizedTablePagination
 }

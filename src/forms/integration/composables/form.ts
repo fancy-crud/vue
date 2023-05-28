@@ -1,4 +1,3 @@
-import type { useFormManager } from './manager'
 import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/axioma'
 import { CreateForm } from '@/forms/capabilities'
 import type { Args, UseForm } from '@/forms/integration'
@@ -15,7 +14,7 @@ import { FormManagerHandler } from '@/forms/capabilities/manager'
  * @param rawSettings - An optional `RawSettings` object containing the raw settings to be normalized.
  * @returns A `UseForm` object containing the reactive fields, titles, buttons, and settings.
  */
-export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> & { manager: ReturnType<typeof useFormManager> } {
+export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
   const {
     id: _id,
     fields: rawFields,
