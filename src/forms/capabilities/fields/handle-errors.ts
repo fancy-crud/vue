@@ -1,4 +1,4 @@
-import type { FieldErrors, ObjectWithNormalizedFields } from '../../typing'
+import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/axioma'
 
 /**
  * Class that fills the normalized fields of a form with corresponding values from a record.

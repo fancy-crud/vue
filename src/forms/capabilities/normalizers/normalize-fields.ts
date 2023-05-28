@@ -1,4 +1,4 @@
-import type { NormalizedField, NormalizedFields, ObjectWithRawFields, RawField } from '../../typing'
+import type { NormalizedField, NormalizedFields, ObjectWithRawFields, RawField } from '@/forms/axioma'
 
 /**
   A utility class that normalizes form fields by merging them with default keys and values.

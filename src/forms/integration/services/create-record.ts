@@ -1,5 +1,5 @@
-import type { NormalizedField } from '../../axioma'
-import { GenerateFormData } from '../../axioma'
+import type { NormalizedField } from '@/forms/axioma'
+import { GenerateFormData } from '@/forms/capabilities'
 import type { CreateRequestOptions } from '@/http'
 
 export class CreateRecord {

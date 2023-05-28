@@ -3,8 +3,9 @@ import { useNotification } from './notifications'
 
 import type { FormManager } from '@/forms/integration'
 import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/axioma'
+import { FormModes } from '@/forms/axioma'
 import { NotificationType } from '@/forms/integration'
-import { FillWithRecordValues, FormModes, GenerateFormData, HandleErrors, ResetFields } from '@/forms/axioma'
+import { FillWithRecordValues, GenerateFormData, HandleErrors, ResetFields } from '@/forms/capabilities'
 import { GetForeignKeyValues } from '@/http/axioma'
 
 const forms = new Map<symbol, FormManager>()

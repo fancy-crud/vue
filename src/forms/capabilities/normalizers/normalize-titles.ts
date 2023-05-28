@@ -1,4 +1,4 @@
-import type { NormalizedTitles, RawTitle } from '../../typing'
+import type { NormalizedTitles, RawTitle } from '@/forms/axioma'
 
 const t = useLocale()
 

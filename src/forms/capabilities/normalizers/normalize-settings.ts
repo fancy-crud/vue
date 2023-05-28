@@ -1,5 +1,5 @@
-import { DEFAULT_LOOKUP_FIELD, FormModes } from '../../constants'
-import type { NormalizedSettings, RawSetting } from '../../typing'
+import type { NormalizedSettings, RawSetting } from '@/forms/axioma'
+import { DEFAULT_LOOKUP_FIELD, FormModes } from '@/forms/axioma'
 
 /**
  * A utility class that normalizes form settings configurations by merging them with default properties.

@@ -1,4 +1,4 @@
-import type { NormalizedButton, NormalizedButtons, RawButton } from '../../typing'
+import type { NormalizedButton, NormalizedButtons, RawButton } from '@/forms/axioma'
 
 const t = useLocale()
 

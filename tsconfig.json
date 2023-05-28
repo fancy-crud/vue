@@ -5,7 +5,6 @@
     "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "declaration": true,
-    "emitDeclarationOnly": true,
     "strict": true,
     "esModuleInterop": true,
     "jsx": "preserve",

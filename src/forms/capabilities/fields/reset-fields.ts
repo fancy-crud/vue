@@ -1,4 +1,4 @@
-import type { ObjectWithNormalizedFields } from '../../typing'
+import type { ObjectWithNormalizedFields } from '@/forms/axioma'
 
 /**
  * A class that provides functionality to reset the model value of fields in a normalized fields object.

@@ -1,4 +1,4 @@
-import type { NormalizedField, NormalizedFields } from '../../typing'
+import type { NormalizedField, NormalizedFields } from '@/forms/axioma'
 
 /**
  * Class responsible for generating form data in the appropriate format.

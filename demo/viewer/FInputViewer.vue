@@ -15,11 +15,10 @@
 </template>
 
 <script lang='ts' setup>
-import type { AxiosError } from 'axios'
 import { FieldType } from '@/forms/axioma'
-import { NotificationType, useForm } from '@/forms/integration'
+// import { NotificationType, useForm } from '@/forms/integration'
 
-const { rules } = useRules()
+// const { rules } = useRules()
 
 const settings = {
   url: 'artists/',

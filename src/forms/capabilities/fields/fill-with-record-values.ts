@@ -1,4 +1,4 @@
-import type { NormalizedField, NormalizedFields } from '../../typing'
+import type { NormalizedField, NormalizedFields } from '@/forms/axioma'
 
 type RecordValues = Record<string, unknown>
 
