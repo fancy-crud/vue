@@ -3,7 +3,7 @@
     <f-table-header-actions @create="openCreateModal" @export="exportData" />
   </slot>
 
-  <slot name="table-form" v-bind="{ onSuccess, form, id: props.form.id, formModal }">
+  <slot name="table-form" v-bind="{ onSuccess, form, formModal }">
     <f-modal v-model="formModal">
       <div
         class="p-5 bg-white"
@@ -18,10 +18,10 @@
     </f-modal>
   </slot>
 
-  <slot name="table-body" v-bind="{ openEditModal, deleteRecord, updateCheckbox, setPage }">
+  <slot name="table-body" v-bind="{ openEditModal, onDelete, updateCheckbox, setPage }">
     <f-table-body
       @edit="openEditModal"
-      @delete="deleteRecord"
+      @delete="onDelete"
       @hot-update="updateCheckbox"
       @page-change="setPage"
       v-bind="$attrs"
@@ -38,48 +38,68 @@
 
   <slot name="table-footer" />
 
-  <!-- <f-delete-confirmation-modal
+  <f-delete-confirmation-modal
     v-model="confirmationModal"
-    @accept="deleteRecord(rowToDelete, false)"
+    @accept="onDelete(rowToDelete, true)"
   >
-    <template #default="{ closeModal: closeDeleteConfirmationModal }">
+    <template #default="{ accept, cancel }">
       <slot
         name="delete-confirmation-modal"
-        v-bind="{ closeDeleteConfirmationModal }"
+        v-bind="{ accept, cancel }"
       />
     </template>
-  </f-delete-confirmation-modal> -->
+  </f-delete-confirmation-modal>
 </template>
 
 <script lang="ts" setup>
-import _ from 'lodash'
-import type { TableProps } from '@/tables/integration'
-import { useTableCrud } from '@/tables/integration'
+import type { BaseTableForm, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns } from '@/tables/axioma'
+import type { DeleteRecordOptions, Row } from '@/tables/integration'
+import { useTableManager } from '@/tables/integration'
 
-const props = defineProps<TableProps>()
+const props = defineProps<{
+  id: symbol
+  columns: ObjectWithNormalizedColumns
+  form: BaseTableForm
+  settings: NormalizedTableSetting
+  pagination: NormalizedTablePagination
+  formModal?: boolean
+  skipDeleteConfirmation?: boolean
+}>()
 
 const emit = defineEmits<{
   (e: 'update:formModal', value: boolean): void
 }>()
 
 const {
-  openCreateModal,
-  openEditModal,
+  getTable,
+  setupFormToCreateRecord,
+  setupFormToEditRecord,
   deleteRecord,
   updateCheckbox,
-  closeModal,
-  fetchItems,
-  list,
-  isFetching,
-  formManager,
-  formModal,
-  pagination,
-} = useTableCrud(props, emit)
+} = useTableManager(props.id)
 
-const form = formManager.getForm()
+const { list, isFetching, pagination, triggerRequest: fetchItems } = useRequestList(
+  props.settings.url,
+  props.settings.filterParams,
+  props.pagination,
+)
+
+const formModal = ref(Boolean(props.formModal))
+const confirmationModal = ref(false)
+const rowToDelete = ref<Row | null>(null)
+
+const form = getTable().formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
 fetchItems()
+
+watch(() => props.formModal, () => {
+  formModal.value = Boolean(props.formModal)
+})
+
+watch(formModal, () => {
+  emit('update:formModal', formModal.value)
+})
 
 function exportData() {
   // const xlsx = useXLSX(props.table)
@@ -93,5 +113,47 @@ function onSuccess() {
 
 function setPage(page: number) {
   pagination.page = page
+}
+
+function closeModal() {
+  formModal.value = false
+}
+
+function openModal() {
+  formModal.value = true
+}
+
+function openCreateModal() {
+  setupFormToCreateRecord({
+    onReady: openModal,
+    onClickAux: closeModal,
+  })
+}
+
+function openEditModal(row: Row) {
+  setupFormToEditRecord(row, {
+    onReady: openModal,
+    onClickAux: closeModal,
+  })
+}
+
+function onDelete(row: Row | null, skipDeleteConfirmation?: boolean) {
+  if (!row)
+    return
+
+  const options: DeleteRecordOptions = {
+    onRequestDeleteConfirmation(row: Row) {
+      rowToDelete.value = row
+      confirmationModal.value = true
+    },
+    onFinally() {
+      fetchItems()
+    },
+  }
+
+  if (skipDeleteConfirmation)
+    options.onRequestDeleteConfirmation = undefined
+
+  deleteRecord(row, options)
 }
 </script>

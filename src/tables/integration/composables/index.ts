@@ -1,3 +1,3 @@
 export * from './table'
-export * from './table-crud'
+export * from './manager'
 export * from './column-value'

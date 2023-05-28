@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     Dropdown: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/dropdown/Dropdown.vue')['default']
     DropdownItem: typeof import('./node_modules/@oruga-ui/oruga-next/src/components/dropdown/DropdownItem.vue')['default']
     FButton: typeof import('./src/common/integration/components/FButton.vue')['default']
+    FDeleteConfirmationModal: typeof import('./src/tables/integration/components/FDeleteConfirmationModal.vue')['default']
     FForm: typeof import('./src/forms/integration/components/FForm.vue')['default']
     FFormBody: typeof import('./src/forms/integration/components/FFormBody.vue')['default']
     FFormFooter: typeof import('./src/forms/integration/components/FFormFooter.vue')['default']
