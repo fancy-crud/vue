@@ -30,8 +30,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useCreateOrUpdateRecord, useFormManager } from '../composables'
+import { useCreateOrUpdateRecord } from '../composables'
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/axioma'
+import { FormManagerHandler } from '@/forms/capabilities'
 
 interface StandardResponseStructure { data: any; status: number }
 interface StandardErrorResponseStructure { response: StandardResponseStructure }
@@ -51,7 +52,7 @@ const emit = defineEmits<{
   (e: 'error', error?: any): void
 }>()
 
-const formManager = useFormManager(props.id)
+const formManager = new FormManagerHandler(props.id)
 const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
 const { execute: createOrUpdate } = useCreateOrUpdateRecord(props.id)
@@ -68,7 +69,7 @@ function onSuccess(response?: StandardResponseStructure) {
   if (props.settings.disableResponseHandlers || !response)
     return
 
-  const handler = formManager.getResponseHandler(response.status)
+  const handler = formManager.responseManager.getResponseHandler(response.status)
 
   if (handler)
     handler(response.data)
@@ -80,7 +81,7 @@ function onFailed(error?: StandardErrorResponseStructure) {
   if (props.settings.disableResponseHandlers || !error)
     return
 
-  const handler = formManager.getResponseHandler(error.response.status)
+  const handler = formManager.responseManager.getResponseHandler(error.response.status)
 
   if (handler)
     handler(error.response.data)

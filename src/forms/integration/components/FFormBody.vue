@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useFormManager } from '../composables'
 import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/axioma'
 import { FormModes } from '@/forms/axioma'
+import { FormManagerHandler } from '@/forms/capabilities'
 import { fields as controls } from '@/settings'
 
 const props = defineProps<{
@@ -29,7 +29,7 @@ const props = defineProps<{
   settings: NormalizedSettings
 }>()
 
-const { getForeignKeyValues } = useFormManager(props.formId)
+const { getForeignKeyValues } = new FormManagerHandler(props.formId)
 
 const fields = computed(() => {
   const mode = props.settings.mode
