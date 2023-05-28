@@ -29,7 +29,7 @@ const props = defineProps<{
   settings: NormalizedSettings
 }>()
 
-const { getForeignKeyValues } = new FormManagerHandler(props.formId)
+const formManager = new FormManagerHandler(props.formId)
 
 const fields = computed(() => {
   const mode = props.settings.mode
@@ -48,7 +48,7 @@ const fields = computed(() => {
 })
 
 onMounted(() => {
-  getForeignKeyValues(Object.fromEntries(fields.value))
+  formManager.getForeignKeyValues(Object.fromEntries(fields.value))
 })
 
 function getComponent(field: NormalizedField) {

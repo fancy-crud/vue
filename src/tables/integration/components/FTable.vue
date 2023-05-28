@@ -18,11 +18,11 @@
     </f-modal>
   </slot>
 
-  <slot name="table-body" v-bind="{ openEditModal, onDelete, updateCheckbox, setPage }">
+  <slot name="table-body" v-bind="{ openEditModal, onDelete, updateCheckbox: tableManager.updateCheckbox, setPage }">
     <f-table-body
       @edit="openEditModal"
       @delete="onDelete"
-      @hot-update="updateCheckbox"
+      @hot-update="tableManager.updateCheckbox"
       @page-change="setPage"
       v-bind="$attrs"
       :headers="headers"
@@ -69,13 +69,7 @@ const emit = defineEmits<{
   (e: 'update:formModal', value: boolean): void
 }>()
 
-const {
-  getTable,
-  setupFormToCreateRecord,
-  setupFormToEditRecord,
-  deleteRecord,
-  updateCheckbox,
-} = new TableManagerHandler(props.id)
+const tableManager = new TableManagerHandler(props.id)
 
 const { list, isFetching, pagination, triggerRequest: fetchItems } = useRequestList(
   props.settings.url,
@@ -87,7 +81,7 @@ const formModal = ref(Boolean(props.formModal))
 const confirmationModal = ref(false)
 const rowToDelete = ref<Row | null>(null)
 
-const form = getTable().formManager.getForm()
+const form = tableManager.getTable().formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
 fetchItems()
@@ -123,14 +117,14 @@ function openModal() {
 }
 
 function openCreateModal() {
-  setupFormToCreateRecord({
+  tableManager.setupFormToCreateRecord({
     onReady: openModal,
     onClickAux: closeModal,
   })
 }
 
 function openEditModal(row: Row) {
-  setupFormToEditRecord(row, {
+  tableManager.setupFormToEditRecord(row, {
     onReady: openModal,
     onClickAux: closeModal,
   })
@@ -153,6 +147,6 @@ function onDelete(row: Row | null, skipDeleteConfirmation?: boolean) {
   if (skipDeleteConfirmation)
     options.onRequestDeleteConfirmation = undefined
 
-  deleteRecord(row, options)
+  tableManager.deleteRecord(row, options)
 }
 </script>
