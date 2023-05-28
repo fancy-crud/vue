@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import type { NormalizedSettings, NormalizedTitles } from '@/forms/axioma'
 import { FormModes } from '@/forms/axioma'
 
