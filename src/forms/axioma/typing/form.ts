@@ -1,4 +1,4 @@
-import type { NormalizedButtons } from './buttons'
+import type { NormalizedButtons, ObjectWithNormalizedButtons } from './buttons'
 import type { NormalizedSettings } from './settings'
 import type { NormalizedTitles } from './titles'
 
@@ -146,8 +146,46 @@ export interface ObjectWithRawFields extends Record<string, RawField> {}
 export interface ObjectWithNormalizedFields extends Record<string, NormalizedField> {}
 export interface FieldErrors extends Record<string, string[]> {}
 
-// export interface RawField extends Record<string, any> {
-// chips?: boolean
-// valueString?: string | null
-// xlsx?: Record<string, unknown>
-// }
+export type Handler = (response: any) => void
+export interface StatusCodeHandler extends Record<number, Handler> {}
+
+export enum NotificationType {
+  success = 'success',
+  warning = 'warning',
+  error = 'error',
+  info = 'info',
+  default = 'default',
+}
+
+export interface Notification {
+  type: NotificationType
+  message?: string
+  data?: any
+}
+
+export interface NotificationHandler extends Partial<Record<NotificationType, (notification?: Notification) => void>> {}
+
+export interface FormMap {
+  originalNormalizedFields: ObjectWithNormalizedFields
+  fields: ObjectWithNormalizedFields
+  titles: NormalizedTitles
+  settings: NormalizedSettings
+  buttons: ObjectWithNormalizedButtons
+}
+
+export interface FormManager {
+  fillWithRecordValues: (record: Record<string, unknown>) => void
+  getForeignKeyValues: (fields?: ObjectWithNormalizedFields) => void
+  resetFields: () => void
+  removeForm: () => void
+  addForm: (form: FormMap) => void
+  getFormData: (fields?: ObjectWithNormalizedFields) => { jsonForm: Record<string, unknown>; formData: FormData | null }
+  getForm: () => FormMap
+  setErrors: (errors: FieldErrors) => void
+  setResponseHandler: (codes: StatusCodeHandler) => void
+  setNotificationHandler: (handler: NotificationHandler) => void
+  getResponseHandler: (code: number) => Handler | null
+  pushNotification: (notification: Notification) => void
+  switchToCreateMode: () => void
+  switchToUpdateMode: () => void
+}

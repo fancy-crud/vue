@@ -1,4 +1,4 @@
-import type { NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@/forms/axioma'
+import type { FormManager, NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@/forms/axioma'
 
 export interface UseForm<T, U> {
   id: symbol
@@ -6,6 +6,7 @@ export interface UseForm<T, U> {
   buttons: NormalizedButtons<U>
   titles: NormalizedTitles
   settings: NormalizedSettings
+  manager: FormManager
 }
 
 export interface Args<T, U> {

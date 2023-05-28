@@ -1,6 +1,6 @@
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/axioma'
 
-export interface FormManager {
+export interface FormMap {
   originalNormalizedFields: ObjectWithNormalizedFields
   fields: ObjectWithNormalizedFields
   titles: NormalizedTitles

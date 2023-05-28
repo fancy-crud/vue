@@ -1,7 +1,8 @@
-import { useFormManager } from './manager'
+import type { useFormManager } from './manager'
 import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/axioma'
 import { CreateForm } from '@/forms/capabilities'
 import type { Args, UseForm } from '@/forms/integration'
+import { FormManagerHandler } from '@/forms/capabilities/manager'
 
 /**
  * A function that provides functionality to create a reactive form object from raw fields, titles, buttons, and settings.
@@ -38,7 +39,7 @@ export function useForm<T extends ObjectWithRawFields, U extends Record<string, 
   const titles = reactive(normalizedTitles)
   const settings = reactive(normalizedSettings)
 
-  const manager = useFormManager(id)
+  const manager = new FormManagerHandler(id)
 
   manager.addForm({
     originalNormalizedFields,
