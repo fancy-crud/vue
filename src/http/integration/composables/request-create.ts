@@ -1,6 +1,5 @@
-import { httpConfig } from './config'
+import { httpService } from './config'
 import type { CreateRequestOptions, JSONForm } from '@/http/axioma/typings'
-import { RequestService } from '@/http/integration/services'
 import { RequestCreate } from '@/http/capabilities'
 
 /**
@@ -17,8 +16,7 @@ export function useRequestCreate(url: string, form: JSONForm | FormData, options
     triggerRequest()
 
   function triggerRequest() {
-    const requestService = new RequestService(httpConfig)
-    const requestCreate = new RequestCreate(requestService)
+    const requestCreate = new RequestCreate(httpService)
     requestCreate.execute(url, form, options)
   }
 

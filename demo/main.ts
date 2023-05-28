@@ -16,7 +16,9 @@ const app = createApp(App)
 
 // app.use(Oruga)
 app.use(FancyCrud, {
-  http: { axios },
+  http: {
+    service: axios,
+  },
   fields,
   utils,
 })

@@ -1,6 +1,5 @@
-import { httpConfig } from './config'
+import { httpService } from './config'
 import type { RetrieveRequestOptions } from '@/http/axioma/typings'
-import { RequestService } from '@/http/integration/services'
 import { RequestRetrieve } from '@/http/capabilities'
 
 /**
@@ -21,8 +20,7 @@ export function useRetrieveRequest(url: string, lookupValue: string | number, op
   function triggerRequest() {
     loading.value = true
 
-    const requestService = new RequestService(httpConfig)
-    const requestRetrieve = new RequestRetrieve(requestService)
+    const requestRetrieve = new RequestRetrieve(httpService)
 
     requestRetrieve.execute(url, lookupValue, {
       ...options,

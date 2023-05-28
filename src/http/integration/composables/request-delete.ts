@@ -1,6 +1,5 @@
-import { httpConfig } from './config'
+import { httpService } from './config'
 import type { DeleteRequestOptions } from '@/http/axioma/typings'
-import { RequestService } from '@/http/integration/services'
 import { RequestDelete } from '@/http/capabilities/request-delete'
 
 /**
@@ -21,8 +20,7 @@ export function useRequestDelete(url: string, lookupValue: string | number, opti
 
   function triggerRequest() {
     loading.value = true
-    const requestService = new RequestService(httpConfig)
-    const requestDelete = new RequestDelete(requestService)
+    const requestDelete = new RequestDelete(httpService)
 
     requestDelete.execute(url, lookupValue, {
       ...options,

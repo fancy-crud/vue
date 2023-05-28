@@ -1,10 +1,10 @@
-import type { RequestRepository } from '../axioma/repositories'
+import type { HttpService } from '../axioma/repositories'
 import type { DeleteRequestOptions } from '../axioma/typings'
 import { Url } from '../axioma/value-objects'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestDelete {
-  constructor(private http: RequestRepository) { }
+  constructor(private http: HttpService) { }
 
   execute(url: string, lookupValue: string | number, options?: DeleteRequestOptions) {
     const _url = new Url(url, lookupValue)

@@ -1,6 +1,5 @@
-import { httpConfig } from './config'
+import { httpService } from './config'
 import type { JSONForm, UpdateRequestOptions } from '@/http/axioma/typings'
-import { RequestService } from '@/http/integration/services'
 import { RequestUpdate } from '@/http/capabilities/request-update'
 
 /**
@@ -22,8 +21,7 @@ export function useRequestUpdate(url: string, lookupValue: string | number, form
   function triggerRequest() {
     loading.value = true
 
-    const requestService = new RequestService(httpConfig)
-    const update = new RequestUpdate(requestService)
+    const update = new RequestUpdate(httpService)
     update.execute(url, lookupValue, form, {
       ...options,
       onFinally() {

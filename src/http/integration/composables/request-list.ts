@@ -1,7 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import type { Ref } from 'vue'
-import { RequestService } from '../services'
-import { httpConfig } from './config'
+import { httpService } from './config'
 import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma/typings'
 import { PaginateResult } from '@/http/axioma/value-objects/pagination'
 import { RequestList } from '@/http/capabilities/request-list'
@@ -43,14 +42,14 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
    * @param {any} data - The data from the API response.
    * @returns {void}
    */
-  function setDataList(data: any) {
+  function setDataList(data: any): void {
     if (Array.isArray(data)) {
       mutableList.value = data
       _pagination.count = data.length
       return
     }
 
-    const paginateResults = new PaginateResult<T>(httpConfig.pagination, data)
+    const paginateResults = new PaginateResult<T>(httpService.pagination, data)
     const results = paginateResults.results
     const count = paginateResults.count
 
@@ -63,7 +62,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
    *
    * @returns {void}
    */
-  function resetPagination() {
+  function resetPagination(): void {
     _pagination.page = 1
 
     if (options?.hotFetch !== false)
@@ -76,7 +75,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
    * @param {number} [page=1] - The page number for the request.
    * @returns {void}
    */
-  function triggerRequest(page = 1) {
+  function triggerRequest(page = 1): void {
     isFetching.value = true
     const params = {
       limit: 10,
@@ -89,8 +88,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
     if (offset > 0)
       params.offset = offset
 
-    const requestService = new RequestService(httpConfig)
-    const requestList = new RequestList(requestService)
+    const requestList = new RequestList(httpService)
 
     requestList.execute(url, params, {
       ...options,

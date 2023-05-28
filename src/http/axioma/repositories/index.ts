@@ -1,9 +1,12 @@
-import type { JSONForm } from '../typings'
+export interface PaginationStructure {
+  results: <T>(response: any) => T[]
+  count: (response: any) => number
+}
 
-export interface RequestRepository {
-  create(url: string, form: JSONForm | FormData): Promise<unknown>
-  retrieve(url: string): Promise<unknown>
-  update(url: string, form: JSONForm | FormData): Promise<unknown>
-  delete(url: string): Promise<unknown>
-  list(url: string, params?: Record<string, unknown>): Promise<unknown>
+export interface HttpService {
+  get<R = any, C = any>(url: string, config?: C): Promise<R>
+  post<T, R = any, C = any>(url: string, data: T, config?: C): Promise<R>
+  patch<T, R = any, C = any>(url: string, data: T, config?: C): Promise<R>
+  delete<R = any, C = any>(url: string, config?: C): Promise<R>
+  pagination: PaginationStructure
 }

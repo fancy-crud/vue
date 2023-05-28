@@ -8,7 +8,6 @@ import { FormModes } from '@/forms/axioma'
 import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/axioma/services/fields'
 import { HandleErrors } from '@/forms/axioma/services/fields/handle-errors'
 import { GetForeignKeyValues } from '@/http/axioma/services/get-foreign-key-values'
-import { RequestService } from '@/http/integration/services'
 
 const forms = new Map<symbol, FormManager>()
 
@@ -57,8 +56,7 @@ export function useFormManager(id: symbol) {
 
   function getForeignKeyValues(fields?: ObjectWithNormalizedFields) {
     const form = fields ? { fields } : getForm()
-    const requestService = new RequestService(httpConfig)
-    const getForeignKeyValues = new GetForeignKeyValues(requestService, httpConfig.pagination)
+    const getForeignKeyValues = new GetForeignKeyValues(httpConfig)
 
     getForeignKeyValues.execute({ ...form.fields })
   }

@@ -1,13 +1,23 @@
 import 'animate.css'
 import type { App, Plugin } from 'vue'
 
-import { setHttpConfig } from '@/http'
-import { setFields, setStatusCodesHandlers, setUtils } from '@/settings/composables'
+import { setHttpInstance, setHttpPagination } from '@/http'
+import { setFields, setUtils } from '@/settings/composables'
 import './styles/main.sass'
+import type { HttpService } from '@/http/axioma/repositories'
+
+interface Options {
+  http: {
+    service?: Omit<HttpService, 'pagination'>
+    pagination?: HttpService['pagination']
+  }
+  fields: Record<string, any>
+  utils: Record<string, any>
+}
 
 const components: Record<string, any> = {}
 // install function executed by Vue.use()
-const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
+const install: Plugin = function installFancyCrud(app: App, options: Partial<Options>) {
   const componentsList: [string, any][] = Object.entries(import.meta.glob('@/**/components/*.vue'))
   componentsList.forEach(([key, value]) => {
     if (key.includes('/viewer/'))
@@ -21,11 +31,14 @@ const install: Plugin = function installFancyCrud(app: App, options: any = {}) {
     }
   })
 
-  if (options.http)
-    setHttpConfig(options.http)
+  if (options.http?.service)
+    setHttpInstance(options.http.service)
 
-  if (options.statusCodesHandlers)
-    setStatusCodesHandlers(options.statusCodesHandlers)
+  if (options.http?.pagination)
+    setHttpPagination(options.http.pagination)
+
+  // if (options.statusCodesHandlers)
+  //   setStatusCodesHandlers(options.statusCodesHandlers)
 
   if (options.fields)
     setFields(options.fields)

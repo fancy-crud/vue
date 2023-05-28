@@ -1,10 +1,10 @@
 import _ from 'lodash'
-import type { RequestRepository } from '../repositories'
-import type { PaginationStructure, SameAPIEndpoint } from '../typings'
+import type { HttpService } from '../repositories'
+import type { SameAPIEndpoint } from '../typings'
 import { PaginateResult } from '../value-objects/pagination'
 
 export class GetForeignKeyValues {
-  constructor(private http: RequestRepository, private paginationStructure: PaginationStructure) {}
+  constructor(private http: HttpService) {}
 
   private getSameAPIEndpoint(fields: Record<string, { url?: string; filterParams?: Record<string, unknown> }>): SameAPIEndpoint {
     const fieldsEntries = Object.entries(fields)
@@ -55,7 +55,7 @@ export class GetForeignKeyValues {
       addOptionsItems(data)
     }
     else {
-      const paginateResults = new PaginateResult(this.paginationStructure, data)
+      const paginateResults = new PaginateResult(this.http.pagination, data)
       addOptionsItems(paginateResults.results)
     }
     return options
@@ -65,7 +65,7 @@ export class GetForeignKeyValues {
     const sameAPIEndpoint: SameAPIEndpoint = this.getSameAPIEndpoint(fields)
 
     Object.entries(sameAPIEndpoint).forEach(([url, fieldKeys]) => {
-      this.http.list(url).then((response: any) => {
+      this.http.get(url).then((response: any) => {
         fieldKeys.forEach((fieldKey) => {
           fields[fieldKey].options = this.addOptionsToField(fields[fieldKey], response.data)
         })
