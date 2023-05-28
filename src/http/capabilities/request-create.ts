@@ -1,5 +1,4 @@
-import type { HttpService } from '../axioma/repositories'
-import type { CreateRequestOptions, JSONForm } from '../axioma/typings'
+import type { CreateRequestOptions, HttpService, JSONForm } from '../axioma'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestCreate {

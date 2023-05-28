@@ -2,12 +2,10 @@ import { useResponseHandler } from './response-handlers'
 import { useNotification } from './notifications'
 
 import type { FormManager } from '@/forms/integration'
-import { NotificationType } from '@/forms/integration'
 import type { FieldErrors, ObjectWithNormalizedFields } from '@/forms/axioma'
-import { FormModes } from '@/forms/axioma'
-import { FillWithRecordValues, GenerateFormData, ResetFields } from '@/forms/axioma/services/fields'
-import { HandleErrors } from '@/forms/axioma/services/fields/handle-errors'
-import { GetForeignKeyValues } from '@/http/axioma/services/get-foreign-key-values'
+import { NotificationType } from '@/forms/integration'
+import { FillWithRecordValues, FormModes, GenerateFormData, HandleErrors, ResetFields } from '@/forms/axioma'
+import { GetForeignKeyValues } from '@/http/axioma'
 
 const forms = new Map<symbol, FormManager>()
 
@@ -56,7 +54,7 @@ export function useFormManager(id: symbol) {
 
   function getForeignKeyValues(fields?: ObjectWithNormalizedFields) {
     const form = fields ? { fields } : getForm()
-    const getForeignKeyValues = new GetForeignKeyValues(httpConfig)
+    const getForeignKeyValues = new GetForeignKeyValues(httpService)
 
     getForeignKeyValues.execute({ ...form.fields })
   }

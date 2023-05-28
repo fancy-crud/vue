@@ -1,4 +1,4 @@
-import type { PaginationStructure } from '../repositories'
+import type { PaginationStructure } from '../typing'
 
 export class PaginateResult<T> {
   private _results: T[]

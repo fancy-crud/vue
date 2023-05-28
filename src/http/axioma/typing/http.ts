@@ -1,7 +1,4 @@
-export interface PaginationStructure {
-  results: <T>(response: any) => T[]
-  count: (response: any) => number
-}
+import type { PaginationStructure } from './pagination'
 
 export interface HttpService {
   get<R = any, C = any>(url: string, config?: C): Promise<R>
@@ -10,3 +7,4 @@ export interface HttpService {
   delete<R = any, C = any>(url: string, config?: C): Promise<R>
   pagination: PaginationStructure
 }
+

@@ -1,5 +1,4 @@
-import type { HttpService } from '../axioma/repositories'
-import type { ListRequestOptions } from '../axioma/typings'
+import type { HttpService, ListRequestOptions } from '../axioma'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestList {

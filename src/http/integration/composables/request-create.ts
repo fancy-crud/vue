@@ -1,5 +1,5 @@
 import { httpService } from './config'
-import type { CreateRequestOptions, JSONForm } from '@/http/axioma/typings'
+import type { CreateRequestOptions, JSONForm } from '@/http/axioma'
 import { RequestCreate } from '@/http/capabilities'
 
 /**

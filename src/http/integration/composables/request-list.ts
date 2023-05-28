@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios'
 import type { Ref } from 'vue'
 import { httpService } from './config'
-import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma/typings'
-import { PaginateResult } from '@/http/axioma/value-objects/pagination'
-import { RequestList } from '@/http/capabilities/request-list'
+import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma'
+import { PaginateResult } from '@/http/axioma'
+import { RequestList } from '@/http/capabilities'
 
 /**
  * Creates a record manager for a list of records from a given API endpoint.

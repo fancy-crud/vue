@@ -1,4 +1,4 @@
-import type { HttpService } from '@/http/axioma/repositories'
+import type { HttpService } from '@/http/axioma'
 
 export const httpService: HttpService = {
   pagination: {

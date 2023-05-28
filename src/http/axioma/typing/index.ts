@@ -1,6 +1,7 @@
 import type { ComputedRef, Ref, UnwrapNestedRefs } from 'vue'
 import type { Pagination } from './pagination'
 export * from './pagination'
+export * from './http'
 
 export interface HandleRequestStatusCodes extends Record<number, (form: any, data: any) => void> {}
 

@@ -1,6 +1,5 @@
 import _ from 'lodash'
-import type { HttpService } from '../repositories'
-import type { SameAPIEndpoint } from '../typings'
+import type { HttpService, SameAPIEndpoint } from '../typing'
 import { PaginateResult } from '../value-objects/pagination'
 
 export class GetForeignKeyValues {

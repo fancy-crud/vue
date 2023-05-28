@@ -4,7 +4,7 @@ import type { App, Plugin } from 'vue'
 import { setHttpInstance, setHttpPagination } from '@/http'
 import { setFields, setUtils } from '@/settings/composables'
 import './styles/main.sass'
-import type { HttpService } from '@/http/axioma/repositories'
+import type { HttpService } from '@/http/axioma'
 
 interface Options {
   http: {

@@ -1,6 +1,6 @@
 import { httpService } from './config'
-import type { DeleteRequestOptions } from '@/http/axioma/typings'
-import { RequestDelete } from '@/http/capabilities/request-delete'
+import type { DeleteRequestOptions } from '@/http/axioma'
+import { RequestDelete } from '@/http/capabilities'
 
 /**
  * Hook that provides an update request functionality to update an existing resource.

@@ -1,6 +1,5 @@
-import type { HttpService } from '../axioma/repositories'
-import type { DeleteRequestOptions } from '../axioma/typings'
-import { Url } from '../axioma/value-objects'
+import type { DeleteRequestOptions, HttpService } from '../axioma'
+import { Url } from '../axioma'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestDelete {

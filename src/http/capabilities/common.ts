@@ -1,4 +1,4 @@
-import type { RequestDefaultOptions } from '../axioma/typings'
+import type { RequestDefaultOptions } from '../axioma'
 
 export function onSuccess(response: unknown, options?: RequestDefaultOptions) {
   if (typeof options?.onSuccess === 'function')

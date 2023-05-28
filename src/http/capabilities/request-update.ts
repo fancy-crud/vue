@@ -1,6 +1,5 @@
-import type { HttpService } from '../axioma/repositories'
-import type { JSONForm, UpdateRequestOptions } from '../axioma/typings'
-import { Url } from '../axioma/value-objects'
+import type { HttpService, JSONForm, UpdateRequestOptions } from '../axioma'
+import { Url } from '../axioma'
 import { onFailed, onFinally, onSuccess } from './common'
 
 export class RequestUpdate {
