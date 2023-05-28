@@ -146,9 +146,6 @@ export interface ObjectWithRawFields extends Record<string, RawField> {}
 export interface ObjectWithNormalizedFields extends Record<string, NormalizedField> {}
 export interface FieldErrors extends Record<string, string[]> {}
 
-export type Handler = (response: any) => void
-export interface StatusCodeHandler extends Record<number, Handler> {}
-
 export enum NotificationType {
   success = 'success',
   warning = 'warning',
@@ -163,7 +160,10 @@ export interface Notification {
   data?: any
 }
 
-export interface NotificationHandler extends Partial<Record<NotificationType, (notification?: Notification) => void>> {}
+export interface NotificationMap extends Partial<Record<NotificationType, (notification?: Notification) => void>> {}
+
+export type Handler = (response: any) => void
+export interface ResponseMap extends Record<number, Handler> {}
 
 export interface FormMap {
   originalNormalizedFields: ObjectWithNormalizedFields
@@ -173,7 +173,21 @@ export interface FormMap {
   buttons: ObjectWithNormalizedButtons
 }
 
+export interface ResponseManager {
+  removeResponseHandlers: () => void
+  setResponseHandler: (codes: ResponseMap) => void
+  getResponseHandler: (code: number) => Handler | null
+}
+
+export interface NotificationManager {
+  setNotificationHandler: (handler: NotificationMap) => void
+  pushNotification: (notification: Notification) => void
+  removeNotificationHandlers: () => void
+}
+
 export interface FormManager {
+  readonly responseManager: ResponseManager
+  readonly notificationManager: NotificationManager
   fillWithRecordValues: (record: Record<string, unknown>) => void
   getForeignKeyValues: (fields?: ObjectWithNormalizedFields) => void
   resetFields: () => void
@@ -182,10 +196,6 @@ export interface FormManager {
   getFormData: (fields?: ObjectWithNormalizedFields) => { jsonForm: Record<string, unknown>; formData: FormData | null }
   getForm: () => FormMap
   setErrors: (errors: FieldErrors) => void
-  setResponseHandler: (codes: StatusCodeHandler) => void
-  setNotificationHandler: (handler: NotificationHandler) => void
-  getResponseHandler: (code: number) => Handler | null
-  pushNotification: (notification: Notification) => void
   switchToCreateMode: () => void
   switchToUpdateMode: () => void
 }

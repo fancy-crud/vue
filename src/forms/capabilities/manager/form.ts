@@ -1,14 +1,20 @@
-import type { FieldErrors, FormManager, FormMap, Handler, Notification, NotificationHandler, ObjectWithNormalizedFields, StatusCodeHandler } from '../axioma'
-import { FormModes, NotificationType } from '../axioma'
-import { FillWithRecordValues, GenerateFormData, HandleErrors, ResetFields } from './fields'
+import { FillWithRecordValues, GenerateFormData, HandleErrors, ResetFields } from '../fields'
+import { ResponseManagerHandler } from './response'
+import { NotificationManagerHandler } from './notification'
+import type { FieldErrors, FormManager, FormMap, NotificationManager, ObjectWithNormalizedFields, ResponseManager } from '@/forms/axioma'
+import { FormModes, NotificationType } from '@/forms/axioma'
 import { GetForeignKeyValues } from '@/http/axioma'
 
 const forms = new Map<symbol, FormMap>()
-const responseHandlers = new Map<symbol, StatusCodeHandler>()
-const notificationHandlers = new Map<symbol, NotificationHandler>()
 
 export class FormManagerHandler implements FormManager {
-  constructor(private id: symbol) {}
+  readonly responseManager: ResponseManager
+  readonly notificationManager: NotificationManager
+
+  constructor(private id: symbol) {
+    this.responseManager = new ResponseManagerHandler(id)
+    this.notificationManager = new NotificationManagerHandler(id)
+  }
 
   getForm(): FormMap {
     const form = forms.get(this.id)
@@ -23,15 +29,15 @@ export class FormManagerHandler implements FormManager {
     forms.set(this.id, form)
 
     // TODO: Create default handlers
-    this.setResponseHandler({
+    this.responseManager.setResponseHandler({
       400: (errors: any) => this.setErrors(errors),
     })
   }
 
   removeForm() {
     forms.delete(this.id)
-    this.removeNotificationHandlers()
-    this.removeResponseHandlers()
+    this.notificationManager.removeNotificationHandlers()
+    this.responseManager.removeResponseHandlers()
   }
 
   fillWithRecordValues(record: Record<string, unknown>) {
@@ -70,7 +76,7 @@ export class FormManagerHandler implements FormManager {
     handleErrors.execute(form.fields, errors)
 
     if (!form.settings.disableNotifications)
-      this.pushNotification({ type: NotificationType.error, data: errors })
+      this.notificationManager.pushNotification({ type: NotificationType.error, data: errors })
   }
 
   switchToCreateMode() {
@@ -83,52 +89,5 @@ export class FormManagerHandler implements FormManager {
     const form = this.getForm()
 
     form.settings.mode = FormModes.UPDATE_MODE
-  }
-
-  private getResponseHandlerFromMap() {
-    if (!responseHandlers.get(this.id))
-      responseHandlers.set(this.id, {})
-
-    return responseHandlers.get(this.id)!
-  }
-
-  setResponseHandler(codes: StatusCodeHandler) {
-    Object.assign(this.getResponseHandlerFromMap(), codes)
-  }
-
-  getResponseHandler(code: number): Handler | null {
-    return this.getResponseHandlerFromMap()[code] || null
-  }
-
-  removeResponseHandlers() {
-    responseHandlers.delete(this.id)
-  }
-
-  private getNotificationHandlerFromMap(): NotificationHandler {
-    const handlers = notificationHandlers.get(this.id)
-
-    if (!handlers) {
-      notificationHandlers.set(this.id, {})
-      return notificationHandlers.get(this.id)!
-    }
-
-    return handlers
-  }
-
-  setNotificationHandler(handler: NotificationHandler) {
-    Object.assign(this.getNotificationHandlerFromMap(), handler)
-  }
-
-  pushNotification(notification: Notification) {
-    const handler = this.getNotificationHandlerFromMap()[notification.type]
-
-    if (!handler)
-      return
-
-    handler(notification)
-  }
-
-  removeNotificationHandlers() {
-    notificationHandlers.delete(this.id)
   }
 }
