@@ -52,9 +52,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { BaseTableForm, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns } from '@/tables/axioma'
-import type { DeleteRecordOptions, Row } from '@/tables/integration'
-import { useTableManager } from '@/tables/integration'
+import type { BaseTableForm, DeleteRecordOptions, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, Row } from '@/tables/axioma'
+import { TableManagerHandler } from '@/tables/capabilities'
 
 const props = defineProps<{
   id: symbol
@@ -76,7 +75,7 @@ const {
   setupFormToEditRecord,
   deleteRecord,
   updateCheckbox,
-} = useTableManager(props.id)
+} = new TableManagerHandler(props.id)
 
 const { list, isFetching, pagination, triggerRequest: fetchItems } = useRequestList(
   props.settings.url,

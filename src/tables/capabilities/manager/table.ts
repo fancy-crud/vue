@@ -1,27 +1,29 @@
-import type { DeleteRecordOptions, Row, SetupOptions, TableManager } from '../../typing'
+import type { DeleteRecordOptions, Row, SetupOptions, TableManager, TableMap } from '@/tables/axioma'
 
-const tables = new Map<symbol, TableManager>()
+export class TableManagerHandler implements TableManager {
+  private static readonly tables = new Map<symbol, TableMap>()
 
-export function useTableManager(id: symbol) {
-  function getTable() {
-    const table = tables.get(id)
+  constructor(private id: symbol) {}
+
+  getTable() {
+    const table = TableManagerHandler.tables.get(this.id)
 
     if (!table)
-      throw new Error(`Unable to found table id(${String(id)})`)
+      throw new Error(`Unable to found table id(${String(this.id)})`)
 
     return table
   }
 
-  function addTable(table: TableManager) {
-    tables.set(id, table)
+  addTable(table: TableMap) {
+    TableManagerHandler.tables.set(this.id, table)
   }
 
-  function removeTable() {
-    tables.delete(id)
+  removeTable() {
+    TableManagerHandler.tables.delete(this.id)
   }
 
-  function setupFormToCreateRecord(options?: SetupOptions) {
-    const { formManager } = getTable()
+  setupFormToCreateRecord(options?: SetupOptions) {
+    const { formManager } = this.getTable()
     const form = formManager.getForm()
 
     if (typeof form.buttons.aux.onClick !== 'function' && options?.onClickAux)
@@ -34,8 +36,8 @@ export function useTableManager(id: symbol) {
       options.onReady()
   }
 
-  function setupFormToEditRecord(row: Row, options?: SetupOptions) {
-    const { formManager, settings } = getTable()
+  setupFormToEditRecord(row: Row, options?: SetupOptions) {
+    const { formManager, settings } = this.getTable()
     const form = formManager.getForm()
     formManager.resetFields()
 
@@ -60,11 +62,11 @@ export function useTableManager(id: symbol) {
     })
   }
 
-  function deleteRecord(row: Row | null, options?: DeleteRecordOptions) {
+  deleteRecord(row: Row | null, options?: DeleteRecordOptions) {
     if (!row)
       return
 
-    const { formManager, settings } = getTable()
+    const { formManager, settings } = this.getTable()
     const form = formManager.getForm()
 
     if (options?.onRequestDeleteConfirmation && !settings.skipDeleteConfirmation) {
@@ -81,8 +83,8 @@ export function useTableManager(id: symbol) {
     useRequestDelete(settings.url, lookupValue, options)
   }
 
-  function updateCheckbox(value: { field: string; row: Row }) {
-    const { formManager, settings } = getTable()
+  updateCheckbox(value: { field: string; row: Row }) {
+    const { formManager, settings } = this.getTable()
     const form = formManager.getForm()
 
     const lookupField = settings.lookupField || form.settings.lookupField
@@ -94,15 +96,5 @@ export function useTableManager(id: symbol) {
     useRequestUpdate(settings.url, lookupValue, {
       [value.field]: !value.row[value.field],
     })
-  }
-
-  return {
-    getTable,
-    addTable,
-    removeTable,
-    setupFormToCreateRecord,
-    setupFormToEditRecord,
-    deleteRecord,
-    updateCheckbox,
   }
 }

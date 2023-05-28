@@ -1,13 +1,12 @@
 import type { TableArgs, UseTable } from '../typing'
-import { useTableManager } from './manager'
 import type { BaseTableForm, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
-import { NormalizeColumns, NormalizePagination } from '@/tables/capabilities'
+import { NormalizeColumns, NormalizePagination, TableManagerHandler } from '@/tables/capabilities'
 import type { NormalizedSettings } from '@/forms/axioma'
 import { FormManagerHandler } from '@/forms/capabilities/manager'
 
 export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
   args: TableArgs<T, U, S, F>,
-): UseTable<T, U, S, F> & { manager: ReturnType<typeof useTableManager> } {
+): UseTable<T, U, S, F> {
   const {
     id: _id,
     form,
@@ -31,7 +30,7 @@ export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns
   const filterParams = reactive(rawFilterParams) as F
 
   const formManager = new FormManagerHandler(form.id)
-  const manager = useTableManager(id)
+  const manager = new TableManagerHandler(id)
 
   manager.addTable({
     columns,

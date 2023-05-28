@@ -1,6 +1,4 @@
-import type { FormManager } from '@/forms/axioma'
-import type { DeleteRequestOptions } from '@/http'
-import type { BaseTableForm, FieldAsColumn, MappedRawColumn, NormalizedColumn, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, RawTablePagination } from '@/tables/axioma'
+import type { BaseTableForm, FieldAsColumn, MappedRawColumn, NormalizedColumn, NormalizedTablePagination, RawTablePagination, TableManager } from '@/tables/axioma'
 
 export interface TableArgs<T extends BaseTableForm, U, S, F> {
   id?: string
@@ -11,15 +9,6 @@ export interface TableArgs<T extends BaseTableForm, U, S, F> {
   filterParams?: F
 }
 
-export interface TableManager {
-  columns: ObjectWithNormalizedColumns
-  formManager: FormManager
-  settings: NormalizedTableSetting
-  pagination: NormalizedTablePagination
-}
-
-export interface Row extends Record<string, unknown> {}
-
 export interface UseTable<T extends BaseTableForm, U, S, F> {
   id: symbol
   form: T
@@ -27,13 +16,5 @@ export interface UseTable<T extends BaseTableForm, U, S, F> {
   settings: S
   pagination: NormalizedTablePagination
   filterParams: F
-}
-
-export interface SetupOptions {
-  onReady?: () => void
-  onClickAux?: () => void
-}
-
-export interface DeleteRecordOptions extends DeleteRequestOptions {
-  onRequestDeleteConfirmation?: (row: Row) => void
+  manager: TableManager
 }
