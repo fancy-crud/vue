@@ -1,5 +1,5 @@
 {
-  "name": "fancy-crud",
+  "name": "@fancy-crud/vue",
   "version": "0.0.0",
   "private": false,
   "repository": {
@@ -8,16 +8,16 @@
   },
   "exports": {
     ".": {
-      "require": "./dist/fancy-crud.umd.js",
-      "import": "./dist/fancy-crud.es.js"
+      "require": "./dist/fancy-crud-vue.umd.js",
+      "import": "./dist/fancy-crud-vue.es.js"
     },
     "./style.css": {
       "require": "./dist/style.css",
       "import": "./dist/style.css"
     }
   },
-  "main": "./dist/fancy-crud.umd.js",
-  "module": "./dist/fancy-crud.es.js",
+  "main": "./dist/fancy-crud-vue.umd.js",
+  "module": "./dist/fancy-crud-vue.es.js",
   "types": "./dist/src/index.d.ts",
   "files": [
     "dist"
