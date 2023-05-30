@@ -1,5 +1,5 @@
-import { useHintText, useModelValue, useOptions } from './utils'
 import type { NormalizedRadioField } from '@fancy-crud/core'
+import { useHintText, useModelValue, useOptions } from './utils'
 
 export function useRadioField(props: { field: NormalizedRadioField }) {
   const { modelValue } = useModelValue(props)

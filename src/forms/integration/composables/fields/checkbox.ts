@@ -1,5 +1,5 @@
-import { useHintText, useModelValue, useOptions } from './utils'
 import type { NormalizedCheckboxField } from '@fancy-crud/core'
+import { useHintText, useModelValue, useOptions } from './utils'
 
 export function useCheckboxField(props: { field: NormalizedCheckboxField }) {
   const { modelValue } = useModelValue(props)

@@ -1,6 +1,5 @@
-import { httpService } from './config'
-import type { RetrieveRequestOptions } from '@/http/axioma'
-import { RequestRetrieve } from '@/http/capabilities'
+import { RequestRetrieve, httpService } from '@fancy-crud/core'
+import type { RetrieveRequestOptions } from '@fancy-crud/core'
 
 /**
  * Hook to retrieve data from an API using the HTTP GET method with a lookup value.

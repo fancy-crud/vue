@@ -1,6 +1,5 @@
-import type { NormalizedField } from '@fancy-crud/core'
+import type { NormalizedField, UpdateRequestOptions } from '@fancy-crud/core'
 import { GenerateFormData } from '@fancy-crud/core'
-import type { UpdateRequestOptions } from '@/http'
 
 export class UpdateRecord {
   execute(fields: Record<string, NormalizedField>, url: string, lookupValue: string | number, options?: UpdateRequestOptions) {

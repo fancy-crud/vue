@@ -1,5 +1,5 @@
-import { useHintText, useModelValue } from './utils'
 import type { NormalizedFileField } from '@fancy-crud/core'
+import { useHintText, useModelValue } from './utils'
 
 export function useFileField(props: { field: NormalizedFileField }) {
   const { modelValue } = useModelValue(props)

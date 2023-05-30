@@ -1,6 +1,5 @@
-import { httpService } from './config'
-import type { CreateRequestOptions, JSONForm } from '@/http/axioma'
-import { RequestCreate } from '@/http/capabilities'
+import type { CreateRequestOptions, JSONForm } from '@fancy-crud/core'
+import { RequestCreate, httpService } from '@fancy-crud/core'
 
 /**
  * Hook for sending an HTTP POST request to create a resource on the server.

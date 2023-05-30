@@ -1,9 +1,7 @@
 import type { AxiosResponse } from 'axios'
 import type { Ref } from 'vue'
-import { httpService } from './config'
-import type { ListRequestOptions, Pagination, RecordManager } from '@/http/axioma'
-import { PaginateResult } from '@/http/axioma'
-import { RequestList } from '@/http/capabilities'
+import { PaginateResult, RequestList, httpService } from '@fancy-crud/core'
+import type { ListRequestOptions, Pagination } from '@fancy-crud/core'
 
 /**
  * Creates a record manager for a list of records from a given API endpoint.
@@ -16,7 +14,7 @@ import { RequestList } from '@/http/capabilities'
  * @param {ListRequestOptions} [options] - The additional options for the request.
  * @returns {RecordManager<T, F>} - The record manager object.
  */
-export function useRequestList<T, F = any>(url: string, filterParams?: F, pagination?: Pagination, options?: ListRequestOptions): RecordManager<T, F> {
+export function useRequestList<T, F = any>(url: string, filterParams?: F, pagination?: Pagination, options?: ListRequestOptions) {
   const isFetching = ref(false)
   const mutableList: Ref<T[]> = ref([])
 

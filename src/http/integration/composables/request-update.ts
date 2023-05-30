@@ -1,6 +1,5 @@
-import { httpService } from './config'
-import type { JSONForm, UpdateRequestOptions } from '@/http/axioma'
-import { RequestUpdate } from '@/http/capabilities'
+import { RequestUpdate, httpService } from '@fancy-crud/core'
+import type { JSONForm, UpdateRequestOptions } from '@fancy-crud/core'
 
 /**
  * Hook that provides an update request functionality to update an existing resource.

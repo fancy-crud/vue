@@ -1,6 +1,5 @@
-import { httpService } from './config'
-import type { DeleteRequestOptions } from '@/http/axioma'
-import { RequestDelete } from '@/http/capabilities'
+import { RequestDelete, httpService } from '@fancy-crud/core'
+import type { DeleteRequestOptions } from '@fancy-crud/core'
 
 /**
  * Hook that provides an update request functionality to update an existing resource.

@@ -1,4 +1,3 @@
-export * from './config'
 export * from './request-create'
 export * from './request-retrieve'
 export * from './request-list'

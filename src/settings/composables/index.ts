@@ -1,4 +1,4 @@
-import type { HandleRequestStatusCodes } from '@/http'
+import type { HandleRequestStatusCodes } from '@fancy-crud/core'
 
 const defaults: { classes: Record<string, string> } = {
   classes: {
