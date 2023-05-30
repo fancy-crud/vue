@@ -2,7 +2,7 @@ import type { ObjectWithNormalizedColumns } from './column'
 import type { NormalizedTablePagination } from './pagination'
 import type { NormalizedTableSetting } from './settings'
 import type { DeleteRequestOptions } from '@/http'
-import type { FormManager } from '@/forms/axioma'
+import type { FormManager } from '@fancy-crud/core'
 
 export interface TableMap {
   columns: ObjectWithNormalizedColumns

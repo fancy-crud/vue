@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { ODatepicker } from '@oruga-ui/oruga-next'
 import { useDatepickerField } from '@/forms/integration'
-import type { NormalizedDatepickerField } from '@/forms/axioma'
+import type { NormalizedDatepickerField } from '@fancy-crud/core'
 
 const props = defineProps<{
   field: NormalizedDatepickerField

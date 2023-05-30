@@ -18,9 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@/forms/axioma'
-import { FormModes } from '@/forms/axioma'
-import { FormManagerHandler } from '@/forms/capabilities'
+import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@fancy-crud/core'
+import { FormManagerHandler, FormModes } from '@fancy-crud/core'
 import { fields as controls } from '@/settings'
 
 const props = defineProps<{

@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { OUpload } from '@oruga-ui/oruga-next'
 import { useFileField } from '@/forms/integration'
-import type { NormalizedFileField } from '@/forms/axioma'
+import type { NormalizedFileField } from '@fancy-crud/core'
 
 const props = defineProps<{
   field: NormalizedFileField

@@ -1,5 +1,5 @@
+import type { NormalizedPasswordField } from '@fancy-crud/core'
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedPasswordField } from '@/forms/axioma'
 
 export function usePasswordField(props: { field: NormalizedPasswordField }) {
   const { modelValue } = useModelValue(props)

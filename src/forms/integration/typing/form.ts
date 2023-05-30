@@ -1,4 +1,4 @@
-import type { FormManager, NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@/forms/axioma'
+import type { FormManager, NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@fancy-crud/core'
 
 export interface UseForm<T, U> {
   id: symbol

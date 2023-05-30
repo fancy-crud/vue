@@ -1,7 +1,7 @@
-import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@/forms/axioma'
-import { CreateForm } from '@/forms/capabilities'
+import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@fancy-crud/core'
+import { CreateForm } from '@fancy-crud/core'
 import type { Args, UseForm } from '@/forms/integration'
-import { FormManagerHandler } from '@/forms/capabilities/manager'
+import { FormManagerHandler } from '@fancy-crud/core/manager'
 
 /**
  * A function that provides functionality to create a reactive form object from raw fields, titles, buttons, and settings.

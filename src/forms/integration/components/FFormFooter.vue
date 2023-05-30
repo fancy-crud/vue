@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@/forms/axioma'
-import { FormModes } from '@/forms/axioma'
+import type { NormalizedButton, NormalizedSettings, ObjectWithNormalizedButtons } from '@fancy-crud/core'
+import { FormModes } from '@fancy-crud/core'
 
 const props = defineProps<{
   buttons: ObjectWithNormalizedButtons

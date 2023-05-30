@@ -1,8 +1,8 @@
 import type { TableArgs, UseTable } from '../typing'
 import type { BaseTableForm, FieldAsColumn, NormalizedColumn, ObjectWithRawColumns, RawTableFilter, RawTableSetting } from '@/tables/axioma'
 import { NormalizeColumns, NormalizePagination, TableManagerHandler } from '@/tables/capabilities'
-import type { NormalizedSettings } from '@/forms/axioma'
-import { FormManagerHandler } from '@/forms/capabilities/manager'
+import type { NormalizedSettings } from '@fancy-crud/core'
+import { FormManagerHandler } from '@fancy-crud/core/manager'
 
 export function useTable<T extends BaseTableForm, U extends ObjectWithRawColumns, S extends RawTableSetting, F extends RawTableFilter>(
   args: TableArgs<T, U, S, F>,

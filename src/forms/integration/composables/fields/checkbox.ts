@@ -1,5 +1,5 @@
 import { useHintText, useModelValue, useOptions } from './utils'
-import type { NormalizedCheckboxField } from '@/forms/axioma'
+import type { NormalizedCheckboxField } from '@fancy-crud/core'
 
 export function useCheckboxField(props: { field: NormalizedCheckboxField }) {
   const { modelValue } = useModelValue(props)

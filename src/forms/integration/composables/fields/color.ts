@@ -1,5 +1,5 @@
+import type { NormalizedColorField } from '@fancy-crud/core'
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedColorField } from '@/forms/axioma'
 
 export function useColorField(props: { field: NormalizedColorField }) {
   const { modelValue } = useModelValue(props)

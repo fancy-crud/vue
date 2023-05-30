@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { OInput } from '@oruga-ui/oruga-next'
 import { useTextField } from '@/forms/integration'
-import type { NormalizedTextField } from '@/forms/axioma'
+import type { NormalizedTextField } from '@fancy-crud/core'
 
 const props = defineProps<{
   field: NormalizedTextField

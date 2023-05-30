@@ -1,7 +1,7 @@
+import { FormModes } from '@fancy-crud/core'
 import type { OnFailed, OnFinally, OnSuccess } from '@/http'
-import { FormModes } from '@/forms/axioma'
-import { GenerateFormData } from '@/forms/capabilities'
-import { FormManagerHandler } from '@/forms/capabilities/manager'
+import { GenerateFormData } from '@fancy-crud/core'
+import { FormManagerHandler } from '@fancy-crud/core/manager'
 
 export function useCreateOrUpdateRecord(formId: symbol) {
   const manager = new FormManagerHandler(formId)

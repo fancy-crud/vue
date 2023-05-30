@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { NormalizedSettings, NormalizedTitles } from '@/forms/axioma'
-import { FormModes } from '@/forms/axioma'
+import type { NormalizedSettings, NormalizedTitles } from '@fancy-crud/core'
+import { FormModes } from '@fancy-crud/core'
 
 const props = defineProps<{
   titles: NormalizedTitles

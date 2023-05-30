@@ -1,5 +1,5 @@
+import type { NormalizedTextField } from '@fancy-crud/core'
 import { useHintText, useModelValue } from './utils'
-import type { NormalizedTextField } from '@/forms/axioma'
 
 export function useTextField(props: { field: NormalizedTextField }) {
   const { modelValue } = useModelValue(props)

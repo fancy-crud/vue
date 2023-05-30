@@ -1,5 +1,5 @@
-import type { NormalizedField } from '@/forms/axioma'
-import { GenerateFormData } from '@/forms/capabilities'
+import type { NormalizedField } from '@fancy-crud/core'
+import { GenerateFormData } from '@fancy-crud/core'
 import type { UpdateRequestOptions } from '@/http'
 
 export class UpdateRecord {
