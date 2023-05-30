@@ -1,5 +1,5 @@
 <script lang="ts">
-import { utils } from '@/wrappers/config'
+import { utils } from '@/settings'
 
 export default defineComponent({
   setup(_, { attrs, slots }) {

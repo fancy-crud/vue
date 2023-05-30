@@ -30,9 +30,9 @@
 </template>
 
 <script lang="ts" setup>
+import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@fancy-crud/core'
+import { FormManagerHandler } from '@fancy-crud/core'
 import { useCreateOrUpdateRecord } from '../composables'
-import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@/forms/axioma'
-import { FormManagerHandler } from '@/forms/capabilities'
 
 interface StandardResponseStructure { data: any; status: number }
 interface StandardErrorResponseStructure { response: StandardResponseStructure }
