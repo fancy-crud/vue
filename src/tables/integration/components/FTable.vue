@@ -26,7 +26,7 @@
       @page-change="setPage"
       v-bind="$attrs"
       :headers="headers"
-      :items="list"
+      :items="computedData"
       :loading="isFetching"
       :per-page="pagination.rowsPerPage"
       :total="pagination.count"
@@ -48,7 +48,7 @@
   </f-delete-confirmation-modal>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="DataType = unknown">
 import type { BaseTableForm, DeleteRecordOptions, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, Row } from '@fancy-crud/core'
 import { TableManagerHandler } from '@fancy-crud/core'
 
@@ -60,6 +60,7 @@ const props = defineProps<{
   pagination: NormalizedTablePagination
   formModal?: boolean
   skipDeleteConfirmation?: boolean
+  data?: DataType[]
 }>()
 
 const emit = defineEmits<{
@@ -68,10 +69,11 @@ const emit = defineEmits<{
 
 const tableManager = new TableManagerHandler(props.id)
 
-const { list, isFetching, pagination, triggerRequest: fetchItems } = useRequestList(
+const { list, isFetching, pagination, triggerRequest: fetchItems } = useRequestList<DataType>(
   props.settings.url,
   props.settings.filterParams,
   props.pagination,
+  { autoTrigger: false },
 )
 
 const formModal = ref(Boolean(props.formModal))
@@ -81,7 +83,13 @@ const rowToDelete = ref<Row | null>(null)
 const form = tableManager.getTable().formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
-fetchItems()
+const computedData = computed<DataType[]>(() => {
+  if (Array.isArray(props.data))
+    return props.data
+  return list.value
+})
+
+triggerFetchItems()
 
 watch(() => props.formModal, () => {
   formModal.value = Boolean(props.formModal)
@@ -90,6 +98,11 @@ watch(() => props.formModal, () => {
 watch(formModal, () => {
   emit('update:formModal', formModal.value)
 })
+
+function triggerFetchItems() {
+  if (!Array.isArray(props.data))
+    fetchItems()
+}
 
 function exportData() {
   // const xlsx = useXLSX(props.table)
