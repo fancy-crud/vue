@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ODatepicker } from '@oruga-ui/oruga-next'
-import { useDatepickerField } from '@/forms/integration'
+import { ODatepicker, OField } from '@oruga-ui/oruga-next'
 import type { NormalizedDatepickerField } from '@fancy-crud/core'
+import { useDatepickerField } from '@/forms/integration'
 
 const props = defineProps<{
   field: NormalizedDatepickerField

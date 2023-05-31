@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts" setup>
-import { OUpload } from '@oruga-ui/oruga-next'
-import { useFileField } from '@/forms/integration'
+import { OButton, OField, OIcon, OUpload } from '@oruga-ui/oruga-next'
 import type { NormalizedFileField } from '@fancy-crud/core'
+import { useFileField } from '@/forms/integration'
 
 const props = defineProps<{
   field: NormalizedFileField

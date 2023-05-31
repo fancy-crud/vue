@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import Button from './Button.vue'
 import Text from './Text.vue'
 import Color from './Color.vue'
@@ -27,6 +28,6 @@ export const utils = ReturnObject({
   modal: Modal,
 })
 
-function ReturnObject<T extends Record<string, any>>(obj: T): Record<keyof T, any> {
+function ReturnObject<T extends Record<string, Component>>(obj: T): Record<keyof T, Component> {
   return { ...obj }
 }

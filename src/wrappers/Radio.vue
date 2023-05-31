@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
-import { ORadio } from '@oruga-ui/oruga-next'
-import { useRadioField } from '@/forms/integration'
+import { OField, ORadio } from '@oruga-ui/oruga-next'
 import type { NormalizedRadioField } from '@fancy-crud/core'
+import { useRadioField } from '@/forms/integration'
 
 const props = defineProps<{
   field: NormalizedRadioField

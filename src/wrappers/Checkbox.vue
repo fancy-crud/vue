@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
 import _ from 'lodash'
-import { OCheckbox } from '@oruga-ui/oruga-next'
-import { useCheckboxField } from '@/forms/integration'
+import { OCheckbox, OField } from '@oruga-ui/oruga-next'
 import type { NormalizedCheckboxField } from '@fancy-crud/core'
+import { useCheckboxField } from '@/forms/integration'
 
 const props = defineProps<{
   field: NormalizedCheckboxField

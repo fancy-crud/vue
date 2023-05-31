@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { OSelect } from '@oruga-ui/oruga-next'
+import { OField, OSelect } from '@oruga-ui/oruga-next'
 import type { NormalizedSelectField } from '@fancy-crud/core'
 import { useHintText, useOptions } from '@/forms/integration/composables/fields/utils'
 

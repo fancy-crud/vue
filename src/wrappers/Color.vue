@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { OInput } from '@oruga-ui/oruga-next'
-import { useColorField } from '@/forms/integration'
+import { OField, OInput } from '@oruga-ui/oruga-next'
 import type { NormalizedColorField } from '@fancy-crud/core'
+import { useColorField } from '@/forms/integration'
 
 const props = defineProps<{
   field: NormalizedColorField

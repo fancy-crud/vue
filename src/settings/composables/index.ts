@@ -1,4 +1,5 @@
 import type { HandleRequestStatusCodes } from '@fancy-crud/core'
+import type { Component } from 'vue'
 
 const defaults: { classes: Record<string, string> } = {
   classes: {
@@ -18,10 +19,9 @@ const defaults: { classes: Record<string, string> } = {
   },
 }
 
-export const fields: Record<string, any> = {
-}
+export const fields: Record<string, Component> = {}
 
-export const utils = {
+export const utils: Record<'button' | 'modal', Component> = {
   button: {},
   modal: {},
 }

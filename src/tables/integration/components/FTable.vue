@@ -30,9 +30,6 @@
       :loading="isFetching"
       :per-page="pagination.rowsPerPage"
       :total="pagination.count"
-      pagination-position="bottom"
-      backend-pagination
-      paginated
     />
   </slot>
 
@@ -85,8 +82,6 @@ const form = tableManager.getTable().formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
 fetchItems()
-
-console.log(list)
 
 watch(() => props.formModal, () => {
   formModal.value = Boolean(props.formModal)

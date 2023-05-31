@@ -1,5 +1,9 @@
 <template>
-  <o-table v-bind="$attrs" :data="props.items">
+  <o-table
+    v-bind="$attrs" :data="props.items" pagination-position="bottom"
+    backend-pagination
+    paginated
+  >
     <template v-for="(column, _columnIndex) in headers" :key="_columnIndex">
       <o-table-column v-if="column.value === 'actions'" v-slot="{ row }">
         <f-table-row-actions
@@ -22,7 +26,7 @@
 
 <script lang="ts" setup>
 import { OTable, OTableColumn } from '@oruga-ui/oruga-next'
-import type { NormalizedColumn } from '@/tables/axioma'
+import type { NormalizedColumn } from '@fancy-crud/core'
 import { useColumnValue } from '@/tables/integration'
 
 const props = defineProps<{
