@@ -1,9 +1,5 @@
-import { i18n as defaultI18n } from '@fancy-crud/core'
-
-interface Locale {
-  locale: string
-  messages: Record<string, Record<string, string>>
-}
+import type { Locale } from '@fancy-crud/core'
+import { i18n as defaultI18n, t as translate } from '@fancy-crud/core'
 
 export const i18n: Locale = reactive(defaultI18n)
 
@@ -12,9 +8,7 @@ export function setLocale(locale: Locale) {
 }
 
 export function useLocale() {
-  const t = computed(() => {
-    return (text: string) => i18n.messages[i18n.locale][text] || text
-  })
+  const t = computed(() => translate)
 
   return t
 }

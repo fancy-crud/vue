@@ -5,9 +5,9 @@
 </template>
 
 <script lang='ts' setup>
-import { FieldType } from '@/forms/axioma'
+import { FieldType } from '@fancy-crud/core'
 
-const formats = useFormats()
+// const formats = useFormats()
 
 const form = useForm({
   id: 'formulario',
@@ -15,6 +15,7 @@ const form = useForm({
     name: {
       type: FieldType.text,
       label: 'First name',
+      placeholder: 'First name',
       wrapper: {
         class: 'col-span-12',
       },
@@ -52,7 +53,7 @@ const table = useTable({
       format: (value: unknown) => value === 'm' ? 'Male' : 'Female',
     },
     created_at: {
-      format: (value: unknown) => formats.dateTimeFormat(value as string),
+      // format: (value: unknown) => formats.dateTimeFormat(value as string),
     },
     actions: { value: 'actions', label: '' },
   },
@@ -64,4 +65,8 @@ const table = useTable({
     rowsPerPage: 10,
   },
 })
+
+setTimeout(() => {
+  form.fields.name.placeholder = 'Vaya vaya'
+}, 3000)
 </script>

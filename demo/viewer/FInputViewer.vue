@@ -15,7 +15,7 @@
 </template>
 
 <script lang='ts' setup>
-import { FieldType } from '@/forms/axioma'
+import { FieldType } from '@fancy-crud/core'
 // import { NotificationType, useForm } from '@/forms/integration'
 
 // const { rules } = useRules()

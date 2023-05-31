@@ -7,7 +7,7 @@
 </template>
 
 <script lang='ts' setup>
-import { FieldType } from '@/forms/axioma'
+import { FieldType } from '@fancy-crud/core'
 import { useForm } from '@/forms/integration/composables'
 
 const form = useForm({

@@ -1,10 +1,10 @@
 import 'animate.css'
 import type { App, Plugin } from 'vue'
 
-import { setHttpInstance, setHttpPagination } from '@/http'
+import type { HttpService } from '@fancy-crud/core'
+import { setHttpInstance, setHttpPagination } from '@fancy-crud/core'
 import { setFields, setUtils } from '@/settings/composables'
 import './styles/main.sass'
-import type { HttpService } from '@/http/axioma'
 
 interface Options {
   http: {
@@ -53,9 +53,9 @@ export default install
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from './common/integration'
-export * from './filters'
+// export * from './filters'
 export * from './forms/integration'
-export * from './http'
+export * from './http/integration'
 export * from './locales'
 export * from './settings'
 export * from './tables/integration'

@@ -1,4 +1,4 @@
-import type { BaseTableForm, FieldAsColumn, MappedRawColumn, NormalizedColumn, NormalizedTablePagination, RawTablePagination, TableManager } from '@/tables/axioma'
+import type { BaseTableForm, FieldAsColumn, MappedRawColumn, NormalizedColumn, NormalizedTablePagination, RawTablePagination, TableManager } from '@fancy-crud/core'
 
 export interface TableArgs<T extends BaseTableForm, U, S, F> {
   id?: string

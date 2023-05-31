@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { NormalizedColumn } from '@fancy-crud/core'
 import { utils } from '@/wrappers/config'
-import type { NormalizedColumn } from '@/tables/axioma'
 
 const props = defineProps<{
   headers: NormalizedColumn[]

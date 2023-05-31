@@ -39,7 +39,6 @@ declare global {
   const getDefaults: typeof import('./src/settings/composables/index')['getDefaults']
   const getStatusCodesHandlers: typeof import('./src/settings/composables/index')['getStatusCodesHandlers']
   const h: typeof import('vue')['h']
-  const httpService: typeof import('./src/http/integration/composables/config')['httpService']
   const i18n: typeof import('./src/locales/composables/locale')['i18n']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
@@ -89,8 +88,6 @@ declare global {
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
   const setFields: typeof import('./src/settings/composables/index')['setFields']
-  const setHttpInstance: typeof import('./src/http/integration/composables/config')['setHttpInstance']
-  const setHttpPagination: typeof import('./src/http/integration/composables/config')['setHttpPagination']
   const setLocale: typeof import('./src/locales/composables/locale')['setLocale']
   const setStatusCodesHandlers: typeof import('./src/settings/composables/index')['setStatusCodesHandlers']
   const setUtils: typeof import('./src/settings/composables/index')['setUtils']
@@ -333,7 +330,6 @@ declare module 'vue' {
     readonly getDefaults: UnwrapRef<typeof import('./src/settings/composables/index')['getDefaults']>
     readonly getStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['getStatusCodesHandlers']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
-    readonly httpService: UnwrapRef<typeof import('./src/http/integration/composables/config')['httpService']>
     readonly i18n: UnwrapRef<typeof import('./src/locales/composables/locale')['i18n']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -383,8 +379,6 @@ declare module 'vue' {
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
     readonly setFields: UnwrapRef<typeof import('./src/settings/composables/index')['setFields']>
-    readonly setHttpInstance: UnwrapRef<typeof import('./src/http/integration/composables/config')['setHttpInstance']>
-    readonly setHttpPagination: UnwrapRef<typeof import('./src/http/integration/composables/config')['setHttpPagination']>
     readonly setLocale: UnwrapRef<typeof import('./src/locales/composables/locale')['setLocale']>
     readonly setStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['setStatusCodesHandlers']>
     readonly setUtils: UnwrapRef<typeof import('./src/settings/composables/index')['setUtils']>

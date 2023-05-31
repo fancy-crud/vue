@@ -74,6 +74,7 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
    * @returns {void}
    */
   function triggerRequest(page = 1): void {
+    console.log(httpService)
     isFetching.value = true
     const params = {
       limit: 10,
@@ -96,6 +97,10 @@ export function useRequestList<T, F = any>(url: string, filterParams?: F, pagina
 
         if (typeof options?.onSuccess === 'function')
           options?.onSuccess(response)
+      },
+
+      onFailed(e) {
+        console.log(e)
       },
 
       onFinally() {

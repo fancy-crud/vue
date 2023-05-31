@@ -52,8 +52,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { BaseTableForm, DeleteRecordOptions, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, Row } from '@/tables/axioma'
-import { TableManagerHandler } from '@/tables/capabilities'
+import type { BaseTableForm, DeleteRecordOptions, NormalizedTablePagination, NormalizedTableSetting, ObjectWithNormalizedColumns, Row } from '@fancy-crud/core'
+import { TableManagerHandler } from '@fancy-crud/core'
 
 const props = defineProps<{
   id: symbol
@@ -85,6 +85,8 @@ const form = tableManager.getTable().formManager.getForm()
 const headers = computed(() => Object.values(props.columns).filter(column => !column.exclude))
 
 fetchItems()
+
+console.log(list)
 
 watch(() => props.formModal, () => {
   formModal.value = Boolean(props.formModal)
