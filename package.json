@@ -2,22 +2,16 @@
   "name": "@fancy-crud/vue",
   "version": "0.0.0",
   "private": false,
+  "author": {
+    "name": "Christopher A. Flores",
+    "url": "https://github.com/cafadev"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cafadev/fancy-crud.git"
+    "url": "https://github.com/fancy-crud"
   },
-  "exports": {
-    ".": {
-      "require": "./dist/fancy-crud-vue.umd.js",
-      "import": "./dist/fancy-crud-vue.es.js"
-    },
-    "./style.css": {
-      "require": "./dist/style.css",
-      "import": "./dist/style.css"
-    }
-  },
-  "main": "./dist/fancy-crud-vue.umd.js",
-  "module": "./dist/fancy-crud-vue.es.js",
+  "main": "./dist/vue.umd.js",
+  "module": "./dist/vue.umd.js",
   "types": "./dist/src/index.d.ts",
   "files": [
     "dist"
@@ -27,8 +21,7 @@
     "build": "node build/exports.js && vite build && tsc --emitDeclarationOnly",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "semantic-release": "semantic-release --branches main"
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
     "@mdi/font": "^6.7.96",
