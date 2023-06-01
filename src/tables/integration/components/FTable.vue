@@ -65,6 +65,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:formModal', value: boolean): void
+  (e: 'export'): void
 }>()
 
 const tableManager = new TableManagerHandler(props.id)
@@ -107,6 +108,8 @@ function triggerFetchItems() {
 function exportData() {
   // const xlsx = useXLSX(props.table)
   // xlsx.triggerRequest()
+
+  emit('export')
 }
 
 function onSuccess() {

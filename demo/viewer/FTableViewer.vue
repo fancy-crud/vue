@@ -1,6 +1,6 @@
 <template>
   <div class="pb-5">
-    <f-table v-bind="table" :data="data" />
+    <f-table v-bind="table" />
   </div>
 </template>
 

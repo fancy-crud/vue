@@ -31,8 +31,7 @@
 
 <script lang="ts" setup>
 import type { NormalizedSettings, NormalizedTitles, ObjectWithNormalizedButtons, ObjectWithNormalizedFields } from '@fancy-crud/core'
-import { FormManagerHandler } from '@fancy-crud/core'
-import { useCreateOrUpdateRecord } from '../composables'
+import { CreateOrUpdateRecord, FormManagerHandler } from '@fancy-crud/core'
 
 interface StandardResponseStructure { data: any; status: number }
 interface StandardErrorResponseStructure { response: StandardResponseStructure }
@@ -52,10 +51,11 @@ const emit = defineEmits<{
   (e: 'error', error?: any): void
 }>()
 
-const formManager = new FormManagerHandler(props.id)
-const { isFormValid } = useRules(props.fields)
 const slots = useSlots()
-const { execute: createOrUpdate } = useCreateOrUpdateRecord(props.id)
+const { isFormValid } = useRules(props.fields)
+
+const formManager = new FormManagerHandler(props.id)
+const createOrUpdate = new CreateOrUpdateRecord(props.id)
 
 const beforeAndAfterFieldSlots = computed(() => {
   return Object.entries(slots).filter(
@@ -88,7 +88,18 @@ function onFailed(error?: StandardErrorResponseStructure) {
 }
 
 function onMainClick() {
-  createOrUpdate(onSuccess, onFailed)
+  const { buttons } = formManager.getForm()
+
+  createOrUpdate.execute({
+    onInit() {
+      buttons.main.isLoading = true
+    },
+    onSuccess,
+    onFailed,
+    onFinally() {
+      buttons.main.isLoading = false
+    },
+  })
 }
 
 function onAuxClick() {
