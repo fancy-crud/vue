@@ -4,7 +4,7 @@ import axios from 'axios'
 import '@oruga-ui/oruga-next/dist/oruga-full.css'
 import Oruga from '@oruga-ui/oruga-next'
 import FancyCrud from '../src/index'
-import { fields, utils } from '../src/wrappers/config'
+import { fields, table, utils } from '../src/wrappers'
 import App from './App.vue'
 
 import '@mdi/font/css/materialdesignicons.css'
@@ -21,6 +21,7 @@ app.use(FancyCrud, {
   },
   fields,
   utils,
+  table,
   ruleOptions: {
     processResult: (raw: { value: unknown; rule: ZodAny }) => {
       const { value, rule } = raw

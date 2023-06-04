@@ -2,7 +2,7 @@
   <f-form v-bind="form" disable-notifications />
 
   <p class="py-8">
-    <!-- {{ form.fields.gender.modelValue }} -->
+    {{ form.fields.name.modelValue }}
   </p>
 
   <button @click="form.manager.resetFields" class="px-8 py-4 bg-primary-500 text-white font-bold">

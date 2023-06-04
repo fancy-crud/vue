@@ -1,30 +1,46 @@
-<template>
-  <o-field v-bind="props.field.wrapper" :label="props.field.label" :variant="variant" :message="hintText">
-    <div :class="inRowDisplay">
-      <template v-for="([label, value], _index) in options" :key="_index">
-        <o-radio v-model="modelValue" :name="nameIdentifier" :native-value="value">
-          {{ label }}
-        </o-radio>
-      </template>
-    </div>
-  </o-field>
-</template>
-
-<script lang="ts" setup>
+<script lang="ts">
 import _ from 'lodash'
 import { OField, ORadio } from '@oruga-ui/oruga-next'
 import type { NormalizedRadioField } from '@fancy-crud/core'
+import type { PropType } from 'vue'
 import { useRadioField } from '@/forms/integration'
 
-const props = defineProps<{
-  formId: symbol
-  field: NormalizedRadioField
-}>()
+export default defineComponent({
+  props: {
+    formId: {
+      type: Symbol,
+      required: true,
+    },
+    field: {
+      type: Object as PropType<NormalizedRadioField>,
+      required: true,
+    },
+  },
 
-const nameIdentifier = Symbol(props.field.modelKey).toString()
+  setup(props, { attrs, slots }) {
+    const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useRadioField(props)
 
-const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useRadioField(props)
+    const nameIdentifier = Symbol(props.field.modelKey).toString()
 
-const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
+    const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
+
+    function renderOptions() {
+      return options.value.map(
+        ([label, value]) => h(
+          ORadio, { ...attrs, modelValue, name: nameIdentifier, nativeValue: value }, {
+            default: () => String(label),
+            ...slots,
+          }),
+      )
+    }
+
+    return () =>
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
+        h('div', { class: inRowDisplay },
+          renderOptions(),
+        ),
+      )
+  },
+})
 </script>
 

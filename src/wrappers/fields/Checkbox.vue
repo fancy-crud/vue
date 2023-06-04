@@ -1,48 +1,62 @@
-<template>
-  <o-field v-bind="props.field.wrapper" :label="props.field.label" :variant="variant" :message="hintText">
-    <div :class="inRowDisplay">
-      <template v-for="([label, value], _index) in options" :key="_index">
-        <o-checkbox v-model="modelValue" v-bind="getCheckboxAttributes(value)" :name="nameIdentifier">
-          {{ label }}
-        </o-checkbox>
-      </template>
-    </div>
-  </o-field>
-</template>
-
-<script lang="ts" setup>
+<script lang="ts">
 import _ from 'lodash'
 import { OCheckbox, OField } from '@oruga-ui/oruga-next'
 import type { NormalizedCheckboxField } from '@fancy-crud/core'
+import type { PropType } from 'vue'
 import { useCheckboxField } from '@/forms/integration'
 
-const props = defineProps<{
-  formId: symbol
-  field: NormalizedCheckboxField
-}>()
+export default defineComponent({
+  props: {
+    formId: {
+      type: Symbol,
+      required: true,
+    },
+    field: {
+      type: Object as PropType<NormalizedCheckboxField>,
+      required: true,
+    },
+  },
 
-const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useCheckboxField(props)
+  setup(props, { attrs, slots }) {
+    const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useCheckboxField(props)
 
-const nameIdentifier = Symbol(props.field.modelKey).toString()
+    const nameIdentifier = Symbol(props.field.modelKey).toString()
 
-const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
+    const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
-function getCheckboxAttributes(value: unknown) {
-  let attributes: Record<string, unknown> = {}
-
-  if (props.field.multiple) {
-    attributes = {
-      nativeValue: value,
+    function renderOptions() {
+      return options.value.map(
+        ([label, value]) => h(
+          OCheckbox, { ...attrs, ...getCheckboxAttributes(value), modelValue, name: nameIdentifier }, {
+            default: () => String(label),
+            ...slots,
+          }),
+      )
     }
-  }
-  else {
-    attributes = {
-      trueValue: value,
-      falseValue: null,
-    }
-  }
 
-  return attributes
-}
+    function getCheckboxAttributes(value: unknown) {
+      let attributes: Record<string, unknown> = {}
+
+      if (props.field.multiple) {
+        attributes = {
+          nativeValue: value,
+        }
+      }
+      else {
+        attributes = {
+          trueValue: value,
+          falseValue: null,
+        }
+      }
+
+      return attributes
+    }
+
+    return () =>
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
+        h('div', { class: inRowDisplay }, renderOptions()),
+      )
+  },
+})
 </script>
 

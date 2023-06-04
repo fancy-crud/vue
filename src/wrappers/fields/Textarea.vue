@@ -1,21 +1,28 @@
-<template>
-  <o-field v-bind="props.field.wrapper" :label="props.field.label" :variant="variant" :message="hintText">
-    <o-input v-bind="props.field" v-model="modelValue" />
-  </o-field>
-</template>
-
-<script lang="ts" setup>
+<script lang="ts">
 import { OField, OInput } from '@oruga-ui/oruga-next'
 import type { NormalizedTextareaField } from '@fancy-crud/core'
+import type { PropType } from 'vue'
 import { useTextareaField } from '@/forms/integration'
+export default defineComponent({
+  props: {
+    formId: {
+      type: Symbol,
+      required: true,
+    },
+    field: {
+      type: Object as PropType<NormalizedTextareaField>,
+      required: true,
+    },
+  },
+  setup(props, { attrs, slots }) {
+    const { modelValue, hasFieldErrors, hintText } = useTextareaField(props)
+    const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
-const props = defineProps<{
-  formId: symbol
-  field: NormalizedTextareaField
-}>()
-
-const { modelValue, hasFieldErrors, hintText } = useTextareaField(props)
-
-const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
+    return () =>
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
+        h(OInput, { ...attrs, ...props.field, modelValue }, slots),
+      )
+  },
+})
 </script>
 

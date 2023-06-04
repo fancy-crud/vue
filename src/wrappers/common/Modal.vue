@@ -1,30 +1,21 @@
-<template>
-  <o-modal v-model:active="modelValue" width="640" v-bind="$attrs">
-    <template
-      v-for="(slotName) in computedSlots"
-      #[`${slotName}`]
-      :key="slotName"
-    >
-      <slot :name="slotName" />
-    </template>
-  </o-modal>
-</template>
-
-<script lang="ts" setup>
+<script lang="ts">
 import { OModal } from '@oruga-ui/oruga-next'
 
-const props = defineProps<{
-  modelValue: string
-}>()
+export default defineComponent({
+  props: {
+    modelValue: {
+      type: Boolean,
+      default: () => false,
+    },
+  },
+  emits: {
+    'update:modelValue': (_payload: boolean) => true,
+  },
+  setup(props, { attrs, slots, emit }) {
+    const modelValue = useVModel(props, 'modelValue', emit)
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
-
-const slots = useSlots()
-const modelValue = useVModel(props, 'modelValue', emit)
-
-const computedSlots = computed(() => Object.keys(slots).map((slotName) => {
-  return slotName
-}))
+    return () =>
+      h(OModal, { ...attrs, active: modelValue, width: '640' }, slots)
+  },
+})
 </script>

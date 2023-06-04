@@ -1,10 +1,10 @@
 <template>
-  <component :is="utils.table" v-bind="$attrs" :headers="props.headers" :items="props.items" />
+  <component :is="table.body" v-bind="$attrs" :headers="props.headers" :items="props.items" />
 </template>
 
 <script lang="ts" setup>
 import type { NormalizedColumn } from '@fancy-crud/core'
-import { utils } from '@/wrappers/config'
+import { table } from '@/settings'
 
 const props = defineProps<{
   headers: NormalizedColumn[]
