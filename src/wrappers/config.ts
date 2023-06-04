@@ -1,15 +1,16 @@
 import type { Component } from 'vue'
-import Button from './Button.vue'
-import Text from './Text.vue'
-import Color from './Color.vue'
-import Password from './Password.vue'
-import Select from './Select.vue'
-import Radio from './Radio.vue'
-import Checkbox from './Checkbox.vue'
-import File from './File.vue'
-import Datepicker from './Datepicker.vue'
-import TableBody from './TableBody.vue'
-import Modal from './Modal.vue'
+import Button from './common/Button.vue'
+import Text from './fields/Text.vue'
+import Color from './fields/Color.vue'
+import Password from './fields/Password.vue'
+import Select from './fields/Select.vue'
+import Radio from './fields/Radio.vue'
+import Checkbox from './fields/Checkbox.vue'
+import File from './fields/File.vue'
+import Datepicker from './fields/Datepicker.vue'
+import TableBody from './table/TableBody.vue'
+import Modal from './common/Modal.vue'
+import { exportComponents } from '@/common/integration'
 
 export const fields = ReturnObject({
   text: Text,
@@ -31,3 +32,5 @@ export const utils = ReturnObject({
 function ReturnObject<T extends Record<string, Component>>(obj: T): Record<keyof T, Component> {
   return { ...obj }
 }
+
+export default exportComponents()
