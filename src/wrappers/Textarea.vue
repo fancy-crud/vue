@@ -10,11 +10,12 @@ import type { NormalizedTextareaField } from '@fancy-crud/core'
 import { useTextareaField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedTextareaField
 }>()
 
-const { modelValue, hasErrors, hintText } = useTextareaField(props)
+const { modelValue, hasFieldErrors, hintText } = useTextareaField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

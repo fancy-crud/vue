@@ -10,11 +10,12 @@ import type { NormalizedDatepickerField } from '@fancy-crud/core'
 import { useDatepickerField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedDatepickerField
 }>()
 
-const { modelValue, hasErrors, hintText } = useDatepickerField(props)
+const { modelValue, hasFieldErrors, hintText } = useDatepickerField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

@@ -17,13 +17,14 @@ import type { NormalizedRadioField } from '@fancy-crud/core'
 import { useRadioField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedRadioField
 }>()
 
 const nameIdentifier = Symbol(props.field.modelKey).toString()
 
-const { modelValue, hasErrors, hintText, inRowDisplay, options } = useRadioField(props)
+const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useRadioField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

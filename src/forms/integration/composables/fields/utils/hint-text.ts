@@ -6,7 +6,6 @@ interface Props {
 }
 
 export function useHintText(props: Props) {
-  const { hasFieldErrors } = useRules()
   const hintText = computed(() => {
     let result: string = props.field.hintText ? props.field.hintText : ''
 
@@ -16,10 +15,10 @@ export function useHintText(props: Props) {
     return result
   })
 
-  const hasErrors = computed(() => hasFieldErrors(props.field))
+  const hasFieldErrors = computed(() => !!props.field.errors.length)
 
   return {
     hintText,
-    hasErrors,
+    hasFieldErrors,
   }
 }

@@ -18,11 +18,12 @@ import type { NormalizedFileField } from '@fancy-crud/core'
 import { useFileField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedFileField
 }>()
 
-const { modelValue, hasErrors, hintText, fileNames } = useFileField(props)
+const { modelValue, hasFieldErrors, hintText, fileNames } = useFileField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

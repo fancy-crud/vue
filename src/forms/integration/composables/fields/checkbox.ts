@@ -1,13 +1,17 @@
 import type { NormalizedCheckboxField } from '@fancy-crud/core'
+import { FormManagerHandler } from '@fancy-crud/core'
 import { useHintText, useModelValue, useOptions } from './utils'
+import type { DefaultProps } from '@/forms/integration'
 
-export function useCheckboxField(props: { field: NormalizedCheckboxField }) {
+export function useCheckboxField(props: DefaultProps & { field: NormalizedCheckboxField }) {
+  const formManager = new FormManagerHandler(props.formId)
+  const { fields } = formManager.getForm()
   const { modelValue } = useModelValue(props)
 
-  const { validate } = useRules()
+  const { validate } = useRules(fields, formManager.ruleOptions)
 
   const { options } = useOptions(props)
-  const { hintText, hasErrors } = useHintText(props)
+  const { hintText, hasFieldErrors } = useHintText(props)
 
   const inRowDisplay = computed(() => {
     return props.field.inRow ? 'checkbox-group--in-row' : ''
@@ -38,6 +42,6 @@ export function useCheckboxField(props: { field: NormalizedCheckboxField }) {
     inRowDisplay,
     options,
     hintText,
-    hasErrors,
+    hasFieldErrors,
   }
 }

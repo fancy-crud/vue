@@ -10,11 +10,12 @@ import type { NormalizedTextField } from '@fancy-crud/core'
 import { useTextField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedTextField
 }>()
 
-const { modelValue, hasErrors, hintText } = useTextField(props)
+const { modelValue, hasFieldErrors, hintText } = useTextField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

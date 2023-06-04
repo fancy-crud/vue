@@ -1,12 +1,16 @@
 import type { NormalizedFileField } from '@fancy-crud/core'
+import { FormManagerHandler } from '@fancy-crud/core'
+import type { DefaultProps } from '../../typing'
 import { useHintText, useModelValue } from './utils'
 
-export function useFileField(props: { field: NormalizedFileField }) {
+export function useFileField(props: DefaultProps & { field: NormalizedFileField }) {
+  const formManager = new FormManagerHandler(props.formId)
+  const { fields } = formManager.getForm()
   const { modelValue } = useModelValue(props)
 
-  const { validate } = useRules()
+  const { validate } = useRules(fields, formManager.ruleOptions)
 
-  const { hintText, hasErrors } = useHintText(props)
+  const { hintText, hasFieldErrors } = useHintText(props)
 
   const fileNames = computed(() => {
     if (Array.isArray(modelValue.value))
@@ -23,7 +27,7 @@ export function useFileField(props: { field: NormalizedFileField }) {
   return {
     validate,
     modelValue,
-    hasErrors,
+    hasFieldErrors,
     hintText,
     fileNames,
   }

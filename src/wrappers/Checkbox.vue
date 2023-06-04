@@ -17,14 +17,15 @@ import type { NormalizedCheckboxField } from '@fancy-crud/core'
 import { useCheckboxField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedCheckboxField
 }>()
 
-const { modelValue, hasErrors, hintText, inRowDisplay, options } = useCheckboxField(props)
+const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useCheckboxField(props)
 
 const nameIdentifier = Symbol(props.field.modelKey).toString()
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
 function getCheckboxAttributes(value: unknown) {
   let attributes: Record<string, unknown> = {}

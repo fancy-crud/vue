@@ -10,7 +10,7 @@
       <slot :name="`before-${fieldKey}`" />
       <component
         :is="getComponent(field)"
-        v-bind="{ field }"
+        v-bind="{ formId: props.formId, field }"
       />
       <slot :name="`after-${fieldKey}`" />
     </template>

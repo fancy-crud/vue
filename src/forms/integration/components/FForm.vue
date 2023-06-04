@@ -52,10 +52,11 @@ const emit = defineEmits<{
 }>()
 
 const slots = useSlots()
-const { isFormValid } = useRules(props.fields)
 
 const formManager = new FormManagerHandler(props.id)
 const createOrUpdate = new CreateOrUpdateRecord(props.id)
+
+const { isFormValid } = useRules(props.fields, formManager.ruleOptions)
 
 const beforeAndAfterFieldSlots = computed(() => {
   return Object.entries(slots).filter(

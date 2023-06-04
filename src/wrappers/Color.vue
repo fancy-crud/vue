@@ -10,11 +10,12 @@ import type { NormalizedColorField } from '@fancy-crud/core'
 import { useColorField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedColorField
 }>()
 
-const { modelValue, hasErrors, hintText } = useColorField(props)
+const { modelValue, hasFieldErrors, hintText } = useColorField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

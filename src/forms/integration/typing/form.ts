@@ -1,4 +1,4 @@
-import type { FormManager, NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle } from '@fancy-crud/core'
+import type { FormManager, NormalizedButtons, NormalizedFields, NormalizedSettings, NormalizedTitles, RawSetting, RawTitle, RuleOptions } from '@fancy-crud/core'
 
 export interface UseForm<T, U> {
   id: symbol
@@ -15,4 +15,9 @@ export interface Args<T, U> {
   titles?: RawTitle
   buttons?: U
   settings?: RawSetting
+  ruleOptions?: RuleOptions
+}
+
+export interface DefaultProps {
+  formId: symbol
 }

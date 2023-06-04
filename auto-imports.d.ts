@@ -33,11 +33,8 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
-  const fields: typeof import('./src/settings/composables/index')['fields']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getDefaults: typeof import('./src/settings/composables/index')['getDefaults']
-  const getStatusCodesHandlers: typeof import('./src/settings/composables/index')['getStatusCodesHandlers']
   const h: typeof import('vue')['h']
   const i18n: typeof import('./src/locales/composables/locale')['i18n']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -86,11 +83,7 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const setDefaultClasses: typeof import('./src/settings/composables/index')['setDefaultClasses']
-  const setFields: typeof import('./src/settings/composables/index')['setFields']
   const setLocale: typeof import('./src/locales/composables/locale')['setLocale']
-  const setStatusCodesHandlers: typeof import('./src/settings/composables/index')['setStatusCodesHandlers']
-  const setUtils: typeof import('./src/settings/composables/index')['setUtils']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
@@ -137,7 +130,6 @@ declare global {
   const useColumnValue: typeof import('./src/tables/integration/composables/column-value')['useColumnValue']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
-  const useCreateOrUpdateRecord: typeof import('./src/forms/integration/composables/create-or-update-record')['useCreateOrUpdateRecord']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -216,12 +208,8 @@ declare global {
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
-  const useRequestCreate: typeof import('./src/http/integration/composables/request-create')['useRequestCreate']
-  const useRequestDelete: typeof import('./src/http/integration/composables/request-delete')['useRequestDelete']
   const useRequestList: typeof import('./src/http/integration/composables/request-list')['useRequestList']
-  const useRequestUpdate: typeof import('./src/http/integration/composables/request-update')['useRequestUpdate']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
-  const useRetrieveRequest: typeof import('./src/http/integration/composables/request-retrieve')['useRetrieveRequest']
   const useRules: typeof import('./src/forms/integration/composables/rules')['useRules']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
@@ -272,7 +260,6 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
-  const utils: typeof import('./src/settings/composables/index')['utils']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -324,11 +311,8 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
-    readonly fields: UnwrapRef<typeof import('./src/settings/composables/index')['fields']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
-    readonly getDefaults: UnwrapRef<typeof import('./src/settings/composables/index')['getDefaults']>
-    readonly getStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['getStatusCodesHandlers']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly i18n: UnwrapRef<typeof import('./src/locales/composables/locale')['i18n']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
@@ -377,11 +361,7 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly setDefaultClasses: UnwrapRef<typeof import('./src/settings/composables/index')['setDefaultClasses']>
-    readonly setFields: UnwrapRef<typeof import('./src/settings/composables/index')['setFields']>
     readonly setLocale: UnwrapRef<typeof import('./src/locales/composables/locale')['setLocale']>
-    readonly setStatusCodesHandlers: UnwrapRef<typeof import('./src/settings/composables/index')['setStatusCodesHandlers']>
-    readonly setUtils: UnwrapRef<typeof import('./src/settings/composables/index')['setUtils']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
@@ -428,7 +408,6 @@ declare module 'vue' {
     readonly useColumnValue: UnwrapRef<typeof import('./src/tables/integration/composables/column-value')['useColumnValue']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
-    readonly useCreateOrUpdateRecord: UnwrapRef<typeof import('./src/forms/integration/composables/create-or-update-record')['useCreateOrUpdateRecord']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -507,12 +486,8 @@ declare module 'vue' {
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
-    readonly useRequestCreate: UnwrapRef<typeof import('./src/http/integration/composables/request-create')['useRequestCreate']>
-    readonly useRequestDelete: UnwrapRef<typeof import('./src/http/integration/composables/request-delete')['useRequestDelete']>
     readonly useRequestList: UnwrapRef<typeof import('./src/http/integration/composables/request-list')['useRequestList']>
-    readonly useRequestUpdate: UnwrapRef<typeof import('./src/http/integration/composables/request-update')['useRequestUpdate']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useRetrieveRequest: UnwrapRef<typeof import('./src/http/integration/composables/request-retrieve')['useRetrieveRequest']>
     readonly useRules: UnwrapRef<typeof import('./src/forms/integration/composables/rules')['useRules']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
@@ -563,7 +538,6 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
-    readonly utils: UnwrapRef<typeof import('./src/settings/composables/index')['utils']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

@@ -10,11 +10,12 @@ import type { NormalizedPasswordField } from '@fancy-crud/core'
 import { usePasswordField } from '@/forms/integration'
 
 const props = defineProps<{
+  formId: symbol
   field: NormalizedPasswordField
 }>()
 
-const { modelValue, hasErrors, hintText } = usePasswordField(props)
+const { modelValue, hasFieldErrors, hintText } = usePasswordField(props)
 
-const variant = computed(() => hasErrors.value ? 'danger' : '')
+const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 </script>
 

@@ -1,5 +1,6 @@
 import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@fancy-crud/core'
-import { CreateForm, FormManagerHandler } from '@fancy-crud/core'
+import { CreateForm } from '@fancy-crud/core'
+import { ruleOptions } from '@/settings'
 import type { Args, UseForm } from '@/forms/integration'
 
 /**
@@ -15,29 +16,28 @@ import type { Args, UseForm } from '@/forms/integration'
  */
 export function useForm<T extends ObjectWithRawFields, U extends Record<string, RawButton>>(args: Args<T, U>): UseForm<T, U> {
   const {
-    id: _id,
+    id: _id = '',
     fields: rawFields,
     titles: rawTitles,
     buttons: rawButtons,
     settings: rawSettings,
+    ruleOptions: customRuleOptions,
   } = args
 
-  const id = Symbol(_id)
-
   const {
+    id,
     originalNormalizedFields,
     clonedNormalizedFields,
     normalizedTitles,
     normalizedButtons,
     normalizedSettings,
-  } = new CreateForm().execute(rawFields, rawTitles, rawButtons, rawSettings)
+    manager,
+  } = new CreateForm().execute(_id, rawFields, rawTitles, rawButtons, rawSettings)
 
   const fields = reactive(clonedNormalizedFields) as NormalizedFields<T>
   const buttons = reactive(normalizedButtons) as NormalizedButtons<U>
   const titles = reactive(normalizedTitles)
   const settings = reactive(normalizedSettings)
-
-  const manager = new FormManagerHandler(id)
 
   manager.addForm({
     originalNormalizedFields,
@@ -45,6 +45,11 @@ export function useForm<T extends ObjectWithRawFields, U extends Record<string, 
     titles,
     settings,
     buttons,
+  })
+
+  manager.setRuleOptions({
+    ...ruleOptions,
+    ...customRuleOptions,
   })
 
   onUnmounted(() => manager.removeForm())

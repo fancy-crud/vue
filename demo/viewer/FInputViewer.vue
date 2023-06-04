@@ -2,7 +2,7 @@
   <f-form v-bind="form" disable-notifications />
 
   <p class="py-8">
-    {{ form.fields.gender.modelValue }}
+    <!-- {{ form.fields.gender.modelValue }} -->
   </p>
 
   <button @click="form.manager.resetFields" class="px-8 py-4 bg-primary-500 text-white font-bold">
@@ -15,6 +15,7 @@
 </template>
 
 <script lang='ts' setup>
+import { z } from 'zod'
 import { FieldType } from '@fancy-crud/core'
 // import { NotificationType, useForm } from '@/forms/integration'
 
@@ -34,21 +35,22 @@ const form = useForm({
       wrapper: {
         class: 'col-span-12',
       },
+      rules: (value: string) => ({ value, rule: z.string().min(1).max(5) }),
     },
-    gender: {
-      type: FieldType.select,
-      label: 'Last name',
-      class: 'w-full',
-      optionLabel: 'label',
-      optionValue: 'value',
-      options: [
-        { label: 'Male', value: 'm' },
-        { label: 'Female', value: 'f' },
-      ],
-      wrapper: {
-        class: 'col-span-12',
-      },
-    },
+    // gender: {
+    //   type: FieldType.select,
+    //   label: 'Last name',
+    //   class: 'w-full',
+    //   optionLabel: 'label',
+    //   optionValue: 'value',
+    //   options: [
+    //     { label: 'Male', value: 'm' },
+    //     { label: 'Female', value: 'f' },
+    //   ],
+    //   wrapper: {
+    //     class: 'col-span-12',
+    //   },
+    // },
   },
   settings,
 })

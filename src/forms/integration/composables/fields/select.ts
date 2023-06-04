@@ -1,34 +1,36 @@
-import type { NormalizedRadioField } from '@fancy-crud/core'
+import type { NormalizedSelectField } from '@fancy-crud/core'
 import { FormManagerHandler } from '@fancy-crud/core'
-import type { DefaultProps } from '../../typing'
 import { useHintText, useModelValue, useOptions } from './utils'
 
-export function useRadioField(props: DefaultProps & { field: NormalizedRadioField }) {
+export function useSelectField(props: { formId: symbol; field: NormalizedSelectField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
   const { modelValue } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
-  const { options } = useOptions(props)
   const { hintText, hasFieldErrors } = useHintText(props)
 
-  const inRowDisplay = computed(() => {
-    return props.field.inRow ? 'radio-group--in-row' : ''
+  const { options } = useOptions(props)
+
+  const attrs = computed(() => {
+    const {
+      type: _type,
+      options: _options,
+      wrapper: _wrapper,
+      ...attrs
+    } = props.field
+    return attrs
   })
 
   onMounted(() => validate(props.field))
 
-  function setModelValue(value: any) {
-    modelValue.value = value
-  }
-
   return {
-    setModelValue,
-    modelValue,
-    inRowDisplay,
+    validate,
     options,
-    hintText,
+    attrs,
+    modelValue,
     hasFieldErrors,
+    hintText,
   }
 }
