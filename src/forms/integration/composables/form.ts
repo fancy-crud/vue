@@ -1,6 +1,6 @@
 import type { NormalizedButtons, NormalizedFields, ObjectWithRawFields, RawButton } from '@fancy-crud/core'
 import { CreateForm } from '@fancy-crud/core'
-import { ruleOptions } from '@/settings'
+import { ruleOptions } from '@/config'
 import type { Args, UseForm } from '@/forms/integration'
 
 /**

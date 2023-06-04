@@ -1,5 +1,5 @@
 <script lang="ts">
-import { utils } from '@/settings'
+import { utils } from '@/config'
 
 export default defineComponent({
   setup(_, { attrs, slots }) {

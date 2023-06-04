@@ -3,7 +3,7 @@ import type { App, Plugin } from 'vue'
 
 import type { HttpService, RuleOptions } from '@fancy-crud/core'
 import { setHttpInstance, setHttpPagination } from '@fancy-crud/core'
-import { setFields, setRuleOptions, setTable, setUtils } from '@/settings'
+import { setFields, setRuleOptions, setTable, setUtils } from '@/config'
 import './styles/main.sass'
 
 interface Options {
@@ -65,5 +65,5 @@ export * from './common/integration'
 export * from './forms/integration'
 export * from './http/integration'
 export * from './locales'
-export * from './settings'
+export * from './config'
 export * from './tables/integration'

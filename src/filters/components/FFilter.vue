@@ -21,7 +21,7 @@
 import { computed, onMounted } from 'vue'
 import type { NormalizedField, NormalizedFields } from '@fancy-crud/core'
 
-import { fields } from '@/settings'
+import { fields } from '@/config'
 
 const props = defineProps<{
   filters: NormalizedFields<Record<string, unknown>>

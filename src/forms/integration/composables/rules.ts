@@ -1,6 +1,6 @@
 import type { NormalizedField, ObjectWithNormalizedFields, RuleOptions } from '@fancy-crud/core'
 import { ValidateFieldRules, ValidateForm } from '@fancy-crud/core'
-import { ruleOptions } from '@/settings'
+import { ruleOptions } from '@/config'
 
 export function useRules(fields: ObjectWithNormalizedFields, options: RuleOptions = {}) {
   const isFormValid = computed(() => {

@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import type { NormalizedField, NormalizedSettings, ObjectWithNormalizedFields } from '@fancy-crud/core'
 import { FormManagerHandler, FormModes } from '@fancy-crud/core'
-import { fields as controls } from '@/settings'
+import { fields as controls } from '@/config'
 
 const props = defineProps<{
   formId: symbol

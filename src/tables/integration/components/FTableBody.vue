@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import type { NormalizedColumn } from '@fancy-crud/core'
-import { table } from '@/settings'
+import { table } from '@/config'
 
 const props = defineProps<{
   headers: NormalizedColumn[]
