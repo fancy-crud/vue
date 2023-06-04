@@ -37,20 +37,20 @@ const form = useForm({
       },
       rules: (value: string) => ({ value, rule: z.string().min(1).max(5) }),
     },
-    // gender: {
-    //   type: FieldType.select,
-    //   label: 'Last name',
-    //   class: 'w-full',
-    //   optionLabel: 'label',
-    //   optionValue: 'value',
-    //   options: [
-    //     { label: 'Male', value: 'm' },
-    //     { label: 'Female', value: 'f' },
-    //   ],
-    //   wrapper: {
-    //     class: 'col-span-12',
-    //   },
-    // },
+    gender: {
+      type: FieldType.select,
+      label: 'Last name',
+      class: 'w-full',
+      optionLabel: 'label',
+      optionValue: 'value',
+      options: [
+        { label: 'Male', value: 'm' },
+        { label: 'Female', value: 'f' },
+      ],
+      wrapper: {
+        class: 'col-span-12',
+      },
+    },
   },
   settings,
 })

@@ -10,6 +10,7 @@ export function useRules(fields: ObjectWithNormalizedFields, options: RuleOption
     return validateForm.execute(fields, {
       ...ruleOptions,
       ...options,
+      preventErrorMessage: true,
     })
   })
 
