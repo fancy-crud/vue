@@ -33,4 +33,4 @@ function ReturnObject<T extends Record<string, Component>>(obj: T): Record<keyof
   return { ...obj }
 }
 
-export default exportComponents()
+export default exportComponents(import.meta.glob('./**/*.vue'))
