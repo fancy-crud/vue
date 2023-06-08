@@ -19,9 +19,9 @@ export default defineComponent({
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
-        h(OInput, { ...attrs, ...props.field, modelValue }, slots),
-      )
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
+        default: () => h(OInput, { ...attrs, ...props.field, modelValue }, slots),
+      })
   },
 })
 </script>

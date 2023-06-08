@@ -17,14 +17,14 @@ export default defineComponent({
   },
 
   setup(props, { attrs, slots }) {
-    const { modelValue, hasFieldErrors, hintText, options } = useSelectField(props)
+    const { vmodel, hasFieldErrors, hintText, options } = useSelectField(props)
 
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
     function renderOptions() {
       return options.value.map(
         ([label, value]) => h(
-          'option', { modelValue, value }, {
+          'option', { value }, {
             default: () => String(label),
             ...slots,
           }),
@@ -32,11 +32,11 @@ export default defineComponent({
     }
 
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
-        h(OSelect, { ...attrs, modelValue, expanded: true },
-          renderOptions(),
-        ),
-      )
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
+        default: () => h(OSelect, { ...attrs, ...props.field, ...vmodel, expanded: true }, {
+          default: () => renderOptions(),
+        }),
+      })
   },
 })
 </script>

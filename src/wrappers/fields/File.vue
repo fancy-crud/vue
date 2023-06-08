@@ -16,26 +16,28 @@ export default defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
-    const { modelValue, hasFieldErrors, hintText, fileNames } = useFileField(props)
+    const { vmodel, hasFieldErrors, hintText, fileNames } = useFileField(props)
 
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, variant, message: hintText },
-        [
-          h(OUpload, { ...attrs, ...props.field, modelValue }, {
+      h(OField, { ...props.field.wrapper, label: props.field.label, variant: variant.value, message: hintText.value }, {
+        default: () => [
+          h(OUpload, { ...attrs, ...props.field, ...vmodel }, {
             default: () =>
-              h(OButton, { tag: 'a', variant: 'primary', labelClass: 'flex items-center' },
-                [
+              h(OButton, { tag: 'a', variant: 'primary', labelClass: 'flex items-center' }, {
+                default: () => [
                   h(OIcon, { icon: 'upload' }),
-                  h('span', { class: 'pl-4' }, props.field.label),
+                  h('span', { class: 'pl-4' }, { default: () => props.field.label }),
                 ],
-              ),
+              }),
             ...slots,
           }),
-          h('span', { class: 'file-name pl-4 flex items-center' }, fileNames.value.join(', ')),
+          h('span', { class: 'file-name pl-4 flex items-center' }, {
+            default: () => fileNames.value.join(', '),
+          }),
         ],
-      )
+      })
   },
 })
 </script>

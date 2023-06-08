@@ -15,13 +15,17 @@ export default defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
-    const { modelValue, hasFieldErrors, hintText } = useDatepickerField(props)
+    const { vmodel, hasFieldErrors, hintText } = useDatepickerField(props)
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
+    const filterAttrs = computed(() => {
+      const { type: _type, ...fieldAttrs } = props.field
+      return fieldAttrs
+    })
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
-        h(ODatepicker, { ...attrs, ...props.field, modelValue }, slots),
-      )
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
+        default: () => h(ODatepicker, { ...attrs, ...filterAttrs.value, ...vmodel }, slots),
+      })
   },
 })
 </script>

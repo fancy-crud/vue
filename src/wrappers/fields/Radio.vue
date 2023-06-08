@@ -18,7 +18,7 @@ export default defineComponent({
   },
 
   setup(props, { attrs, slots }) {
-    const { modelValue, hasFieldErrors, hintText, inRowDisplay, options } = useRadioField(props)
+    const { vmodel, hasFieldErrors, hintText, inRowDisplay, options } = useRadioField(props)
 
     const nameIdentifier = Symbol(props.field.modelKey).toString()
 
@@ -27,7 +27,7 @@ export default defineComponent({
     function renderOptions() {
       return options.value.map(
         ([label, value]) => h(
-          ORadio, { ...attrs, modelValue, name: nameIdentifier, nativeValue: value }, {
+          ORadio, { ...attrs, ...vmodel, name: nameIdentifier, nativeValue: value }, {
             default: () => String(label),
             ...slots,
           }),
@@ -35,11 +35,11 @@ export default defineComponent({
     }
 
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
-        h('div', { class: inRowDisplay },
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
+        default: () => h('div', { class: inRowDisplay },
           renderOptions(),
         ),
-      )
+      })
   },
 })
 </script>

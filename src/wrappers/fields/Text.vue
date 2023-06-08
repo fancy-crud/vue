@@ -15,13 +15,14 @@ export default defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
-    const { modelValue, hasFieldErrors, hintText } = useTextField(props)
+    const { hasFieldErrors, hintText, vmodel } = useTextField(props)
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
     return () =>
-      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText, variant },
-        h(OInput, { ...attrs, ...props.field, modelValue }, slots),
-      )
+      h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
+        default: () => h(OInput, { ...attrs, ...props.field, ...vmodel }),
+        ...slots,
+      })
   },
 })
 </script>
