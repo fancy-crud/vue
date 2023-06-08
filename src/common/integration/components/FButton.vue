@@ -1,5 +1,5 @@
 <script lang="ts">
-import { utils } from '@/config'
+import { utils } from '@fancy-crud/core'
 
 export default defineComponent({
   setup(_, { attrs, slots }) {

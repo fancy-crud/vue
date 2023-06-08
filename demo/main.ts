@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import type { ZodAny } from 'zod'
 import axios from 'axios'
-import '@oruga-ui/oruga-next/dist/oruga-full.css'
+// import '@oruga-ui/oruga-next/dist/oruga-full.css'
 import Oruga from '@oruga-ui/oruga-next'
 import FancyCrud from '../src/index'
-import { fields, table, utils } from '../src/wrappers'
+import { defaultClasses, fields, orugaFlowbite, table, utils } from '../src/wrappers'
 import App from './App.vue'
 
 import '@mdi/font/css/materialdesignicons.css'
@@ -14,7 +14,7 @@ axios.defaults.baseURL = 'http://localhost:9000/api/'
 
 const app = createApp(App)
 
-app.use(Oruga)
+app.use(Oruga, orugaFlowbite)
 app.use(FancyCrud, {
   http: {
     service: axios,
@@ -22,6 +22,7 @@ app.use(FancyCrud, {
   fields,
   utils,
   table,
+  defaultClasses,
   ruleOptions: {
     processResult: (raw: { value: unknown; rule: ZodAny }) => {
       const { value, rule } = raw

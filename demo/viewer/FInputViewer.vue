@@ -31,26 +31,22 @@ const form = useForm({
       type: FieldType.text,
       label: 'First name',
       placeholder: 'Como asi pues?',
-      class: 'w-full',
-      wrapper: {
-        class: 'col-span-12',
-      },
       rules: (value: string) => ({ value, rule: z.string().min(1).max(5) }),
-    },
-    gender: {
-      type: FieldType.select,
-      label: 'Last name',
-      class: 'w-full',
-      optionLabel: 'label',
-      optionValue: 'value',
-      options: [
-        { label: 'Male', value: 'm' },
-        { label: 'Female', value: 'f' },
-      ],
       wrapper: {
-        class: 'col-span-12',
+        class: 'col-span-10',
       },
     },
+    // gender: {
+    //   type: FieldType.select,
+    //   label: 'Last name',
+    //   class: 'w-full',
+    //   optionLabel: 'label',
+    //   optionValue: 'value',
+    //   options: [
+    //     { label: 'Male', value: 'm' },
+    //     { label: 'Female', value: 'f' },
+    //   ],
+    // },
   },
   settings,
 })

@@ -5,7 +5,7 @@ import { useHintText, useModelValue } from './utils'
 export function useTextField(props: { formId: symbol; field: NormalizedTextField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -16,6 +16,7 @@ export function useTextField(props: { formId: symbol; field: NormalizedTextField
   return {
     validate,
     modelValue,
+    vmodel,
     hasFieldErrors,
     hintText,
   }

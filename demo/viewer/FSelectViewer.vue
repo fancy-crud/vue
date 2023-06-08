@@ -29,7 +29,7 @@ const form = useForm({
     select: {
       label: 'Select',
       type: FieldType.select,
-      url: 'artists/',
+      // url: 'artists/',
       placeholder: 'Select',
       optionLabel: 'name',
       optionValue: 'id',
@@ -38,7 +38,6 @@ const form = useForm({
         limit: 10,
       },
       wrapper: {
-        class: 'col-span-12',
       },
       clearable: true,
       modelValue: null,

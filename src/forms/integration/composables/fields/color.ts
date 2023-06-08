@@ -6,7 +6,7 @@ import type { DefaultProps } from '@/forms/integration'
 export function useColorField(props: DefaultProps & { field: NormalizedColorField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -17,6 +17,7 @@ export function useColorField(props: DefaultProps & { field: NormalizedColorFiel
   return {
     validate,
     modelValue,
+    vmodel,
     hasFieldErrors,
     hintText,
   }

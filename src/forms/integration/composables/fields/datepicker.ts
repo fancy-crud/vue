@@ -6,7 +6,7 @@ import { useHintText, useModelValue } from './utils'
 export function useDatepickerField(props: DefaultProps & { field: NormalizedDatepickerField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -17,6 +17,7 @@ export function useDatepickerField(props: DefaultProps & { field: NormalizedDate
   return {
     validate,
     modelValue,
+    vmodel,
     hasFieldErrors,
     hintText,
   }

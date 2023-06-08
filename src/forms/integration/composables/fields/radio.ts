@@ -6,7 +6,7 @@ import { useHintText, useModelValue, useOptions } from './utils'
 export function useRadioField(props: DefaultProps & { field: NormalizedRadioField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -26,6 +26,7 @@ export function useRadioField(props: DefaultProps & { field: NormalizedRadioFiel
   return {
     setModelValue,
     modelValue,
+    vmodel,
     inRowDisplay,
     options,
     hintText,

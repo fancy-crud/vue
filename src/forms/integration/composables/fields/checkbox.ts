@@ -6,7 +6,7 @@ import type { DefaultProps } from '@/forms/integration'
 export function useCheckboxField(props: DefaultProps & { field: NormalizedCheckboxField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -39,6 +39,7 @@ export function useCheckboxField(props: DefaultProps & { field: NormalizedCheckb
   return {
     setModelValue,
     modelValue,
+    vmodel,
     inRowDisplay,
     options,
     hintText,

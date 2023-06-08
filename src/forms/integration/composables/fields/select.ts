@@ -5,7 +5,7 @@ import { useHintText, useModelValue, useOptions } from './utils'
 export function useSelectField(props: { formId: symbol; field: NormalizedSelectField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -30,6 +30,7 @@ export function useSelectField(props: { formId: symbol; field: NormalizedSelectF
     options,
     attrs,
     modelValue,
+    vmodel,
     hasFieldErrors,
     hintText,
   }

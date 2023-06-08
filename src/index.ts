@@ -2,8 +2,7 @@ import 'animate.css'
 import type { App, Plugin } from 'vue'
 
 import type { HttpService, RuleOptions } from '@fancy-crud/core'
-import { setHttpInstance, setHttpPagination } from '@fancy-crud/core'
-import { setFields, setRuleOptions, setTable, setUtils } from '@/config'
+import { setDefaultClasses, setFields, setHttpInstance, setHttpPagination, setRuleOptions, setTable, setUtils } from '@fancy-crud/core'
 import './styles/main.sass'
 
 interface Options {
@@ -15,6 +14,7 @@ interface Options {
   utils: Record<string, any>
   ruleOptions: RuleOptions
   table: Record<string, any>
+  defaultClasses: Record<string, string>
 }
 
 const components: Record<string, any> = {}
@@ -53,6 +53,9 @@ const install: Plugin = function installFancyCrud(app: App, options: Partial<Opt
 
   if (options.ruleOptions)
     setRuleOptions(options.ruleOptions)
+
+  if (options.defaultClasses)
+    setDefaultClasses(options.defaultClasses)
 }
 
 // Create module definition for Vue.use()
@@ -65,5 +68,5 @@ export * from './common/integration'
 export * from './forms/integration'
 export * from './http/integration'
 export * from './locales'
-export * from './config'
+// export * from './config'
 export * from './tables/integration'

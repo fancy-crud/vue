@@ -6,7 +6,7 @@ import { useHintText, useModelValue } from './utils'
 export function useFileField(props: DefaultProps & { field: NormalizedFileField }) {
   const formManager = new FormManagerHandler(props.formId)
   const { fields } = formManager.getForm()
-  const { modelValue } = useModelValue(props)
+  const { modelValue, vmodel } = useModelValue(props)
 
   const { validate } = useRules(fields, formManager.ruleOptions)
 
@@ -27,6 +27,7 @@ export function useFileField(props: DefaultProps & { field: NormalizedFileField 
   return {
     validate,
     modelValue,
+    vmodel,
     hasFieldErrors,
     hintText,
     fileNames,

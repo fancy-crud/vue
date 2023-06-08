@@ -6,6 +6,12 @@ interface Props<T = unknown> {
 
 export function useModelValue<T = unknown>(props: Props<T>) {
   const modelValue = useVModel(props.field, 'modelValue', undefined, { passive: true })
+  const vmodel = {
+    'modelValue': modelValue.value,
+    'onUpdate:modelValue': (e: T) => {
+      modelValue.value = e
+    },
+  }
 
   watch(modelValue, (value) => {
     Object.assign(props.field, { modelValue: value })
@@ -17,6 +23,7 @@ export function useModelValue<T = unknown>(props: Props<T>) {
   })
 
   return {
+    vmodel,
     modelValue,
   }
 }
