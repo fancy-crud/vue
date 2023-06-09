@@ -16,8 +16,8 @@ export default defineComponent({
     },
   },
 
-  setup(props, { attrs, slots }) {
-    const { vmodel, hasFieldErrors, hintText, options } = useSelectField(props)
+  setup(props, { attrs: vAttrs, slots }) {
+    const { vmodel, hasFieldErrors, hintText, options, attrs } = useSelectField(props)
 
     const variant = computed(() => hasFieldErrors.value ? 'danger' : '')
 
@@ -33,7 +33,7 @@ export default defineComponent({
 
     return () =>
       h(OField, { ...props.field.wrapper, label: props.field.label, message: hintText.value, variant: variant.value }, {
-        default: () => h(OSelect, { ...attrs, ...props.field, ...vmodel, expanded: true }, {
+        default: () => h(OSelect, { ...vAttrs, attrs, ...vmodel, expanded: true }, {
           default: () => renderOptions(),
         }),
       })
