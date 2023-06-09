@@ -15,7 +15,7 @@ export default defineComponent({
     const modelValue = useVModel(props, 'modelValue', emit)
 
     return () =>
-      h(OModal, { ...attrs, active: modelValue, width: '640' }, slots)
+      h(OModal, { ...attrs, 'active': modelValue.value, 'onUpdate:active': (e: boolean) => modelValue.value = e, 'width': '640' }, slots)
   },
 })
 </script>
